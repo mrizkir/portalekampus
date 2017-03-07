@@ -121,6 +121,7 @@ class CTambahKRS extends MainPageM {
 				$onclick="if(!confirm('Anda yakin mau menghapus $matkul')) return false;";			
 			}
 			$item->btnHapus->Attributes->OnClick=$onclick;
+            
 			TambahKRS::$totalSKS+=$item->DataItem['sks'];	
 			TambahKRS::$jumlahMatkul+=1;	
 		}

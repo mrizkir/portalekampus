@@ -11,7 +11,7 @@ class MainPageK extends MainPage {
     /**     
      * show page pembayaran 
      */
-    public $showPembayaran=false;
+    public $showMenuPembayaran=false;
     /**     
      * show page pembayaran mahasiswa baru [pembayaran]
      */
@@ -28,6 +28,14 @@ class MainPageK extends MainPage {
      * show page pembayaran semester Pendek [pembayaran]
      */
     public $showPembayaranSemesterPendek=false;
+     /**     
+     * show page pembayaran Cuti semester Ganjil [pembayaran]
+     */
+    public $showPembayaranCutiSemesterGanjil=false;
+     /**     
+     * show page pembayaran Cuti semester Genap [pembayaran]
+     */
+    public $showPembayaranCutiSemesterGenap=false;
     /**     
      * show page pembayaran semester Ganjil [pembayaran]
      */

@@ -1,6 +1,6 @@
 <%@ Title="Pembayaran - Pembayaran Piutang Semester Ganjil"%>
 <com:TContent ID="moduleheader">    
-    <i class="icon-file-text position-left"></i> <span class="text-semibold">Pembayaran Piutang Semester Ganjil</span>
+    <i class="icon-calculator3 position-left"></i> <span class="text-semibold">Pembayaran Piutang Semester Ganjil</span>
 </com:TContent>
 <com:TContent ID="modulebreadcrumb">    
     <li><a href="#">PEMBAYARAN</a></li>    

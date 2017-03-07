@@ -26,7 +26,7 @@
         <parameter id="db_host" value="localhost"/>
         <parameter id="db_username" value="root"/>
         <parameter id="db_userpassword" value=""/>
-        <parameter id="db_name" value="portalekampus"/>
+        <parameter id="db_name" value="portalekampus2"/>
         <parameter id="db_type" value="mysql"/>		
         <parameter id="address_lokal" value="http://localhost/portalekampus"/>
         <parameter id="address_lan" value=""/>        

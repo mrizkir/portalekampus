@@ -18,6 +18,10 @@ class CPIN extends MainPageM {
 			$this->tbCmbTahunMasuk->Text=$_SESSION['tahun_masuk'];						
 			$this->tbCmbTahunMasuk->dataBind();
             
+            $this->tbCmbOutputReport->DataSource=$this->setup->getOutputFileType();
+            $this->tbCmbOutputReport->Text= $_SESSION['outputreport'];
+            $this->tbCmbOutputReport->DataBind();
+            
             $this->cmbDisplayRecord->Text=$_SESSION['currentPagePIN']['display_record'];
             $this->lblModulHeader->Text=$this->getInfoToolbar();            
             $this->populateData ();	
@@ -119,6 +123,33 @@ class CPIN extends MainPageM {
             $this->redirect('spmb.PIN',true);
         }
     }
+    public function printOut($sender,$param) {
+        $this->createObj('reportspmb');
+        $this->linkOutput->Text='';
+        $this->linkOutput->NavigateUrl='#';
+        switch ($_SESSION['outputreport']) {
+            case  'summarypdf' :
+                $messageprintout="Mohon maaf Print out pada mode summary pdf tidak kami support.";                
+            break;
+            case  'summaryexcel' :
+                $messageprintout="Mohon maaf Print out pada mode summary excel tidak kami support.";                
+            break;
+            case  'excel2007' :
+                $messageprintout="";
+                $dataReport['tahun_masuk']=$_SESSION['tahun_masuk'];
+                $dataReport['pilihan']=$_SESSION['currentPagePIN']['display_record'];
+                $dataReport['linkoutput']=$this->linkOutput;
+                $this->report->setDataReport($dataReport); 
+                $this->report->setMode($_SESSION['outputreport']);
+                $this->report->printPIN(); 
+            break;
+            case  'pdf' :
+                $messageprintout="Mohon maaf Print out pada mode pdf belum kami support.";                
+            break;
+        }
+        $this->lblMessagePrintout->Text=$messageprintout;
+        $this->lblPrintout->Text='Daftar PIN '.strtoupper($_SESSION['currentPagePIN']['display_record']);
+        $this->modalPrintOut->show();
+    }
 }
-
 ?>

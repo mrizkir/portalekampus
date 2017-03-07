@@ -9,6 +9,9 @@
     <li><a href="#">SPMB</a></li>
     <li class="active">PIN</li>
 </com:TContent>
+<com:TContent ID="csscontent">
+<link rel="stylesheet" type="text/css" href="<%=$this->Theme->baseUrl%>/css/libs/nifty-component.css"/>
+</com:TContent>
 <com:TContent ID="maincontent">
 <com:TPanel Visible="<%= $this->getDefaultProcess() %>">		
     <div class="row">
@@ -90,8 +93,9 @@
                                         $('<%=$this->cmbDisplayRecord->ClientId%>').disabled='';						                               						                                        
                                         $('loading').hide();
                                     </prop:ClientSide.OnComplete>
-                                </com:TActiveDropDownList> 			
+                                </com:TActiveDropDownList> 	
                             </div>
+                             
                         </div>                            
                     </div>
                 </div>
@@ -127,7 +131,20 @@
                                 $('<%=$this->btnGeneratePIN->ClientId%>').disabled='';
                                 $('loading').hide(); 
                             </prop:ClientSide.OnComplete>
-                        </com:TActiveLinkButton>          
+                        </com:TActiveLinkButton>
+                        <com:TActiveLinkButton ID="btnPrintPIN" OnClick="printOut" ClientSide.PostState="false" CssClass="btn btn-primary pull-left" Attributes.Title="Print Out PIN">
+                            <prop:Text><i class="fa fa-print fa-lg"></i></prop:Text>
+                            <prop:ClientSide.OnPreDispatch>
+                                $('loading').show();
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('<%=$this->btnPrintPIN->ClientId%>').disabled='disabled';				
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>
+                                $('<%=$this->btnPrintPIN->ClientId%>').disabled='';				
+                                $('loading').hide();
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveLinkButton>
                     </div>
                 </header>
                 <div class="main-box-body clearfix">                    
@@ -174,4 +191,5 @@
         </div>
     </div>
 </com:TPanel>
+<%include Application.layouts.cube.ModalPrintOut%>
 </com:TContent>

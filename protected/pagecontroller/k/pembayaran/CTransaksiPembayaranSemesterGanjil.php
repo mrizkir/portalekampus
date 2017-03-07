@@ -6,7 +6,7 @@ class CTransaksiPembayaranSemesterGanjil Extends MainPageK {
     public static $TotalJumlahBayar=0;
 	public function onLoad($param) {
 		parent::onLoad($param);				
-        $this->showPembayaran=true;
+        $this->showMenuPembayaran=true;
         $this->showPembayaranSemesterGanjil=true;                
         $this->createObj('Finance');
 		if (!$this->IsPostBack&&!$this->IsCallBack) {            
@@ -133,7 +133,7 @@ class CTransaksiPembayaranSemesterGanjil Extends MainPageK {
         $this->populateData ();
     }
 	public function checkNomorFaktur ($sender,$param) {
-		$this->idProcess=$sender->getId()=='addKodeMatkul'?'add':'edit';
+		$this->idProcess=$sender->getId()=='addNomorFaktur'?'add':'edit';
         $no_faktur=$param->Value;		
         if ($no_faktur != '') {
             try {

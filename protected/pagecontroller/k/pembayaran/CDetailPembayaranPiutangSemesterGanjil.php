@@ -5,7 +5,7 @@ class CDetailPembayaranPiutangSemesterGanjil Extends MainPageK {
     public static $KewajibanMahasiswa=0;
 	public function onLoad($param) {
 		parent::onLoad($param);				
-        $this->showPembayaran=true;
+        $this->showMenuPembayaran=true;
         $this->showPembayaranPiutangSemesterGanjil=true;                
         $this->createObj('Finance');
 		if (!$this->IsPostBack&&!$this->IsCallBack) {

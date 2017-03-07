@@ -180,7 +180,7 @@ class CKRS Extends MainPageM {
 		$item=$param->Item;
 		if ($item->ItemType==='Item' || $item->ItemType==='AlternatingItem') {			
             $idkrs=$item->DataItem['idkrs'];
-            $str = "SELECT COUNT(idkrsmatkul) AS jumlah_matkul,SUM(sks) AS jumlah_sks FROM v_krsmhs WHERE idkrs='$idkrs'";						
+            $str = "SELECT COUNT(idkrsmatkul) AS jumlah_matkul,SUM(sks) AS jumlah_sks FROM v_krsmhs WHERE idkrs='$idkrs' AND batal=0";						
             $this->DB->setFieldTable (array('jumlah_matkul','jumlah_sks'));
 			$r=$this->DB->getRecord($str);
             $item->literalMatkul->Text=$r[1]['jumlah_matkul'] > 0 ?$r[1]['jumlah_matkul']:0;
@@ -316,53 +316,57 @@ class CKRS Extends MainPageM {
         $this->linkOutput->Text='';
         $this->linkOutput->NavigateUrl='#';
         
-        $str = "SELECT vdm.nim,vdm.nirm,vdm.nama_mhs,vdm.kjur,vdm.nama_ps,vdm.idkonsentrasi,k.nama_konsentrasi,iddosen_wali FROM v_datamhs vdm LEFT JOIN konsentrasi k ON (vdm.idkonsentrasi=k.idkonsentrasi) WHERE vdm.nim='$nim'";
-        $this->DB->setFieldTable(array('nim','nirm','nama_mhs','kjur','nama_ps','idkonsentrasi','nama_konsentrasi','iddosen_wali'));
-        $r=$this->DB->getRecord($str);	           
-        $datamhs=$r[1];
-        $nama_dosen=$this->DMaster->getNamaDosenWaliByID($datamhs['iddosen_wali']);				                    
-        $datamhs['nama_dosen']=$nama_dosen;
-        $this->KRS->setDataMHS($datamhs);
-        $this->KRS->getKRS($_SESSION['ta'],$_SESSION['semester']);
-        
-        switch ($_SESSION['outputreport']) {
-            case  'summarypdf' :
-                $messageprintout="Mohon maaf Print out pada mode summary pdf tidak kami support.";                
-            break;
-            case  'summaryexcel' :
-                $messageprintout="Mohon maaf Print out pada mode summary excel tidak kami support.";                
-            break;
-            case  'excel2007' :
-                $messageprintout="Mohon maaf Print out pada mode excel 2007 belum kami support.";                
-            break;
-            case  'pdf' :                
-                $messageprintout='';                
-                $tahun=$_SESSION['ta'];
-                $semester=$_SESSION['semester'];
-                $nama_tahun = $this->DMaster->getNamaTA($tahun);
-                $nama_semester = $this->setup->getSemester($semester);
-                
-                $dataReport=$datamhs;
-                $dataReport['krs']=$this->KRS->DataKRS['krs'];        
-                $dataReport['matakuliah']=$this->KRS->DataKRS['matakuliah'];        
-                $dataReport['nama_tahun']=$nama_tahun;
-                $dataReport['nama_semester']=$nama_semester;        
-                
-                $kaprodi=$this->KRS->getKetuaPRODI($dataReport['kjur']);                  
-                $dataReport['nama_kaprodi']=$kaprodi['nama_dosen'];
-                $dataReport['jabfung_kaprodi']=$kaprodi['nama_jabatan'];
-                $dataReport['nipy_kaprodi']=$kaprodi['nipy'];
-                
-                $dataReport['linkoutput']=$this->linkOutput;                 
-                $this->report->setDataReport($dataReport); 
-                $this->report->setMode($_SESSION['outputreport']);
-                $this->report->printKRS();				
-                
-            break;
+        if ($sender->getId() == 'btnPrintKRSAll') {
+            
+        }else{
+           $str = "SELECT vdm.nim,vdm.nirm,vdm.nama_mhs,vdm.kjur,vdm.nama_ps,vdm.idkonsentrasi,k.nama_konsentrasi,iddosen_wali FROM v_datamhs vdm LEFT JOIN konsentrasi k ON (vdm.idkonsentrasi=k.idkonsentrasi) WHERE vdm.nim='$nim'";
+            $this->DB->setFieldTable(array('nim','nirm','nama_mhs','kjur','nama_ps','idkonsentrasi','nama_konsentrasi','iddosen_wali'));
+            $r=$this->DB->getRecord($str);	           
+            $datamhs=$r[1];
+            $nama_dosen=$this->DMaster->getNamaDosenWaliByID($datamhs['iddosen_wali']);				                    
+            $datamhs['nama_dosen']=$nama_dosen;
+            $this->KRS->setDataMHS($datamhs);
+            $this->KRS->getKRS($_SESSION['ta'],$_SESSION['semester']);
+
+            switch ($_SESSION['outputreport']) {
+                case  'summarypdf' :
+                    $messageprintout="Mohon maaf Print out pada mode summary pdf tidak kami support.";                
+                break;
+                case  'summaryexcel' :
+                    $messageprintout="Mohon maaf Print out pada mode summary excel tidak kami support.";                
+                break;
+                case  'excel2007' :
+                    $messageprintout="Mohon maaf Print out pada mode excel 2007 belum kami support.";                
+                break;
+                case  'pdf' :                
+                    $messageprintout='';                
+                    $tahun=$_SESSION['ta'];
+                    $semester=$_SESSION['semester'];
+                    $nama_tahun = $this->DMaster->getNamaTA($tahun);
+                    $nama_semester = $this->setup->getSemester($semester);
+
+                    $dataReport=$datamhs;
+                    $dataReport['krs']=$this->KRS->DataKRS['krs'];        
+                    $dataReport['matakuliah']=$this->KRS->DataKRS['matakuliah'];        
+                    $dataReport['nama_tahun']=$nama_tahun;
+                    $dataReport['nama_semester']=$nama_semester;        
+
+                    $kaprodi=$this->KRS->getKetuaPRODI($dataReport['kjur']);                  
+                    $dataReport['nama_kaprodi']=$kaprodi['nama_dosen'];
+                    $dataReport['jabfung_kaprodi']=$kaprodi['nama_jabatan'];
+                    $dataReport['nipy_kaprodi']=$kaprodi['nipy'];
+
+                    $dataReport['linkoutput']=$this->linkOutput;                 
+                    $this->report->setDataReport($dataReport); 
+                    $this->report->setMode($_SESSION['outputreport']);
+                    $this->report->printKRS();				
+
+                break;
+            }
+            $this->lblMessagePrintout->Text=$messageprintout;
+            $this->lblPrintout->Text="Kartu Rencana Studi T.A $nama_tahun Semester $nama_semester";
+            $this->modalPrintOut->show(); 
         }
-        $this->lblMessagePrintout->Text=$messageprintout;
-        $this->lblPrintout->Text="Kartu Rencana Studi T.A $nama_tahun Semester $nama_semester";
-        $this->modalPrintOut->show();
 	}    
 }
 

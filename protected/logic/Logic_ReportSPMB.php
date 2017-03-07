@@ -434,6 +434,88 @@ class Logic_ReportSPMB extends Logic_Report {
         }
         $this->setLink($this->dataReport['linkoutput'],"Hasil Ujian PMB Tahun Masuk $tahun_masuk $nama_ps_label");
     }
+    /**
+     * digunakan untuk mencetak penggunaan PIN
+     */
+    public function printPIN() {
+        $pilihan=$this->dataReport['pilihan'];
+        $tahun_masuk=$this->dataReport['tahun_masuk'];
+        switch ($this->getDriver()) {
+            case 'excel2003' :               
+            case 'excel2007' :    
+                $this->setHeaderPT('G');                
+                $sheet=$this->rpt->getActiveSheet();
+                $this->rpt->getDefaultStyle()->getFont()->setName('Arial');                
+                $this->rpt->getDefaultStyle()->getFont()->setSize('9');                                    
+                
+                $sheet->mergeCells("A7:G7");
+                $sheet->getRowDimension(7)->setRowHeight(20);
+                $sheet->setCellValue("A7","DAFTAR PIN T.A $tahun_masuk");
+                
+                $styleArray=array(
+								'font' => array('bold' => true,'size' => 16),
+								'alignment' => array('horizontal'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER,'vertical'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER)
+							);
+                $sheet->getStyle("A7:A7")->applyFromArray($styleArray);
+                
+                $sheet->getRowDimension(9)->setRowHeight(25); 
+                $sheet->getColumnDimension('B')->setWidth(10);
+                $sheet->getColumnDimension('C')->setWidth(20);
+                $sheet->getColumnDimension('D')->setWidth(20);
+                $sheet->getColumnDimension('E')->setWidth(35);
+                $sheet->getColumnDimension('F')->setWidth(20);
+                $sheet->setCellValue('B9','NO');
+                $sheet->setCellValue('C9','NO. FORMULIR');
+                $sheet->setCellValue('D9','PIN');
+                $sheet->setCellValue('E9','NAMA');
+                $sheet->setCellValue('F9','KETERANGAN');
+                $styleArray=array(
+								'font' => array('bold' => true),
+								'alignment' => array('horizontal'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+												   'vertical'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
+								'borders' => array('allborders' => array('style' => PHPExcel_Style_Border::BORDER_THIN))
+							);
+                $sheet->getStyle("B9:F9")->applyFromArray($styleArray);
+                $sheet->getStyle("B9:F9")->getAlignment()->setWrapText(true);
+                    
+                $str_display='';
+                if ($pilihan=='terdaftar'){
+                    $str_display='AND fp.no_formulir IS NOT NULL';
+                }elseif ($pilihan=='belum_terdaftar'){
+                    $str_display='AND fp.no_formulir IS NULL';
+                }
+                $str = "SELECT pin.no_pin,pin.no_formulir,fp.nama_mhs,fp.no_formulir AS ket FROM pin LEFT JOIN formulir_pendaftaran fp ON (fp.no_formulir=pin.no_formulir) WHERE pin.tahun_masuk=$tahun_masuk $str_display";
+                $str = "$str  $str_display ORDER BY pin.no_formulir ASC";
+                $this->db->setFieldTable(array('no_pin','no_formulir','nama_mhs','ket'));
+                $r = $this->db->getRecord($str);
+                $row=10;
+                while (list($k,$v)=each ($r)) {            
+                    $sheet->setCellValue("B$row",$v['no']);
+                    $sheet->setCellValue("C$row",$v['no_formulir']);
+                    $sheet->setCellValueExplicit("D$row",$v['no_pin'],PHPExcel_Cell_DataType::TYPE_STRING);
+                    $nama_mhs=$v['nama_mhs'] == '' ? 'N.A' : $v['nama_mhs'];
+                    $sheet->setCellValue("E$row",$nama_mhs);
+                    $ket = $v['ket'] == '' ? 'N.A' : 'TELAH DAFTAR';
+                    $sheet->setCellValue("F$row",$ket);
+                    $row+=1;
+                } 
+                $row-=1;
+                $styleArray=array(								
+                                    'alignment' => array('horizontal'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER, 'vertical'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
+                                    'borders' => array('allborders' => array('style' => PHPExcel_Style_Border::BORDER_THIN))
+                                );																					 
+                $sheet->getStyle("B10:F$row")->applyFromArray($styleArray);
+                $sheet->getStyle("B10:F$row")->getAlignment()->setWrapText(true);
+                
+                $styleArray=array(								
+                                    'alignment' => array('horizontal'=>PHPExcel_Style_Alignment::HORIZONTAL_LEFT)
+                                );																					 
+                $sheet->getStyle("E10:E$row")->applyFromArray($styleArray);
+                $this->printOut("daftarpin$tahun_masuk");
+            break;
+        }
+        $this->setLink($this->dataReport['linkoutput'],"Daftar PIN Mahasiswa");
+    }
 }
 ?>
 

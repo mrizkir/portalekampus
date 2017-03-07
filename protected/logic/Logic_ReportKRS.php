@@ -87,16 +87,19 @@ class Logic_ReportKRS extends Logic_Report {
                 $row+=5;				
                 $rpt->SetFont ('helvetica','',8);
                 $daftarmatkul=$this->dataReport['matakuliah'];
+                print_R($daftarmatkul);
                 foreach ($daftarmatkul as $v) {
-                    $rpt->setXY(3,$row);	
-                    $rpt->Cell(8, 5, $v['no'], 1, 0, 'C');				
-                    $rpt->Cell(15, 5, $v['kmatkul'], 1, 0, 'C');								
-                    $rpt->Cell(90, 5, $v['nmatkul'], 1, 0, 'L');							
-                    $rpt->Cell(8, 5, $v['sks'], 1, 0, 'C');				
-                    $rpt->Cell(8, 5, $v['semester'], 1, 0, 'C');				
-                    $rpt->Cell(60, 5, $v['nama_dosen'], 1, 0,'L');											
-                    $totalSks+=$v['sks'];
-                    $row+=5;
+                    if ($v['batal'] == 0) {
+                        $rpt->setXY(3,$row);	
+                        $rpt->Cell(8, 5, $v['no'], 1, 0, 'C');				
+                        $rpt->Cell(15, 5, $v['kmatkul'], 1, 0, 'C');								
+                        $rpt->Cell(90, 5, $v['nmatkul'], 1, 0, 'L');							
+                        $rpt->Cell(8, 5, $v['sks'], 1, 0, 'C');				
+                        $rpt->Cell(8, 5, $v['semester'], 1, 0, 'C');				
+                        $rpt->Cell(60, 5, $v['nama_dosen'], 1, 0,'L');											
+                        $totalSks+=$v['sks'];
+                        $row+=5;
+                    }
                 }
                 $rpt->SetFont ('helvetica','B',8);
                 $rpt->setXY(3,$row);							

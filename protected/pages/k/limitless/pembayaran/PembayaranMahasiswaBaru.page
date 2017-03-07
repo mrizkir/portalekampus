@@ -1,6 +1,6 @@
 <%@ Title="Pembayaran - Mahasiswa Baru"%>
 <com:TContent ID="moduleheader">    
-    <i class="icon-file-text position-left"></i> <span class="text-semibold">Pembayaran Mahasiswa Baru  Tahun Masuk <%=$this->Page->setup->getSettingValue('default_ta');%></span>
+    <i class="icon-calculator3 position-left"></i> <span class="text-semibold">Pembayaran Mahasiswa Baru  Tahun Masuk <%=$this->Page->setup->getSettingValue('default_ta');%></span>
 </com:TContent>
 <com:TContent ID="moduleheaderelement">    
     <div class="heading-elements">
@@ -50,7 +50,7 @@
     <div class="col-md-12">
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h5 class="panel-title"><i class="icon-file-text position-left"></i>  DAFTAR TRANSAKSI <com:TActiveLabel ID="lblModulHeader" /></h5>                
+                <h5 class="panel-title"><i class="icon-calculator3 position-left"></i>  DAFTAR TRANSAKSI <com:TActiveLabel ID="lblModulHeader" /></h5>                
                 <div class="heading-elements">
                     <div class="heading-btn">       
                         

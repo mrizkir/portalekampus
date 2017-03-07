@@ -1,0 +1,227 @@
+<%@ Title="Pembayaran - Pembayaran Cuti Semester Ganjil"%>
+<com:TContent ID="moduleheader">    
+    <i class="icon-calculator3 position-left"></i> <span class="text-semibold">Pembayaran Cuti Semester Ganjil</span>
+</com:TContent>
+<com:TContent ID="modulebreadcrumb">    
+    <li><a href="#">PEMBAYARAN</a></li>
+    <li class="active">CUTI SEMESTER GANJIL</li>     
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getViewProcess(false) %>" CssClass="panel panel-flat">        
+    <div class="panel-heading">
+        <div class="heading-elements">
+            <ul class="icons-list">                
+                <li>
+                    <a href="<%=$this->Page->constructUrl('pembayaran.PembayaranCutiSemesterGanjil',true);%>" data-action="closeredirect"></a>
+                </li>
+            </ul>
+        </div>        
+    </div>
+    <div class="panel-body">
+        <div class="alert bg-warning">
+            <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+            <span class="text-semibold">Error!</span> <com:TLiteral ID="errorMessage" />
+        </div>
+    </div>    
+</com:TPanel>
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>">
+    <%include Application.layouts.limitless.DataMHS%>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title"><i class="icon-pencil7 position-left"></i> TAMBAH TRANSAKSI</h5>
+                    <div class="heading-elements">
+                        <ul class="icons-list">                    
+                            <li>
+                                <com:TActiveLinkButton ID="btnCloseTransaction" ClientSide.PostState="false" OnClick="closeTransaction" Attributes.data-action="closeredirect" Attributes.title="Tutup Transaksi">                            
+                                    <prop:ClientSide.OnPreDispatch>         
+                                        Pace.stop();
+                                        Pace.start();
+                                        $('<%=$this->btnCloseTransaction->ClientId%>').disabled='disabled';         
+                                    </prop:ClientSide.OnPreDispatch>
+                                    <prop:ClientSide.OnLoading>
+                                        $('<%=$this->btnCloseTransaction->ClientId%>').disabled='disabled';                     
+                                    </prop:ClientSide.OnLoading>
+                                    <prop:ClientSide.OnComplete>                                                                    
+                                        $('<%=$this->btnCloseTransaction->ClientId%>').disabled='';                                                                                                                 
+                                    </prop:ClientSide.OnComplete>
+                                </com:TActiveLinkButton>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">                
+                        <div class="form-group" id="divAddNomorFaktur">
+                            <label class="col-md-3 control-label">Nomor Faktur Bank :</label>
+                            <div class="col-md-3">                            
+                                <com:TTextBox ID="txtAddNomorFaktur" CssClass="form-control" />  
+                                <com:TRequiredFieldValidator ID="FieldAddNomorFaktur" ControlToValidate="txtAddNomorFaktur" Display="Dynamic" ErrorMessage="Isi dengan Nomor Faktur dari Bank" ValidationGroup="addtransaksi" FocusOnError="true" CssClass="has-error help-block">			
+                                    <prop:ClientSide.OnValidationError>
+                                        $('divAddNomorFaktur').addClassName('has-error');
+                                        jQuery('#<%=$this->FieldAddNomorFaktur->ClientID%>').removeAttr('style');
+                                    </prop:ClientSide.OnValidationError>
+                                    <prop:ClientSide.OnValidationSuccess>
+                                        $('divAddNomorFaktur').removeClassName('has-error');
+                                    </prop:ClientSide.OnValidationSuccess>
+                                </com:TRequiredFieldValidator>      
+                                <com:TActiveCustomValidator ID="addNomorFaktur" ControlToValidate="txtAddNomorFaktur" Display="Dynamic" OnServerValidate="checkNomorFaktur" ValidationGroup="addtransaksi" ErrorMessage="Nomor Faktur sudah ada silahkan ganti dengan yang lain" CssClass="has-error help-block">
+                                    <prop:ClientSide.OnValidationError>
+                                        $('divAddNomorFaktur').addClassName('has-error');
+                                        jQuery('#<%=$this->addNomorFaktur->ClientID%>').removeAttr('style');
+                                    </prop:ClientSide.OnValidationError>
+                                    <prop:ClientSide.OnValidationSuccess>
+                                        $('divAddNomorFaktur').removeClassName('has-error');
+                                    </prop:ClientSide.OnValidationSuccess>
+                                </com:TActiveCustomValidator>
+                            </div>
+                        </div>                            
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Tanggal Faktur :</label>
+                            <div class="col-md-9">
+                                <com:TCustomDatePicker ID="cmbAddTanggalFaktur" DateFormat="dd-MMMM-yyyy" Culture="id"  InputMode="DropDownList" ShowCalendar="false"/>
+                            </div>
+                        </div>   
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Biaya Cuti :</label>
+                            <div class="col-md-9">
+                                <p class="form-control-static">
+                                    <%=$this->Page->Finance->toRupiah(CDetailPembayaranCutiSemesterGanjil::$KewajibanMahasiswa)%>
+                                </p>
+                            </div>
+                        </div>    
+                        <div class="form-group">
+                            <label class="control-label col-md-3"></label>
+                            <div class="col-md-5">
+                                <com:TActiveCustomButton ID="btnSave" ValidationGroup="addtransaksi" OnClick="saveData" CssClass="btn btn-info btn-labeled btn-xs">
+                                    <prop:Text>                                        
+                                        <b><i class="icon-floppy-disk "></i></b> Simpan                                        
+                                    </prop:Text>
+                                    <prop:ClientSide.OnPreDispatch>         
+                                        Pace.stop();
+                                        Pace.start();
+                                        $('<%=$this->btnSave->ClientId%>').disabled='disabled';         
+                                    </prop:ClientSide.OnPreDispatch>
+                                    <prop:ClientSide.OnLoading>
+                                        $('<%=$this->btnSave->ClientId%>').disabled='disabled';                     
+                                    </prop:ClientSide.OnLoading>
+                                    <prop:ClientSide.OnComplete>                                                                    
+                                        $('<%=$this->btnSave->ClientId%>').disabled='';                                                                                                                 
+                                    </prop:ClientSide.OnComplete>
+                                </com:TActiveCustomButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title"><i class="icon-calculator position-left"></i>  DAFTAR TRANSAKSI SEMESTER GANJIL T.A <%=$this->DMaster->getNamaTA($_SESSION['currentPagePembayaranCutiSemesterGanjil']['ta'])%></h5>                
+                    <div class="heading-elements">
+                        <div class="heading-btn">       
+                            
+                        </div>   
+                    </div>
+                </div>                
+                <div class="table-responsive">
+                    <com:TActiveRepeater ID="ListTransactionRepeater" DataKeyField="no_transaksi" OnItemDataBound="dataBoundListTransactionRepeater">
+                        <prop:HeaderTemplate>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr class="bg-teal-700">
+                                <th scope="col">NO</th>
+                                <th scope="col">NO. TRANSAKSI</th>						
+                                <th scope="col">NO. FAKTUR<br />BANK</th>
+                                <th scope="col">TANGGAL TRANSAKSI</th>			
+                                <th scope="col">TANGGAL INPUT</th>			
+                                <th scope="col" class="text-right">TOTAL</th>											
+                                <th scope="col" width="120">AKSI</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                        </prop:HeaderTemplate>
+                        <prop:ItemTemplate>
+                            <tr>
+                                <td><%#$this->DataItem['no']%></td>
+                                <td><%#$this->DataItem['no_transaksi']%></td>						
+                                <td><%#$this->DataItem['no_faktur']%></td>											
+                                <td><%=$this->Page->TGL->tanggal('l, j F Y',$this->DataItem['tanggal'])%></td>	
+                                <td><%=$this->Page->TGL->tanggal('l, j F Y',$this->DataItem['date_added'])%></td>	
+                                <td class="text-right"><%#$this->Page->Finance->toRupiah($this->DataItem['dibayarkan'])%></td>					
+                                <td>        
+                                    <ul class="icons-list">
+                                        <li class="<%#$this->DataItem['commited']==true?'text-grey-600':'text-primary-600'%>">                                    
+                                            <com:TActiveLinkButton ID="btnCommitFromRepeater" Text="<i class='icon-check'></i>" OnClick="Page.commitData" ClientSide.PostState="false" Attributes.Title="Commit Transaksi">
+                                                <prop:ClientSide.OnPreDispatch>                                                                                      
+                                                    $('<%=$this->btnCommitFromRepeater->ClientId%>').disabled='disabled';						
+                                                    Pace.stop();
+                                                    Pace.start();
+                                                </prop:ClientSide.OnPreDispatch>
+                                                <prop:ClientSide.OnLoading>
+                                                    $('<%=$this->btnCommitFromRepeater->ClientId%>').disabled='disabled';									                            
+                                                </prop:ClientSide.OnLoading>
+                                                <prop:ClientSide.onComplete>
+                                                    $('<%=$this->btnCommitFromRepeater->ClientId%>').disabled='';									                            
+                                                </prop:ClientSide.OnComplete>
+                                            </com:TActiveLinkButton>
+                                        </li> 
+                                        <li class="<%#$this->DataItem['commited']==true?'text-grey-600':'text-danger-600'%>">                                    
+                                            <com:TActiveLinkButton ID="btnDeleteFromRepeater" Text="<i class='icon-trash'></i>" OnClick="Page.deleteRecord" ClientSide.PostState="false" Attributes.Title="Hapus Transaksi">
+                                                <prop:ClientSide.OnPreDispatch>                                                                                      
+                                                    $('<%=$this->btnDeleteFromRepeater->ClientId%>').disabled='disabled';						
+                                                    Pace.stop();
+                                                    Pace.start();
+                                                </prop:ClientSide.OnPreDispatch>
+                                                <prop:ClientSide.OnLoading>
+                                                    $('<%=$this->btnDeleteFromRepeater->ClientId%>').disabled='disabled';									                            
+                                                </prop:ClientSide.OnLoading>
+                                                <prop:ClientSide.onComplete>
+                                                    $('<%=$this->btnDeleteFromRepeater->ClientId%>').disabled='';									                            
+                                                </prop:ClientSide.OnComplete>
+                                            </com:TActiveLinkButton>
+                                        </li>
+                                    </ul>                          
+                                </td>
+                            </tr>
+                        </prop:ItemTemplate>                    
+                        <prop:FooterTemplate>
+                            </tbody>
+                            <tfoot>						
+                                <tr Align="right">
+                                    <td colspan="5"><b>Total</b></td>							
+                                    <td><%#$this->Page->Finance->toRupiah(CDetailPembayaranCutiSemesterGanjil::$TotalSudahBayar)%></td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr Align="right">
+                                    <td colspan="5"><b>Kewajiban Mahasiswa</b></td>							
+                                    <td><%#$this->Page->Finance->toRupiah(CDetailPembayaranCutiSemesterGanjil::$KewajibanMahasiswa)%></td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr Align="right">
+                                    <td class="rounded-foot-left" colspan="5"><b>Sisa</b></td>							
+                                    <td><%#$this->Page->Finance->toRupiah(CDetailPembayaranCutiSemesterGanjil::$KewajibanMahasiswa-CDetailPembayaranCutiSemesterGanjil::$TotalSudahBayar)%></td>
+                                    <td class="rounded-foot-right">&nbsp;</td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </prop:FooterTemplate>
+                        <prop:EmptyTemplate>                       
+                            <div class="panel-body">
+                                <div class="alert alert-info alert-styled-left alert-bordered">
+                                    <span class="text-semibold">Info!</span>
+                                    Belum ada data yang bisa ditampilkan.
+                                </div>                
+                            </div>       
+                        </prop:EmptyTemplate>
+                    </com:TActiveRepeater>
+                </div>
+            </div>
+        </div>
+    </div>
+</com:TPanel>
+</com:TContent>

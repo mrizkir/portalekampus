@@ -179,6 +179,20 @@
                                                 <span>Dashboard</span>											
                                             </a>                                        
                                         </li> 
+                                        <li<%=$this->Page->showSubMenuAkademikPerkuliahan==true?' class="active"':''%>>
+                                            <a href="#" class="dropdown-toggle">
+                                                <i class="fa fa-truck"></i>
+                                                <span>Perkuliahan</span>
+                                                <i class="fa fa-angle-right drop-icon"></i>
+                                            </a>
+                                            <ul class="submenu">
+                                                <li>
+                                                    <a href="<%=$this->Page->constructUrl('perkuliahan.KRS',true)%>"<%=$this->Page->showKRS==true ? ' class="active" ':''%>>
+                                                        KRS
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>   
                                         <li class="nav-header nav-header-first hidden-sm hidden-xs">
                                             SETTING
                                         </li>

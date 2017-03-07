@@ -14,7 +14,7 @@
         <com:TRequiredFieldValidator ValidationGroup="userlogin" Display="Dynamic" ControlToValidate="txtPassword" FocusOnError="true" ErrorMessage="Isi Password" />                                    
         <div class="input-group" id="divPassword">
             <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
-            <com:TTextBox ID="txtPassword" Attributes.placeholder="Password" CssClass="form-control" TextMode="Password" />                                 
+            <com:TTextBox ID="txtPassword" Attributes.placeholder="Password" CssClass="form-control" TextMode="Password" /> 
         </div>
     </div>
     <div class="row">

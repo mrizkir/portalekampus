@@ -109,7 +109,7 @@
         </div>
     </div>   
     <%include Application.layouts.cube.DataMHS%>
-    <com:TActiveRepeater ID="RepeaterS" EnableViewState="false" OnItemCreated="itemCreated">
+    <com:TActiveRepeater ID="RepeaterS" OnItemDataBound="itemBound" DataKeyField="idkrsmatkul">
         <prop:HeaderTemplate>
             <div class="row">
                 <div class="col-lg-12">
@@ -157,13 +157,14 @@
                                 <table class="table table-striped table-hover">	
                                     <thead>
                                         <tr>
-                                            <th scope="col">NO</th>
-                                            <th scope="col">KODE</th>
-                                            <th scope="col">NAMA</th>
-                                            <th scope="col">SKS</th>
-                                            <th scope="col">SMT</th>
-                                            <th scope="col">DOSEN</th>					
-                                            <th scope="col">&nbsp;</th>					
+                                            <th scope="col" width="15">NO</th>
+                                            <th scope="col" width="20">KODE</th>
+                                            <th scope="col" width="350">NAMA</th>
+                                            <th scope="col" width="15">SKS</th>
+                                            <th scope="col" width="15">SMT</th>
+                                            <th scope="col">DOSEN</th>
+                                            <th scope="col" width="270">KELAS</th>
+                                            <th scope="col">KET.</th>					
                                         </tr>						
                                     </thead>
                                     <tbody>
@@ -176,6 +177,20 @@
                                             <td><%# $this->DataItem['sks']%></td>
                                             <td><%# $this->DataItem['semester']%></td>							
                                             <td><%# $this->DataItem['nama_dosen']%> [<%# $this->DataItem['nidn']%>]</td>					
+                                            <td>
+                                                <com:TActiveDropDownList ID="cmbKelas" Text="<%# $this->Data['iddosen']%>" OnCallBack="page.prosesKelas" CssClass="form-control">
+                                                    <prop:ClientSide.OnPreDispatch>
+                                                        $('loading').show();                                             
+                                                        $('<%=$this->cmbKelas->ClientId%>').disabled='disabled';						
+                                                    </prop:ClientSide.OnPreDispatch>
+                                                    <prop:ClientSide.OnLoading>
+                                                        $('<%=$this->cmbKelas->ClientId%>').disabled='disabled';									                            
+                                                    </prop:ClientSide.OnLoading>
+                                                    <prop:ClientSide.onComplete>
+                                                        $('loading').hide();                                                
+                                                    </prop:ClientSide.OnComplete>
+                                                </com:TActiveDropDownList>
+                                            </td>	
                                             <td><i class="<%#($this->Page->KRS->DataKRS['krs']['sah']&&!$this->DataItem['batal'])?'fa fa-check':'fa fa-times'%>"></i></td>
                                         </tr>
         </prop:ItemTemplate>  
@@ -183,13 +198,23 @@
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <td colspan="3"><strong>Jumlah SKS</strong></td>
-                                        <td><%# CDetailKRS::$totalSKS%></td>
-                                        <td colspan="3">&nbsp;</td>
+                                        <td colspan="3"><strong>Jumlah SKS Dikontrak</strong></td>
+                                        <td><%# CDetailKRS::$totalSKS%> </td>
+                                        <td colspan="5">&nbsp;</td>
+                                    </tr                                   
+                                    <tr>
+                                        <td colspan="3"><strong>Jumlah Matakuliah Dikontrak</strong></td>
+                                        <td><%# CDetailKRS::$jumlahMatkul%></td>
+                                        <td colspan="5">&nbsp;</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3"><strong>Jumlah Matakuliah</strong></td>
-                                        <td><%# CDetailKRS::$jumlahMatkul%></td>
+                                        <td colspan="3"><strong>Jumlah SKS Batal</strong></td>
+                                        <td><%# CDetailKRS::$totalSKSBatal%> </td>
+                                        <td colspan="5">&nbsp;</td>
+                                    </tr                                   
+                                    <tr>
+                                        <td colspan="3"><strong>Jumlah Matakuliah Batal</strong></td>
+                                        <td><%# CDetailKRS::$jumlahMatkulBatal%></td>
                                         <td colspan="5">&nbsp;</td>
                                     </tr>
                                     </tfoot>

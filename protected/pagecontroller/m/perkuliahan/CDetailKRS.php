@@ -5,11 +5,18 @@ class CDetailKRS extends MainPageM {
 	* total SKS
 	*/
 	static $totalSKS=0;
-	
+	 /**
+	* total SKS Batal
+	*/
+	public static $totalSKSBatal=0;	
 	/**
 	* jumlah matakuliah
 	*/
 	static $jumlahMatkul=0;	
+     /**
+	* total Matakuliah Batal
+	*/
+	public static $jumlahMatkulBatal=0;
 	public function onLoad($param) {
 		parent::onLoad($param);	
         $this->showSubMenuAkademikPerkuliahan=true;
@@ -34,11 +41,36 @@ class CDetailKRS extends MainPageM {
 		$text="TA $ta Semester $semester";
 		return $text;
 	}	
-    public function itemCreated ($sender,$param) {
+    public function itemBound ($sender,$param) {
         $item=$param->Item;
-        if ($item->ItemType === 'Item' || $item->ItemType === 'AlternatingItem') {                
-            CDetailKRS::$totalSKS+=$item->DataItem['sks'];
-            CDetailKRS::$jumlahMatkul+=1;
+        if ($item->ItemType === 'Item' || $item->ItemType === 'AlternatingItem') {
+            if ($item->DataItem['batal']) {
+                $item->cmbKelas->Enabled=false;
+                CDetailKRS::$totalSKSBatal+=$item->DataItem['sks'];
+                CDetailKRS::$jumlahMatkulBatal+=1;
+            }else{
+                $idkrsmatkul=$item->DataItem['idkrsmatkul'];
+                $idpenyelenggaraan=$item->DataItem['idpenyelenggaraan'];
+                $idkelas=$_SESSION['currentPageKRS']['DataMHS']['kelas_dulang'];
+                $str = "SELECT km.idkelas_mhs,km.nama_kelas,vpp.nama_dosen,vpp.nidn FROM kelas_mhs km JOIN v_pengampu_penyelenggaraan vpp ON (km.idpengampu_penyelenggaraan=vpp.idpengampu_penyelenggaraan) WHERE vpp.idpenyelenggaraan=$idpenyelenggaraan AND km.idkelas='$idkelas'  ORDER BY hari ASC,idkelas ASC,nama_dosen ASC";            
+                $this->DB->setFieldTable(array('idkelas_mhs','nama_kelas','nama_dosen','nidn'));
+                $r = $this->DB->getRecord($str);	
+                $result = array('none'=>' ');
+                while (list($k,$v)=each($r)) {                   
+                    $result[$v['idkelas_mhs']]=$this->DMaster->getNamaKelasByID($idkelas).'-'.chr($v['nama_kelas']+64) . ' ['.$v['nidn'].']';   
+                }
+
+                $str = "SELECT idkelas_mhs  FROM kelas_mhs_detail WHERE idkrsmatkul=$idkrsmatkul";            
+                $this->DB->setFieldTable(array('idkelas_mhs'));
+                $r = $this->DB->getRecord($str);
+                $idkelas_mhs=isset($r[1]) ? $r[1]['idkelas_mhs'] : 'none';
+                $item->cmbKelas->DataSOurce=$result;            
+                $item->cmbKelas->DataBind();        
+                $item->cmbKelas->Enabled=!$this->DB->checkRecordIsExist('idkrsmatkul','nilai_matakuliah',$idkrsmatkul);
+                $item->cmbKelas->Text=$idkelas_mhs;
+                CDetailKRS::$totalSKS+=$item->DataItem['sks'];
+                CDetailKRS::$jumlahMatkul+=1;
+            }
         }
     }
 	protected function populateData () {
@@ -61,8 +93,12 @@ class CDetailKRS extends MainPageM {
             $nama_dosen=$this->DMaster->getNamaDosenWaliByID($datamhs['iddosen_wali']);				                    
             $datamhs['nama_dosen']=$nama_dosen;
             
+            $datadulang=$this->KRS->getDataDulang($datamhs['idsmt'],$datamhs['tahun']);
+            $datamhs['kelas_dulang']=$datadulang['idkelas'];
+           
             $_SESSION['currentPageKRS']['DataMHS']=$datamhs;
             $this->KRS->setDataMHS($datamhs);
+            
             $this->KRS->getKRS($_SESSION['ta'],$_SESSION['semester']);                                                                        
             $_SESSION['currentPageKRS']['DataKRS']=$this->KRS->DataKRS;
             $this->RepeaterS->DataSource=$this->KRS->DataKRS['matakuliah'];
@@ -73,6 +109,24 @@ class CDetailKRS extends MainPageM {
         }
 
 	}		
+    public function prosesKelas ($sender,$param) {
+        $idkelas_mhs=$sender->Text;
+        $idkrsmatkul=$this->getDataKeyField($sender, $this->RepeaterS);
+        $this->DB->query('BEGIN');
+        if ($idkelas_mhs=='none') {
+            $this->DB->deleteRecord("kelas_mhs_detail WHERE idkrsmatkul=$idkrsmatkul");
+            $this->DB->deleteRecord("kuesioner_jawaban WHERE idkrsmatkul=$idkrsmatkul");
+            $this->DB->updateRecord("UPDATE nilai_matakuliah SET telah_isi_kuesioner=0,tanggal_isi_kuesioner='' WHERE idkrsmatkul=$idkrsmatkul");
+        }elseif ($this->DB->checkRecordIsExist('idkrsmatkul','kelas_mhs_detail',$idkrsmatkul)) {
+            $this->DB->updateRecord("UPDATE kelas_mhs_detail SET idkelas_mhs=$idkelas_mhs WHERE idkrsmatkul=$idkrsmatkul");
+            $this->DB->deleteRecord("kuesioner_jawaban WHERE idkrsmatkul=$idkrsmatkul");
+            $this->DB->updateRecord("UPDATE nilai_matakuliah SET telah_isi_kuesioner=0,tanggal_isi_kuesioner='' WHERE idkrsmatkul=$idkrsmatkul");
+        }else{
+             $this->DB->insertRecord("INSERT INTO kelas_mhs_detail SET idkelas_mhs=$idkelas_mhs,idkrsmatkul=$idkrsmatkul");
+        }
+        $this->DB->query('COMMIT');
+        $this->redirect('perkuliahan.DetailKRS', true,array('id'=>$_SESSION['currentPageKRS']['DataKRS']['krs']['idkrs']));
+    }
     public function tambahKRS ($sender,$param) {
         $this->createObj('Nilai');
         $datakrs=$_SESSION['currentPageKRS']['DataKRS'];

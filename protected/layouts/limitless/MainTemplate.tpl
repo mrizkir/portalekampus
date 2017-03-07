@@ -119,39 +119,66 @@
                     </div>
                 </div>
             </li>
-            <li class="dropdown<%=$this->Page->showPembayaran==true?' active':''%> visible">
+            <li class="dropdown mega-menu mega-menu-wide<%=$this->Page->showMenuPembayaran==true?' active':''%> visible">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="icon-book2 position-left"></i> Pembayaran <span class="caret"></span>
                 </a>
-                <ul class="dropdown-menu width-250">
-                    <li class="dropdown-header">SEMESTER</li>
-                    <li<%=$this->Page->showPembayaranMahasiswaBaru==true?' class="active"':''%>>
-                        <a href="<%=$this->Page->constructUrl('pembayaran.PembayaranMahasiswaBaru',true)%>">
-                            <i class="icon-calculator3"></i> Mahasiswa Baru <%=$_SESSION['ta']%>
-                        </a>
-                    </li> 
-                    <li<%=$this->Page->showPembayaranSemesterGanjil==true?' class="active"':''%>>
-                        <a href="<%=$this->Page->constructUrl('pembayaran.PembayaranSemesterGanjil',true)%>">
-                            <i class="icon-calculator3"></i> Semester Ganjil <%=$this->Page->setup->getSettingValue('default_ta')%>
-                        </a>
-                    </li> 
-                    <li<%=$this->Page->showPembayaranSemesterGenap==true?' class="active"':''%>>
-                        <a href="<%=$this->Page->constructUrl('pembayaran.PembayaranSemesterGenap',true)%>">
-                            <i class="icon-calculator3"></i> Semester Genap <%=$this->Page->setup->getSettingValue('default_ta')%>
-                        </a>
-                    </li>
-                    <li class="dropdown-header">PIUTANG</li>
-                    <li<%=$this->Page->showPembayaranPiutangSemesterGanjil==true?' class="active"':''%>>
-                        <a href="<%=$this->Page->constructUrl('pembayaran.PembayaranPiutangSemesterGanjil',true)%>">
-                            <i class="icon-calculator3"></i> Piutang Semester Ganjil
-                        </a>
-                    </li> 
-                    <li<%=$this->Page->showPembayaranPiutangSemesterGenap==true?' class="active"':''%>>
-                        <a href="<%=$this->Page->constructUrl('pembayaran.PembayaranPiutangSemesterGenap',true)%>">
-                            <i class="icon-calculator3"></i> Piutang Semester Genap
-                        </a>
-                    </li>
-                </ul>
+                <div class="dropdown-menu dropdown-content">
+                    <div class="dropdown-content-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <span class="menu-heading underlined">SEMESTER</span>
+                                <ul class="menu-list">
+                                    <li<%=$this->Page->showPembayaranMahasiswaBaru==true?' class="active"':''%>>
+                                        <a href="<%=$this->Page->constructUrl('pembayaran.PembayaranMahasiswaBaru',true)%>">
+                                            <i class="icon-calculator3"></i> Mahasiswa Baru <%=$_SESSION['ta']%>
+                                        </a>
+                                    </li> 
+                                    <li<%=$this->Page->showPembayaranSemesterGanjil==true?' class="active"':''%>>
+                                        <a href="<%=$this->Page->constructUrl('pembayaran.PembayaranSemesterGanjil',true)%>">
+                                            <i class="icon-calculator3"></i> Semester Ganjil <%=$this->Page->setup->getSettingValue('default_ta')%>
+                                        </a>
+                                    </li> 
+                                    <li<%=$this->Page->showPembayaranSemesterGenap==true?' class="active"':''%>>
+                                        <a href="<%=$this->Page->constructUrl('pembayaran.PembayaranSemesterGenap',true)%>">
+                                            <i class="icon-calculator3"></i> Semester Genap <%=$this->Page->setup->getSettingValue('default_ta')%>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-3">
+                                <span class="menu-heading underlined">CUTI</span>
+                                <ul class="menu-list">
+                                    <li<%=$this->Page->showPembayaranCutiSemesterGanjil==true?' class="active"':''%>>
+                                        <a href="<%=$this->Page->constructUrl('pembayaran.PembayaranCutiSemesterGanjil',true)%>">
+                                            <i class="icon-calculator3"></i> Cuti Semester Ganjil
+                                        </a>
+                                    </li> 
+                                    <li<%=$this->Page->showPembayaranCutiSemesterGenap==true?' class="active"':''%>>
+                                        <a href="<%=$this->Page->constructUrl('pembayaran.PembayaranCutiSemesterGenap',true)%>">
+                                            <i class="icon-calculator3"></i> Cuti Semester Genap
+                                        </a>
+                                    </li> 
+                                </ul>
+                            </div>
+                            <div class="col-md-3">
+                                <span class="menu-heading underlined">PIUTANG</span>
+                                <ul class="menu-list">
+                                    <li<%=$this->Page->showPembayaranPiutangSemesterGanjil==true?' class="active"':''%>>
+                                        <a href="<%=$this->Page->constructUrl('pembayaran.PembayaranPiutangSemesterGanjil',true)%>">
+                                            <i class="icon-calculator3"></i> Piutang Semester Ganjil
+                                        </a>
+                                    </li> 
+                                    <li<%=$this->Page->showPembayaranPiutangSemesterGenap==true?' class="active"':''%>>
+                                        <a href="<%=$this->Page->constructUrl('pembayaran.PembayaranPiutangSemesterGenap',true)%>">
+                                            <i class="icon-calculator3"></i> Piutang Semester Genap
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </li>
             <li class="dropdown<%=$this->Page->showReport==true?' active':''%> visible">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">

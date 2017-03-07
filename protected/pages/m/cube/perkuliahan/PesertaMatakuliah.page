@@ -10,6 +10,9 @@
 <com:TContent ID="configtools">    
     <%include Application.layouts.cube.FilterMode6%>
 </com:TContent>
+<com:TContent ID="csscontent">
+<link rel="stylesheet" type="text/css" href="<%=$this->Theme->baseUrl%>/css/libs/nifty-component.css"/>
+</com:TContent>
 <com:TContent ID="maincontent">
 <com:THiddenField ID="hiddenid" />
 <com:TPanel Visible="<%= $this->getViewProcess(false) %>" CssClass="row">                    
@@ -87,7 +90,7 @@
 <com:TPanel Visible="<%= $this->getDefaultProcess() %>">
     <%include Application.layouts.cube.InfoMatkul%>    
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <div class="main-box clearfix">
                 <header class="main-box-header clearfix">
                     <h2><i class="fa fa-search"></i> Pencarian Data</h2>                    
@@ -142,6 +145,35 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-6">
+            <div class="main-box clearfix">
+                <header class="main-box-header clearfix">
+                    <h2><i class="fa fa-bookmark"></i> Filter Data</h2>                    
+                </header>
+                <div class="main-box-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Kelas :</label>
+                            <div class="col-lg-4">
+                                <com:TActiveDropDownList ID="cmbKelas"  OnSelectedIndexChanged="changeKelas" CssClass="form-control">
+                                    <prop:ClientSide.OnPreDispatch>         
+                                        $('loading').show();
+                                        $('<%=$this->cmbKelas->ClientId%>').disabled='disabled';
+                                    </prop:ClientSide.OnPreDispatch>
+                                    <prop:ClientSide.OnLoading>
+                                        $('<%=$this->cmbKelas->ClientId%>').disabled='disabled';						
+                                    </prop:ClientSide.OnLoading>
+                                    <prop:ClientSide.OnComplete>																	
+                                        $('<%=$this->cmbKelas->ClientId%>').disabled='';						                               						                                        
+                                        $('loading').hide();
+                                    </prop:ClientSide.OnComplete>
+                                </com:TActiveDropDownList>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>	
     <div class="row">
         <div class="col-lg-12">
@@ -151,7 +183,20 @@
                      <div class="filter-block pull-right">                        
                         <a href="<%=$this->Page->constructUrl('perkuliahan.Penyelenggaraan',true)%>" class="btn btn-default pull-right" title="Keluar">                                        
                             <i class='fa  fa-times fa-lg'></i>
-                        </a>                         
+                        </a> 
+                        <com:TActiveLinkButton ID="btnPrintOut" OnClick="printOut" ClientSide.PostState="false" CssClass="btn btn-primary pull-left" Attributes.Title="Print Out Daftar Penyelenggaraan Matakuliah">
+                            <prop:Text><i class="fa fa-print fa-lg"></i></prop:Text>
+                            <prop:ClientSide.OnPreDispatch>
+                                $('loading').show();
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('<%=$this->btnPrintOut->ClientId%>').disabled='disabled';				
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>
+                                $('<%=$this->btnPrintOut->ClientId%>').disabled='';				
+                                $('loading').hide();
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveLinkButton> 
                      </div>
                 </header>
                 <div class="main-box-body clearfix">
@@ -164,6 +209,7 @@
                                     <th scope="col">NO`</th>                                    
                                     <th scope="col">NIM</th>					
                                     <th scope="col">NAMA</th>
+                                    <th scope="col">KELAS</th>
                                     <th scope="col">JK</th>
                                     <th scope="col">TAHUN MASUK</th>					
                                     <th scope="col">KET</th>
@@ -176,6 +222,7 @@
                                     <td><%# $this->DataItem['no']%></td>                                    
                                     <td><a href="<%=$this->Page->constructUrl('kemahasiswaan.ProfilMahasiswa',true,array('id'=>$this->DataItem['nim']))%>"><%#$this->DataItem['nim']%></a></td>					
                                     <td><%# $this->DataItem['nama_mhs']%></td>
+                                    <td><%#$this->Page->DMaster->getNamaKelasByID($this->DataItem['idkelas'])%></td>
                                     <td><%# $this->DataItem['jk']%></td>
                                     <td><%# $this->DataItem['tahun_masuk']%></td>
                                     <td><%# $this->DataItem['status']%></td>					
@@ -206,4 +253,5 @@
         </div>
     </div>
 </com:TPanel>
+<%include Application.layouts.cube.ModalPrintOut%>
 </com:TContent>

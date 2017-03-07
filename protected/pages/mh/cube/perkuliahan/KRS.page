@@ -109,12 +109,12 @@
                                         <tr>
                                             <th scope="col">NO</th>
                                             <th width="15" scope="col">KODE</th>
-                                            <th width="250" scope="col">NAMA</th>
+                                            <th width="270" scope="col">NAMA</th>
                                             <th width="15" scope="col">SKS</th>
                                             <th width="15" scope="col">SMT</th>
                                             <th scope="col">DOSEN PENGAMPU UTAMA</th>
                                             <th scope="col" width="270">KELAS</th>
-                                            <th scope="col">&nbsp;</th>					
+                                            <th scope="col">KET.</th>					
                                         </tr>						
                                     </thead>
                                     <tbody>

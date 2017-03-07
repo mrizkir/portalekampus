@@ -3,7 +3,7 @@ prado::using ('Application.MainPageK');
 class CPembayaranPiutangSemesterGanjil Extends MainPageK {		
 	public function onLoad($param) {
 		parent::onLoad($param);				
-        $this->showPembayaran=true;
+        $this->showMenuPembayaran=true;
         $this->showPembayaranPiutangSemesterGanjil=true;                
         $this->createObj('Finance');
 		if (!$this->IsPostBack&&!$this->IsCallBack) {
@@ -125,7 +125,6 @@ class CPembayaranPiutangSemesterGanjil Extends MainPageK {
             
 		}		
 	}	
-	
     public function cekNIM ($sender,$param) {		
         $nim=addslashes($param->Value);		
         if ($nim != '') {

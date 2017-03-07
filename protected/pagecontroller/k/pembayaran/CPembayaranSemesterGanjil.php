@@ -3,7 +3,7 @@ prado::using ('Application.MainPageK');
 class CPembayaranSemesterGanjil Extends MainPageK {		
 	public function onLoad($param) {
 		parent::onLoad($param);				
-        $this->showPembayaran=true;
+        $this->showMenuPembayaran=true;
         $this->showPembayaranSemesterGanjil=true;                
         $this->createObj('Finance');
 		if (!$this->IsPostBack&&!$this->IsCallBack) {

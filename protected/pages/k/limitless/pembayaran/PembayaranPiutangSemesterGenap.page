@@ -1,6 +1,6 @@
 <%@ Title="Pembayaran - Pembayaran Piutang Semester Genap"%>
 <com:TContent ID="moduleheader">    
-    <i class="icon-file-text position-left"></i> <span class="text-semibold">Pembayaran Piutang Semester Genap</span>
+    <i class="icon-calculator3 position-left"></i> <span class="text-semibold">Pembayaran Piutang Semester Genap</span>
 </com:TContent>
 <com:TContent ID="moduleheaderelement">    
     <div class="heading-elements">
@@ -49,7 +49,7 @@
 <com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="content">
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h5 class="panel-title"><i class="icon-file-text position-left"></i>  DAFTAR MHS YANG MEMILIKI PIUTANG <com:TActiveLabel ID="lblModulHeader" /></h5>                
+            <h5 class="panel-title"><i class="icon-calculator3 position-left"></i>  DAFTAR MHS YANG MEMILIKI PIUTANG <com:TActiveLabel ID="lblModulHeader" /></h5>                
             <div class="heading-elements">
                 <div class="heading-btn">       
 

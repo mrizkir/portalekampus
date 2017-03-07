@@ -48,6 +48,19 @@ class Logic_Finance extends Logic_Mahasiswa {
 		}        			
 	}
     /**
+	* digunakan untuk mendapatkan biaya cuti berdasarkan tahun dan idsmt		
+	*/
+	public function getBiayaCuti ($tahun,$idsmt,$idkelas) {
+        $str = "SELECT biaya FROM kombi_per_ta WHERE idkombi=12 AND tahun=$tahun AND idsmt=$idsmt AND idkelas='$idkelas'";						
+		$this->db->setFieldTable(array('biaya'));
+		$result=$this->db->getRecord($str);
+		if (isset($result[1])) {
+			return $result[1]['biaya'];	
+		}else {
+			return 0;
+		}        			
+	}
+    /**
      * digunakan untuk mendapatkan total biaya mahasiswa
      * @param $status baru atau lama
      * @return jumlah biaya mahasiswa

@@ -1,6 +1,6 @@
 <%@ Title="Pembayaran - Semester Ganjil"%>
 <com:TContent ID="moduleheader">    
-    <i class="icon-file-text position-left"></i> <span class="text-semibold">Pembayaran Semester Ganjil T.A <%=$this->Page->setup->getSettingValue('default_ta');%></span>
+    <i class="icon-calculator3 position-left"></i> <span class="text-semibold">Pembayaran Semester Ganjil T.A <%=$this->Page->setup->getSettingValue('default_ta');%></span>
 </com:TContent>
 <com:TContent ID="modulebreadcrumb">    
     <li><a href="#">PEMBAYARAN</a></li>    

@@ -37,3 +37,11 @@ jQuery('#config-tool-cog').on('click', function(){
     jQuery('#config-tool').toggleClass('closed');
 });
 
+jQuery('.select-all').click(function() {
+  var $this = jQuery(this),
+    checked = !$this.data('checked');
+
+  jQuery('.' + $this.data('class')).not(':disabled').prop('checked', checked);
+  $this.data('checked', checked)
+});
+

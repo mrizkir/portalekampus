@@ -9,7 +9,7 @@ class CPesertaMatakuliah extends MainPageM {
         $this->createObj('Akademik');
 		if (!$this->IsPostBack&&!$this->IsCallBack) {
             if (!isset($_SESSION['currentPagePesertaMatakuliah'])||$_SESSION['currentPagePesertaMatakuliah']['page_name']!='m.perkuliahan.PesertaMatakuliah') {
-				$_SESSION['currentPagePesertaMatakuliah']=array('page_name'=>'m.perkuliahan.PesertaMatakuliah','page_num'=>0,'search'=>false,'InfoMatkul'=>array());
+				$_SESSION['currentPagePesertaMatakuliah']=array('page_name'=>'m.perkuliahan.PesertaMatakuliah','page_num'=>0,'search'=>false,'InfoMatkul'=>array(),'idkelas'=>'none');
 			}  
             $_SESSION['currentPagePesertaMatakuliah']['search']=false;            
             $this->tbCmbOutputReport->DataSource=$this->setup->getOutputFileType();
@@ -23,18 +23,41 @@ class CPesertaMatakuliah extends MainPageM {
                 if (!isset($infomatkul['idpenyelenggaraan'])) {                                                
                     throw new Exception ("Kode penyelenggaraan dengan id ($id) tidak terdaftar.");		
                 }
-                $kjur=$infomatkul['kjur'];        
-                $ps=$_SESSION['daftar_jurusan'][$kjur];
-                $ta=$this->DMaster->getNamaTA($infomatkul['tahun']);
-                $semester=$this->setup->getSemester($infomatkul['idsmt']);
-                $text="Program Studi $ps TA $ta Semester $semester";
                 
-                $this->lblModulHeader->Text=$text;
                 $_SESSION['currentPagePesertaMatakuliah']['InfoMatkul']=$infomatkul;                
                 $this->tbCmbPs->Enabled=false;
                 $this->tbCmbTA->Enabled=false;
                 $this->tbCmbSemester->Enabled=false;
-                $this->populateData();		
+                
+                $kelas=$this->DMaster->getListKelas();
+                $kelas['none']='All';
+                $this->cmbKelas->DataSource=$kelas;
+                $this->cmbKelas->Text=$_SESSION['currentPagePesertaMatakuliah']['idkelas'];			
+                $this->cmbKelas->dataBind();	
+                
+                $kjur=$_SESSION['kjur'];	
+                $this->tbCmbPs->DataSource=$this->DMaster->removeIdFromArray($_SESSION['daftar_jurusan'],'none');
+                $this->tbCmbPs->Text=$kjur;			
+                $this->tbCmbPs->dataBind();	
+
+                $tahun=$_SESSION['ta'];
+                $ta=$this->DMaster->removeIdFromArray($this->DMaster->getListTA(),'none');			
+                $this->tbCmbTA->DataSource=$ta;					
+                $this->tbCmbTA->Text=$tahun;						
+                $this->tbCmbTA->dataBind();
+
+                $idsmt=$_SESSION['semester'];
+                $semester=$this->DMaster->removeIdFromArray($this->setup->getSemester(),'none');  				
+                $this->tbCmbSemester->DataSource=$semester;
+                $this->tbCmbSemester->Text=$idsmt;
+                $this->tbCmbSemester->dataBind();
+
+                $this->tbCmbOutputReport->DataSource=$this->setup->getOutputFileType();
+                $this->tbCmbOutputReport->Text= $_SESSION['outputreport'];
+                $this->tbCmbOutputReport->DataBind();
+                
+                $this->populateData();
+                $this->lblModulHeader->Text=$this->getInfoToolbar();
             } catch (Exception $ex) {
                 $this->idProcess='view';        
                 
@@ -112,35 +135,45 @@ class CPesertaMatakuliah extends MainPageM {
 		$_SESSION['currentPagePesertaMatakuliah']['search']=true;
 		$this->populateData($_SESSION['currentPagePesertaMatakuliah']['search']);
 	}
+    
+    public function changeKelas($sender,$param) {        
+        $_SESSION['currentPagePesertaMatakuliah']['idkelas']=$this->cmbKelas->SelectedValue;
+        $this->populateData();
+    }
+    
     public function showPesertaMatkul ($sender,$param) {
         if ($this->IsValid){
             
         }
     }
     public function populateData ($search=false) {      
-        $id=$_SESSION['currentPagePesertaMatakuliah']['InfoMatkul']['idpenyelenggaraan'];
-        $str = "SELECT vkm.nim,vdm.nama_mhs,vdm.jk,vdm.tahun_masuk,vkm.batal,vkm.sah FROM v_krsmhs vkm,v_datamhs vdm WHERE vkm.nim=vdm.nim AND idpenyelenggaraan='$id'";
+        $id=$_SESSION['currentPagePesertaMatakuliah']['InfoMatkul']['idpenyelenggaraan'];        
         if ($search) {            
+            $str = "SELECT vkm.nim,vdm.nama_mhs,vdm.idkelas,vdm.jk,vdm.tahun_masuk,vkm.batal,vkm.sah FROM v_krsmhs vkm,v_datamhs vdm WHERE vkm.nim=vdm.nim AND idpenyelenggaraan='$id'";
             $txtsearch=$this->txtKriteria->Text;
             switch ($this->cmbKriteria->Text) {                
                 case 'nim' :
-                    $cluasa="AND vdm.nim='$txtsearch'";
-                    $jumlah_baris=$this->DB->getCountRowsOfTable ("v_krsmhs vkm,v_datamhs vdm WHERE vkm.nim=vdm.nim AND idpenyelenggaraan='$id' $cluasa",'vdm.nim');
-                    $str = "$str $cluasa";
+                    $clausa="AND vdm.nim='$txtsearch'";
+                    $jumlah_baris=$this->DB->getCountRowsOfTable ("v_krsmhs vkm,v_datamhs vdm WHERE vkm.nim=vdm.nim AND idpenyelenggaraan='$id' $clausa",'vdm.nim');
+                    $str = "$str $clausa";
                 break;
                 case 'nirm' :
-                    $cluasa="AND vdm.nirm='$txtsearch'";
-                    $jumlah_baris=$this->DB->getCountRowsOfTable ("v_krsmhs vkm,v_datamhs vdm WHERE vkm.nim=vdm.nim AND idpenyelenggaraan='$id' $cluasa",'vdm.nim');
-                    $str = "$str $cluasa";
+                    $clausa="AND vdm.nirm='$txtsearch'";
+                    $jumlah_baris=$this->DB->getCountRowsOfTable ("v_krsmhs vkm,v_datamhs vdm WHERE vkm.nim=vdm.nim AND idpenyelenggaraan='$id' $clausa",'vdm.nim');
+                    $str = "$str $clausa";
                 break;
                 case 'nama' :
-                    $cluasa="AND vdm.nama_mhs LIKE '%$txtsearch%'";
-                    $jumlah_baris=$this->DB->getCountRowsOfTable ("v_krsmhs vkm,v_datamhs vdm WHERE vkm.nim=vdm.nim AND idpenyelenggaraan='$id' $cluasa",'vdm.nim');
-                    $str = "$str $cluasa";
+                    $clausa="AND vdm.nama_mhs LIKE '%$txtsearch%'";
+                    $jumlah_baris=$this->DB->getCountRowsOfTable ("v_krsmhs vkm,v_datamhs vdm WHERE vkm.nim=vdm.nim AND idpenyelenggaraan='$id' $clausa",'vdm.nim');
+                    $str = "$str $clausa";
                 break;
             }
-        }else{                        
-            $jumlah_baris=$this->DB->getCountRowsOfTable("v_krsmhs vkm,v_datamhs vdm WHERE vkm.nim=vdm.nim AND idpenyelenggaraan='$id'",'vdm.nim');
+        }else{ 
+            $idkelas=$_SESSION['currentPagePesertaMatakuliah']['idkelas'];
+            $str_kelas=($idkelas=='' || $idkelas=='none') ? '' : " AND vdm.idkelas='$idkelas'";
+            $str = "SELECT vkm.nim,vdm.nama_mhs,vdm.idkelas,vdm.jk,vdm.tahun_masuk,vkm.batal,vkm.sah FROM v_krsmhs vkm,v_datamhs vdm WHERE vkm.nim=vdm.nim AND idpenyelenggaraan='$id'$str_kelas";            
+            
+            $jumlah_baris=$this->DB->getCountRowsOfTable("v_krsmhs vkm,v_datamhs vdm WHERE vkm.nim=vdm.nim AND idpenyelenggaraan='$id'$str_kelas",'vdm.nim');
         }		
 		$this->RepeaterS->CurrentPageIndex=$_SESSION['currentPagePesertaMatakuliah']['page_num'];
 		$this->RepeaterS->VirtualItemCount=$jumlah_baris;
@@ -151,7 +184,7 @@ class CPesertaMatakuliah extends MainPageM {
 		}
 		if ($limit < 0) {$offset=0;$limit=$this->setup->getSettingValue('default_pagesize');$_SESSION['currentPagePesertaMatakuliah']['page_num']=0;}		
         $str = "$str ORDER BY vdm.nama_mhs ASC LIMIT $offset,$limit";
-		$this->DB->setFieldTable(array('nim','nama_mhs','jk','tahun_masuk','batal','sah'));	
+		$this->DB->setFieldTable(array('nim','nama_mhs','idkelas','jk','tahun_masuk','batal','sah'));	
 		$r=$this->DB->getRecord($str,$offset+1);
         $result=array();
         while (list($k,$v)=each($r)) {
@@ -169,6 +202,40 @@ class CPesertaMatakuliah extends MainPageM {
         
         $this->paginationInfo->Text=$this->getInfoPaging($this->RepeaterS);
 	}
-
+    public function printOut($sender,$param) {
+         
+        $this->createObj('reportakademik');
+        $this->linkOutput->Text='';
+        $this->linkOutput->NavigateUrl='#';
+        switch ($_SESSION['outputreport']) {
+            case  'summarypdf' :
+                $messageprintout="Mohon maaf Print out pada mode summary pdf tidak kami support.";                
+            break;
+            case  'summaryexcel' :
+                $messageprintout="Mohon maaf Print out pada mode summary excel tidak kami support.";                
+            break;
+            case  'excel2007' :
+                $dataReport=$_SESSION['currentPagePesertaMatakuliah']['InfoMatkul'];
+                $dataReport['nama_tahun'] = $this->DMaster->getNamaTA($dataReport['tahun']);
+                $dataReport['nama_semester'] = $this->setup->getSemester($dataReport['idsmt']);               
+                $dataReport['idkelas']=$_SESSION['currentPagePesertaMatakuliah']['idkelas'];
+                $dataReport['nama_kelas']=  $this->DMaster->getNamaKelasByID($dataReport['idkelas']);
+                $dataReport['linkoutput']=$this->linkOutput; 
+                $this->report->setDataReport($dataReport); 
+                $this->report->setMode($_SESSION['outputreport']);
+                $messageprintout="Daftar Peserta Matakuliah : <br/>";
+                $this->report->printPesertaMatakuliah($this->DMaster); 
+            break;
+            case  'pdf' :
+                $messageprintout="Mohon maaf Print out pada mode pdf belum kami support.";                
+            break;
+        }
+        $idkelas=$_SESSION['currentPagePesertaMatakuliah']['idkelas'];
+        $str_kelas=($idkelas=='' || $idkelas=='none') ? '' : " AND vdm.idkelas='$idkelas'";
+        //$label="Daftar Kelas";
+        $this->lblMessagePrintout->Text=$messageprintout;
+        $this->lblPrintout->Text='Daftar Peserta '. $label=($idkelas=="none") ? 'Semua Kelas' : $this->DMaster->getNamaKelasByID($idkelas) ;
+        $this->modalPrintOut->show();
+     }
 }
 ?>
