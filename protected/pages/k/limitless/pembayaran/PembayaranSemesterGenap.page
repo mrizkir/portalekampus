@@ -8,7 +8,7 @@
         <div class="heading-form">
             <div class="form-group">
                 <div class="input-group">                    
-                    <com:TTextBox CssClass="form-control" ID="txtNIM" MaxLength="8" Attributes.PlaceHolder="NIM" />                    
+                    <com:TTextBox CssClass="form-control" ID="txtNIM" MaxLength="15" Attributes.PlaceHolder="NIM" />                    
                     <div class="input-group-btn">                        
                         <com:TActiveCustomButton ID="btnGo" CssClass="btn bg-slate btn-icon" OnClick="Go" Attributes.Title="Go" ValidationGroup="filterForm" >
                             <prop:Text>                                        
