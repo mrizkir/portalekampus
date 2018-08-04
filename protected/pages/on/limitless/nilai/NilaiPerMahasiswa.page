@@ -29,7 +29,7 @@
                     <div class="form-group" id="divAddNIM">
                         <label class="col-md-1 control-label"><strong>NIM: </strong></label>
                         <div class="col-md-7">
-                            <com:TTextBox ID="txtAddNIM" MaxLength="8" CssClass="form-control" Width="100px" />
+                            <com:TTextBox ID="txtAddNIM" MaxLength="15" CssClass="form-control" Width="100px" />
                             <com:TRequiredFieldValidator ID="FieldAddNIMValidator" ControlToValidate="txtAddNIM" Display="Dynamic" ErrorMessage="Isi NIM Mahasiswa Baru" ValidationGroup="inputnilai" CssClass="has-error help-block" FocusOnError="true">
                                 <prop:ClientSide.OnValidationError>
                                     $('divAddNIM').addClassName('has-error');
