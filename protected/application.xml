@@ -29,12 +29,12 @@
         </service>             
 	</services>        
     <parameters>
-        <parameter id="db_host" value="localhost"/>
-        <parameter id="db_username" value="pe"/>
-        <parameter id="db_userpassword" value="1234"/>
+        <parameter id="db_host" value="127.0.0.1"/>
+        <parameter id="db_username" value="stisipolrh"/>
+        <parameter id="db_userpassword" value="N]9*NF/wPByFy*!L"/>
         <parameter id="db_name" value="portalekampus"/>
         <parameter id="db_type" value="mysql"/>		
-        <parameter id="address_lokal" value="http://portalekampus.local:8080"/>
+        <parameter id="address_lokal" value="http://localhost:8000/"/>
         <parameter id="address_lan" value=""/>        
         <parameter id="address_internet" value="https://portal.stisipolrajahaji.ac.id"/>                        
     </parameters>      

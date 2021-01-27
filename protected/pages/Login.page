@@ -57,11 +57,16 @@
                 </com:TActiveCustomButton>
             </div>
         </div>
-    </div>
+    </div>    
     <div class="row">
         <div class="col-xs-12">                        
             <com:TActiveCustomValidator ControlToValidate="txtUsername" Display="Dynamic" OnServerValidate="checkUsernameFormat" CssClass="has-error help-block" ValidationGroup="userlogin" />
             <com:TActiveCustomValidator ControlToValidate="txtUsername" Display="Dynamic" OnServerValidate="checkUsernameAndPassword" CssClass="has-error help-block" ValidationGroup="userlogin" />            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-left">
+            Pendaftaran Mahasiswa Baru di <a href="<%=$this->Page->constructUrl('Pendaftaran')%>">SINI</a>
         </div>
     </div>    	
     <com:TJavascriptLogger ID="loggerlogin" />
