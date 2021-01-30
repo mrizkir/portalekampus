@@ -225,8 +225,8 @@ class Logic_Nilai extends Logic_Akademik {
 		
         $iddata_konversi=$this->DataMHS['iddata_konversi'];				
         $idkur=$this->getIDKurikulum($this->DataMHS['kjur']);	            
-        $str="SELECT m.kmatkul,m.nmatkul,m.sks,m.semester,m.idkonsentrasi,k.nama_konsentrasi,m.ispilihan,m.islintas_prodi FROM matakuliah m LEFT JOIN konsentrasi k ON (m.idkonsentrasi=k.idkonsentrasi) WHERE idkur=$idkur AND aktif=1 ORDER BY (semester+0),kmatkul ASC";
-        $this->db->setFieldTable(array('kmatkul','nmatkul','sks','semester','idkonsentrasi','nama_konsentrasi','ispilihan','islintas_prodi'));
+        $str="SELECT m.kmatkul,m.nmatkul,m.sks,m.semester,m.idkonsentrasi,k.nama_konsentrasi,m.ispilihan,m.islintas_prodi,'' AS keterangan FROM matakuliah m LEFT JOIN konsentrasi k ON (m.idkonsentrasi=k.idkonsentrasi) WHERE idkur=$idkur AND aktif=1 ORDER BY (semester+0),kmatkul ASC";
+        $this->db->setFieldTable(array('kmatkul','nmatkul','sks','semester','idkonsentrasi','nama_konsentrasi','ispilihan','islintas_prodi','keterangan'));
         $r=$this->db->getRecord($str);			            
         $str = "SELECT n_kual,telah_isi_kuesioner,tahun FROM v_nilai WHERE nim='$nim' AND kmatkul=";
         $str_konversi = "SELECT n_kual,tahun FROM v_konversi2 WHERE iddata_konversi='$iddata_konversi' AND kmatkul=";        
@@ -545,9 +545,11 @@ class Logic_Nilai extends Logic_Akademik {
 		
 		$nilai=array('total_sks'=>0,'total_nm'=>0);
 		if (isset($result[1])) {
+            $total_sks=0;
+            $total_m=0;
 			while (list($k,$v)=each($result ) ) {                
-                $total_sks=$total_sks+$v['sks'];
-                $angka_m=$this->AngkaMutu[$v['n_kual']];
+                $total_sks=$total_sks+$v['sks'];                                                                
+                $angka_m=isset($this->AngkaMutu[$v['n_kual']])?$this->AngkaMutu[$v['n_kual']]:0;
                 $total_m=$total_m+($angka_m*$v['sks']);                
 			}
 			$nilai['total_sks']=$total_sks;

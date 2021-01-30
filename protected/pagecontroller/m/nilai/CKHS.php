@@ -177,8 +177,7 @@ class CKHS extends MainPageM {
                 $bool=false;
                 $trstyle=' class="danger"';
                 $status='<span class="label label-info">Belum disahkan</span>';				
-			}           
-            $item->DataItem['boolpembayaran']=$bool;
+			}                       
             $item->literalTRStyle->Text=$trstyle;
             $item->literalStatus->Text=$status;
             $item->literalIP->Text=$ip;

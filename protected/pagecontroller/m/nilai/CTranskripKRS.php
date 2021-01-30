@@ -143,7 +143,7 @@ class CTranskripKRS extends MainPageM {
                     break;
                     case 'pdf' :
                         $str = "SELECT vdm.nim,vdm.nirm,vdm.nama_mhs,vdm.tempat_lahir,vdm.tanggal_lahir,vdm.kjur,vdm.nama_ps,vdm.idkonsentrasi,k.nama_konsentrasi,vdm.tahun_masuk FROM v_datamhs vdm LEFT JOIN konsentrasi k ON (vdm.idkonsentrasi=k.idkonsentrasi) WHERE nim='$nim'";
-                        $this->DB->setFieldTable(array('no_formulir','nim','nirm','nama_mhs','tempat_lahir','tanggal_lahir','kjur','nama_ps','idkonsentrasi','nama_konsentrasi','tahun_masuk'));
+                        $this->DB->setFieldTable(array('nim','nirm','nama_mhs','tempat_lahir','tanggal_lahir','kjur','nama_ps','idkonsentrasi','nama_konsentrasi','tahun_masuk'));
                         $r=$this->DB->getRecord($str);					
 
                         $dataReport = $r[1];                    
@@ -153,7 +153,7 @@ class CTranskripKRS extends MainPageM {
                         $dataReport['nama_penandatangan_transkrip']=$this->setup->getSettingValue('nama_penandatangan_transkrip');
                         $dataReport['jabfung_penandatangan_transkrip']=$this->setup->getSettingValue('jabfung_penandatangan_transkrip');
                         $dataReport['nipy_penandatangan_transkrip']=$this->setup->getSettingValue('nipy_penandatangan_transkrip');
-
+                        $dataReport['cek_isikuesioner']=false;
                         $dataReport['linkoutput']=$this->linkOutput; 
                         $this->report->setDataReport($dataReport); 
                         $this->report->setMode($_SESSION['outputreport']);
