@@ -83,22 +83,22 @@ class CKuesioner extends MainPageM {
             switch ($this->cmbKriteria->Text) { 
                 case 'kmatkul' :
                     $clausa=" AND kmatkul LIKE '%$txtsearch%'";                    
-                    $str="SELECT vpp.idpengampu_penyelenggaraan,vpp.idpenyelenggaraan,kmatkul,nmatkul,sks,semester,iddosen,nidn,nama_dosen FROM v_pengampu_penyelenggaraan vpp WHERE EXISTS (SELECT 1 FROM kuesioner_jawaban WHERE idpengampu_penyelenggaraan=vpp.idpengampu_penyelenggaraan) AND vpp.idsmt='$idsmt' AND vpp.tahun='$ta' AND vpp.kjur='$kjur'$clausa";
+                    $str="SELECT vpp.idpengampu_penyelenggaraan,vpp.idpenyelenggaraan,kmatkul,nmatkul,sks,semester,iddosen,nidn,nama_dosen, 0 AS jumlahmhs FROM v_pengampu_penyelenggaraan vpp WHERE EXISTS (SELECT 1 FROM kuesioner_jawaban WHERE idpengampu_penyelenggaraan=vpp.idpengampu_penyelenggaraan) AND vpp.idsmt='$idsmt' AND vpp.tahun='$ta' AND vpp.kjur='$kjur'$clausa";
                     $jumlah_baris=$this->DB->getCountRowsOfTable("v_pengampu_penyelenggaraan vpp WHERE EXISTS (SELECT 1 FROM kuesioner_jawaban WHERE idpengampu_penyelenggaraan=vpp.idpengampu_penyelenggaraan) AND vpp.idsmt='$idsmt' AND vpp.tahun='$ta' AND vpp.kjur='$kjur'$clausa",'vpp.idpengampu_penyelenggaraan');						
                 break;				
                 case 'nmatkul':
                     $clausa=" AND nmatkul LIKE '%$txtsearch%'";
-                    $str="SELECT vpp.idpengampu_penyelenggaraan,vpp.idpenyelenggaraan,kmatkul,nmatkul,sks,semester,iddosen,nidn,nama_dosen FROM v_pengampu_penyelenggaraan vpp WHERE EXISTS (SELECT 1 FROM kuesioner_jawaban WHERE idpengampu_penyelenggaraan=vpp.idpengampu_penyelenggaraan) AND vpp.idsmt='$idsmt' AND vpp.tahun='$ta' AND vpp.kjur='$kjur'$clausa";
+                    $str="SELECT vpp.idpengampu_penyelenggaraan,vpp.idpenyelenggaraan,kmatkul,nmatkul,sks,semester,iddosen,nidn,nama_dosen, 0 AS jumlahmhs FROM v_pengampu_penyelenggaraan vpp WHERE EXISTS (SELECT 1 FROM kuesioner_jawaban WHERE idpengampu_penyelenggaraan=vpp.idpengampu_penyelenggaraan) AND vpp.idsmt='$idsmt' AND vpp.tahun='$ta' AND vpp.kjur='$kjur'$clausa";
                     $jumlah_baris=$this->DB->getCountRowsOfTable("v_pengampu_penyelenggaraan vpp WHERE EXISTS (SELECT 1 FROM kuesioner_jawaban WHERE idpengampu_penyelenggaraan=vpp.idpengampu_penyelenggaraan) AND vpp.idsmt='$idsmt' AND vpp.tahun='$ta' AND vpp.kjur='$kjur'$clausa",'vpp.idpengampu_penyelenggaraan');						
                 break;
                 case 'nama_dosen':
                     $clausa=" AND nama_dosen LIKE '%$txtsearch%'";
-                    $str="SELECT vpp.idpengampu_penyelenggaraan,vpp.idpenyelenggaraan,kmatkul,nmatkul,sks,semester,iddosen,nidn,nama_dosen FROM v_pengampu_penyelenggaraan vpp WHERE EXISTS (SELECT 1 FROM kuesioner_jawaban WHERE idpengampu_penyelenggaraan=vpp.idpengampu_penyelenggaraan) AND vpp.idsmt='$idsmt' AND vpp.tahun='$ta' AND vpp.kjur='$kjur'$clausa";
+                    $str="SELECT vpp.idpengampu_penyelenggaraan,vpp.idpenyelenggaraan,kmatkul,nmatkul,sks,semester,iddosen,nidn,nama_dosen, 0 AS jumlahmhs FROM v_pengampu_penyelenggaraan vpp WHERE EXISTS (SELECT 1 FROM kuesioner_jawaban WHERE idpengampu_penyelenggaraan=vpp.idpengampu_penyelenggaraan) AND vpp.idsmt='$idsmt' AND vpp.tahun='$ta' AND vpp.kjur='$kjur'$clausa";
                     $jumlah_baris=$this->DB->getCountRowsOfTable("v_pengampu_penyelenggaraan vpp WHERE EXISTS (SELECT 1 FROM kuesioner_jawaban WHERE idpengampu_penyelenggaraan=vpp.idpengampu_penyelenggaraan) AND vpp.idsmt='$idsmt' AND vpp.tahun='$ta' AND vpp.kjur='$kjur'$clausa",'vpp.idpengampu_penyelenggaraan');						
                 break;                
             }
         }else{            
-            $str="SELECT vpp.idpengampu_penyelenggaraan,vpp.idpenyelenggaraan,kmatkul,nmatkul,sks,semester,iddosen,nidn,nama_dosen FROM v_pengampu_penyelenggaraan vpp WHERE EXISTS (SELECT 1 FROM kuesioner_jawaban WHERE idpengampu_penyelenggaraan=vpp.idpengampu_penyelenggaraan) AND vpp.idsmt='$idsmt' AND vpp.tahun='$ta' AND vpp.kjur='$kjur'";
+            $str="SELECT vpp.idpengampu_penyelenggaraan,vpp.idpenyelenggaraan,kmatkul,nmatkul,sks,semester,iddosen,nidn,nama_dosen, 0 AS jumlahmhs FROM v_pengampu_penyelenggaraan vpp WHERE EXISTS (SELECT 1 FROM kuesioner_jawaban WHERE idpengampu_penyelenggaraan=vpp.idpengampu_penyelenggaraan) AND vpp.idsmt='$idsmt' AND vpp.tahun='$ta' AND vpp.kjur='$kjur'";
             $jumlah_baris=$this->DB->getCountRowsOfTable("v_pengampu_penyelenggaraan vpp WHERE EXISTS (SELECT 1 FROM kuesioner_jawaban WHERE idpengampu_penyelenggaraan=vpp.idpengampu_penyelenggaraan) AND vpp.idsmt='$idsmt' AND vpp.tahun='$ta' AND vpp.kjur='$kjur'",'vpp.idpengampu_penyelenggaraan');						
         }
         $this->RepeaterS->CurrentPageIndex=$_SESSION['currentPageKuesioner']['page_num'];
@@ -157,8 +157,7 @@ class CKuesioner extends MainPageM {
                 $nama_tahun = $this->DMaster->getNamaTA($tahun);
                 $nama_semester = $this->setup->getSemester($semester);
 
-                $dataReport['ta']=$tahun;
-                $dataReport['tahun_masuk']=$_SESSION['currentPageKHS']['tahun_masuk'];
+                $dataReport['ta']=$tahun;                
                 $dataReport['semester']=$semester;
                 $dataReport['nama_tahun']=$nama_tahun;
                 $dataReport['nama_semester']=$nama_semester; 

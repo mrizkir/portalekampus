@@ -58,7 +58,7 @@ class CDetailKuesioner extends MainPageM {
 	public function itemCreated ($sender,$param) {
         $item=$param->Item;
 		if ($item->ItemType === 'Item' || $item->ItemType === 'AlternatingItem') {		
-            if ($item->DataItem['ada']) {
+            if (isset($item->DataItem['ada'])&&$item->DataItem['ada']) {
                 $item->literalNamaKelompok->Text='<tr class="success">
                                                     <td colspan="9">'.$item->DataItem['nama_kelompok'].'</td></tr>';
             }

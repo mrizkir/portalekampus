@@ -99,8 +99,11 @@ class PradoBase
 	public static function autoload($className)
 	{
 		if(file_exists(PHPEXCEL_ROOT.str_replace('_','/',$className).'.php'))
-            require_once (PHPEXCEL_ROOT.str_replace('_','/',$className).'.php');
-        else {
+		{
+			require_once (PHPEXCEL_ROOT.str_replace('_','/',$className).'.php');
+		}            
+		else 
+		{
             include_once($className.self::CLASS_FILE_EXT);
             if(!class_exists($className,false) && !interface_exists($className,false))
             self::fatalError("Class file for '$className' cannot be found.");
