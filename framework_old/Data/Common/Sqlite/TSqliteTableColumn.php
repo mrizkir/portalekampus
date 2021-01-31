@@ -4,8 +4,9 @@
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TSqliteTableColumn.php 1861 2007-04-12 08:05:03Z wei $
  * @package System.Data.Common.Sqlite
  */
 
@@ -18,6 +19,7 @@ Prado::using('System.Data.Common.TDbTableColumn');
  * Describes the column metadata of the schema for a PostgreSQL database table.
  *
  * @author Wei Zhuo <weizho[at]gmail[dot]com>
+ * @version $Id: TSqliteTableColumn.php 1861 2007-04-12 08:05:03Z wei $
  * @package System.Data.Common.Sqlite
  * @since 3.1
  */

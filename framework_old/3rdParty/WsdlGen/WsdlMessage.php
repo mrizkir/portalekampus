@@ -12,6 +12,7 @@
  *
  * @author Marcus Nyeholt		<tanus@users.sourceforge.net>
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
+ * @version $Id: WsdlMessage.php 3188 2012-07-12 12:13:23Z ctrlaltca $
  * @package System.Web.Services.SOAP
  */
 

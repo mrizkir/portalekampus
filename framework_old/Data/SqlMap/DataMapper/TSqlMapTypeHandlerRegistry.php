@@ -4,8 +4,9 @@
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TSqlMapTypeHandlerRegistry.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Data.SqlMap
  */
 
@@ -14,6 +15,7 @@
  * to PHP types and vice versa.
  *
  * @author Wei Zhuo <weizho[at]gmail[dot]com>
+ * @version $Id: TSqlMapTypeHandlerRegistry.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Data.SqlMap
  * @since 3.1
  */
@@ -119,6 +121,7 @@ class TSqlMapTypeHandlerRegistry
  * booleans using "Y" and "N" instead of the more typical 0/1.
  *
  * @author Wei Zhuo <weizho[at]gmail[dot]com>
+ * @version $Id: TSqlMapTypeHandlerRegistry.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Data.SqlMap
  * @since 3.1
  */

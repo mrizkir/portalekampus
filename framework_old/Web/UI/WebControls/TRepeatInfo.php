@@ -4,8 +4,9 @@
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TRepeatInfo.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  */
 
@@ -16,6 +17,7 @@ Prado::using('System.Web.UI.WebControls.TTable');
  * This interface must be implemented by classes who want to use {@link TRepeatInfo}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TRepeatInfo.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0
  */
@@ -68,6 +70,7 @@ interface IRepeatInfoUser
  * the column and repeat direction settings.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TRepeatInfo.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0
  */
@@ -523,6 +526,7 @@ class TRepeatInfo extends TComponent
  * - Horizontal
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TRepeatInfo.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0.4
  */
@@ -543,6 +547,7 @@ class TRepeatDirection extends TEnumerable
  * - Raw: the repeated contents are stacked together without any additional decorations
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TRepeatInfo.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0.4
  */

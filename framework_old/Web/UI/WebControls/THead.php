@@ -4,8 +4,9 @@
  *
  * @author Marcus Nyeholt <tanus@users.sourceforge.net> and Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: THead.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI
  */
 
@@ -36,6 +37,7 @@
  * theme will not be rendered.
  *
  * @author Marcus Nyeholt <tanus@users.sourceforge.net> and Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: THead.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI
  * @since 3.0
  */
@@ -184,6 +186,7 @@ class THead extends TControl
  * attributes for a meta tag, respectively.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: THead.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0
  */
@@ -318,6 +321,7 @@ class TMetaTag extends TComponent
  * contained in a {@link THead} control.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: THead.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0
  */

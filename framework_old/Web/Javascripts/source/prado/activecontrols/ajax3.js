@@ -1154,13 +1154,7 @@ if (typeof(Prado.AssetManagerClass)=="undefined") {
 	createStyleSheetCode: function(code) {
    		var asset = document.createElement('style');
    		asset.setAttribute('type', 'text/css');
-		
-		if(asset.styleSheet) 
-			asset.styleSheet.cssText = code; // IE7+IE8
-		else {
-			var cssCodeNode = document.createTextNode(code);
-			asset.appendChild(cssCodeNode);
-		}
+		asset.innerText = code;
 
 		var head = document.getElementsByTagName('head')[0];
    		head.appendChild(asset);

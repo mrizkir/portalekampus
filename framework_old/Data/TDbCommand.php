@@ -4,8 +4,9 @@
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TDbCommand.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Data
  */
 
@@ -31,6 +32,7 @@
  * You may also call {@link prepare} to explicitly prepare an SQL statement.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TDbCommand.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Data
  * @since 3.0
  */
@@ -56,7 +58,7 @@ class TDbCommand extends TComponent
 	 */
 	public function __sleep()
 	{
-		return array_diff(parent::__sleep(),array("\0TDbCommand\0_statement"));
+		return array_diff(parent::__sleep(),array("\0TDbCommand\0_statement")); 
 	}
 
 	/**
@@ -132,7 +134,7 @@ class TDbCommand extends TComponent
 	 * the form :name. For a prepared statement using question mark
 	 * placeholders, this will be the 1-indexed position of the parameter.
 	 * Unlike {@link bindValue}, the variable is bound as a reference and will
-	 * only be evaluated at the time that {@link execute} or {@link query} is called.
+	 * only be evaluated at the time that {@link execute} or {@link query} is called. 
 	 * @param mixed Name of the PHP variable to bind to the SQL statement parameter
 	 * @param int SQL data type of the parameter
 	 * @param int length of the data type

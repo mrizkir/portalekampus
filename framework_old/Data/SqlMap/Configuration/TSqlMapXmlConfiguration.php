@@ -4,8 +4,9 @@
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TSqlMapXmlConfiguration.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Data.SqlMap.Configuration
  */
 
@@ -15,6 +16,7 @@ Prado::using('System.Data.SqlMap.Configuration.TSqlMapStatement');
  * TSqlMapXmlConfig class file.
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
+ * @version $Id: TSqlMapXmlConfiguration.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Data.SqlMap.Configuration
  */
 abstract class TSqlMapXmlConfigBuilder
@@ -126,6 +128,7 @@ abstract class TSqlMapXmlConfigBuilder
  * Configures the TSqlMapManager using xml configuration file.
  *
  * @author Wei Zhuo <weizho[at]gmail[dot]com>
+ * @version $Id: TSqlMapXmlConfiguration.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Data.SqlMap.Configuration
  * @since 3.1
  */
@@ -298,6 +301,7 @@ class TSqlMapXmlConfiguration extends TSqlMapXmlConfigBuilder
  * description
  *
  * @author Wei Zhuo <weizho[at]gmail[dot]com>
+ * @version $Id: TSqlMapXmlConfiguration.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Data.SqlMap.Configuration
  * @since 3.1
  */

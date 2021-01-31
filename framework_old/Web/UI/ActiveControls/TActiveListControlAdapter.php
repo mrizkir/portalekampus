@@ -4,8 +4,9 @@
  *
  * @author Wei Zhuo <weizhuo[at]gamil[dot]com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TActiveListControlAdapter.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.ActiveControls
  */
 
@@ -22,6 +23,7 @@ Prado::using('System.Web.UI.WebControls.TListControl');
  * during callback response.
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
+ * @version $Id: TActiveListControlAdapter.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.ActiveControls
  * @since 3.1
  */
@@ -168,6 +170,7 @@ class TActiveListControlAdapter extends TActiveControlAdapter implements IListCo
  * repopulate the client-side options.
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
+ * @version $Id: TActiveListControlAdapter.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.ActiveControls
  * @since 3.1
  */

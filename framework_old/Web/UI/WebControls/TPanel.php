@@ -4,8 +4,9 @@
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TPanel.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  */
 
@@ -34,6 +35,7 @@ Prado::using('System.Web.UI.WebControls.TPanelStyle');
  * by setting the {@link setDefaultButton DefaultButton} property.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TPanel.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0
  */
@@ -229,7 +231,12 @@ class TPanel extends TWebControl
 
 		if(($butt=$this->getDefaultButton())!=='')
 		{
-			if(($button=$this->findControl($butt))===null)
+			$buttons = $this->findControlsByID($butt);
+			if (count($buttons)>0)
+				$button = reset($buttons);
+			else
+				$button = null;
+			if($button===null)
 				throw new TInvalidDataValueException('panel_defaultbutton_invalid',$butt);
 			else
 				$this->getPage()->getClientScript()->registerDefaultButton($this, $button);

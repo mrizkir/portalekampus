@@ -6,8 +6,9 @@
  * @author Robin J. Rogge <rojaro@gmail.com>
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TListControl.php 2624 2009-03-19 21:20:47Z godzilla80@gmx.net $
  * @package System.Collections
  */
 
@@ -23,6 +24,7 @@ Prado::using('System.Web.UI.WebControls.TListItem');
  * TListItemCollection maintains a list of {@link TListItem} for {@link TListControl}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TListControl.php 2624 2009-03-19 21:20:47Z godzilla80@gmx.net $
  * @package System.Collections
  * @since 3.0
  */

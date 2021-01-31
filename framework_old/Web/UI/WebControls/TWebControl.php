@@ -4,8 +4,9 @@
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TWebControl.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  */
 
@@ -34,6 +35,7 @@ Prado::using('System.Web.UI.WebControls.TWebControlDecorator');
  * the body contents enclosed within the HTML tag.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TWebControl.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0
  */
@@ -43,12 +45,12 @@ class TWebControl extends TControl implements IStyleable
 	 *	@var boolean ensures the inclusion the id in the tag rendering.
 	 */
 	private $_ensureid=false;
-
+	
 	/**
 	 *	@var TWebControlDecorator this render things before and after both the open and close tag
 	 */
 	protected $_decorator;
-
+	
 
 	/**
 	 * Subclasses can override getEnsureId or just set this property.  eg. If your subclass
@@ -78,7 +80,7 @@ class TWebControl extends TControl implements IStyleable
 			$this->_decorator = Prado::createComponent('TWebControlDecorator', $this);
 		return $this->_decorator;
 	}
-
+	
 	/**
 	 * Copies basic control attributes from another control.
 	 * Properties including AccessKey, ToolTip, TabIndex, Enabled
@@ -395,10 +397,10 @@ class TWebControl extends TControl implements IStyleable
 	{
 		$this->getStyle()->setWidth($value);
 	}
-
+	
 
 	/**
-	 * If your subclass overrides the onPreRender method be sure to call
+	 * If your subclass overrides the onPreRender method be sure to call 
 	 * this method through parent::onPreRender($param); so your sub-class can be decorated,
 	 * among other things.
 	 * @param TEventParameter event parameter to be passed to the event handlers
@@ -406,7 +408,7 @@ class TWebControl extends TControl implements IStyleable
 	public function onPreRender($param) {
 		if($decorator = $this->getDecorator(false))
 			$decorator->instantiate();
-
+		
 		parent::onPreRender($param);
 	}
 
@@ -492,7 +494,7 @@ class TWebControl extends TControl implements IStyleable
 			$decorator->renderPostContentsText($writer);
 			$writer->renderEndTag();
 			$decorator->renderPostTagText($writer);
-		} else
+		} else 
 			$writer->renderEndTag($writer);
 	}
 }

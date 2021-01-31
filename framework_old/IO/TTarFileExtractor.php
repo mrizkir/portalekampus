@@ -4,6 +4,7 @@
  *
  * @author Vincent Blavet <vincent@phpconcept.net>
  * @copyright Copyright &copy; 1997-2003 The PHP Group
+ * @version $Id: TTarFileExtractor.php 3188 2012-07-12 12:13:23Z ctrlaltca $
  * @package System.IO
  */
 
@@ -30,6 +31,7 @@
  * TTarFileExtractor class
  *
  * @author Vincent Blavet <vincent@phpconcept.net>
+ * @version $Id: TTarFileExtractor.php 3188 2012-07-12 12:13:23Z ctrlaltca $
  * @package System.IO
  * @since 3.0
  */

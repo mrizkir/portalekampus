@@ -7,8 +7,9 @@
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: PradoBase.php 3325 2013-09-13 08:19:04Z ctrlaltca $
  * @package System
  */
 
@@ -33,6 +34,7 @@ if(!defined('PRADO_CHMOD'))
  * rewritten for customization.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: PradoBase.php 3325 2013-09-13 08:19:04Z ctrlaltca $
  * @package System
  * @since 3.0
  */
@@ -69,7 +71,7 @@ class PradoBase
 	 */
 	public static function getVersion()
 	{
-		return '3.2.4';
+		return '3.2.3';
 	}
 
 	/**
@@ -98,14 +100,14 @@ class PradoBase
 	{
 		if(file_exists(PHPEXCEL_ROOT.str_replace('_','/',$className).'.php'))
 		{
-            require_once (PHPEXCEL_ROOT.str_replace('_','/',$className).'.php');
-		}
+			require_once (PHPEXCEL_ROOT.str_replace('_','/',$className).'.php');
+		}            
 		else 
 		{
-			include_once($className.self::CLASS_FILE_EXT);
-			if(!class_exists($className,false) && !interface_exists($className,false))
-				self::fatalError("Class file for '$className' cannot be found.");
-		}
+            include_once($className.self::CLASS_FILE_EXT);
+            if(!class_exists($className,false) && !interface_exists($className,false))
+            self::fatalError("Class file for '$className' cannot be found.");
+        }
 	}
 
 	/**

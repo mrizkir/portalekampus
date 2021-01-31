@@ -4,8 +4,9 @@
  *
  * @author Wei Zhuo <weizhuo[at]gamil[dot]com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TInPlaceTextBox.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.ActiveControls
  */
 
@@ -37,8 +38,9 @@ Prado::using('System.Web.UI.ActiveControls.TActiveTextBox');
  *
  * Since 3.1.2, you can set the {@link setReadOnly ReadOnly} property to make
  * the control not editable. This property can be also changed on callback
- *
+ * 
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
+ * @version $Id: TInPlaceTextBox.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.ActiveControls
  * @since 3.1
  */
@@ -143,7 +145,7 @@ class TInPlaceTextBox extends TActiveTextBox
 			$client->setValue($this, $value);
 		}
 	}
-
+	
 	/**
 	 * Update ClientSide Readonly property
 	 * @param boolean value
@@ -230,7 +232,7 @@ class TInPlaceTextBox extends TActiveTextBox
 
 		if($this->hasEventHandler('OnLoadingText'))
 			$options['LoadTextOnEdit'] = true;
-
+			
 		$options['ReadOnly']=$this->getReadOnly();
 		return $options;
 	}

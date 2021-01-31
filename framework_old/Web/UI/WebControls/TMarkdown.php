@@ -4,8 +4,9 @@
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TMarkdown.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  */
 
@@ -13,7 +14,7 @@
  * Using TTextHighlighter and MarkdownParser classes
  */
 Prado::using('System.Web.UI.WebControls.TTextHighlighter');
-Prado::using('System.3rdParty.Parsedown.Parsedown');
+Prado::using('System.3rdParty.Markdown.MarkdownParser');
 
 /**
  * TMarkdown class
@@ -29,7 +30,7 @@ Prado::using('System.3rdParty.Parsedown.Parsedown');
  * To use TMarkdown, simply enclose the content to be rendered within
  * the body of TMarkdown in a template.
  *
- * See https://daringfireball.net/projects/markdown/basics for
+ * See http://www.pradosoft.com/demos/quickstart/?page=Markdown for
  * details on the Markdown syntax usage.
  *
  * TMarkdown also performs syntax highlighting for code blocks whose language
@@ -38,6 +39,7 @@ Prado::using('System.3rdParty.Parsedown.Parsedown');
  * and enclosed within a pair of square brackets (e.g. [php]).
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
+ * @version $Id: TMarkdown.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0.1
  */
@@ -51,9 +53,10 @@ class TMarkdown extends TTextHighlighter
 	 */
 	public function processText($text)
 	{
-		$result = Parsedown::instance()->parse($text);
+		$renderer = new MarkdownParser;
+		$result = $renderer->parse($text);
 		return preg_replace_callback(
-				'/<pre><code class="language-(\w+)">((.|\n)*?)<\\/code><\\/pre>/im',
+				'/<pre><code>\[\s*(\w+)\s*\]\n+((.|\n)*?)\s*<\\/code><\\/pre>/im',
 				array($this, 'highlightCode'), $result);
 	}
 

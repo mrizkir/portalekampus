@@ -4,8 +4,9 @@
  *
  * @author Gabor Berczi, DevWorx Hungary <gabor.berczi@devworx.hu>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TAccordion.php 2915 2011-05-15 16:26:11Z ctrlaltca@gmail.com $
  * @package System.Web.UI.WebControls
  * @since 3.2
  */
@@ -58,6 +59,7 @@
  * </code>
  *
  * @author Gabor Berczi, DevWorx Hungary <gabor.berczi@devworx.hu>
+ * @version $Id: TAccordion.php 2915 2011-05-15 16:26:11Z ctrlaltca@gmail.com $
  * @package System.Web.UI.WebControls
  * @since 3.2
  */
@@ -196,7 +198,7 @@ class TAccordion extends TWebControl implements IPostBackDataHandler
 	}
 
 	/**
-		* @return string CSS class for the whole accordion control div.
+		* @return string CSS class for the whole accordion control div. 
 	*/
 	public function getCssClass()
 	{
@@ -424,15 +426,15 @@ class TAccordion extends TWebControl implements IPostBackDataHandler
 	protected function registerStyleSheet()
 	{
 		$url = $this->getCssUrl();
-
+		
 		if($url === '') {
 			return;
 		}
-
+		
 		if($url === 'default') {
 			$url = $this->getApplication()->getAssetManager()->publishFilePath(dirname(__FILE__).DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'accordion.css');
 		}
-
+		
 		if($url !== '') {
 			$this->getPage()->getClientScript()->registerStyleSheetFile($url, $url);
 		}
@@ -538,12 +540,13 @@ class TAccordion extends TWebControl implements IPostBackDataHandler
  * Class TAccordionView.
  *
  * TAccordionView represents a single view in a {@link TAccordion}.
- *
+ * 
  * TAccordionView is represented inside the {@link TAccordion} with an header label whose text is defined by
  * the {@link setCaption Caption} property; optionally the label can be an hyperlink: use the
  * {@link setNavigateUrl NavigateUrl} property to define the destination url.
  *
  * @author Gabor Berczi, DevWorx Hungary <gabor.berczi@devworx.hu>
+ * @version $Id: TAccordion.php 2915 2011-05-15 16:26:11Z ctrlaltca@gmail.com $
  * @package System.Web.UI.WebControls
  * @since 3.2
  */
@@ -666,7 +669,7 @@ class TAccordionView extends TWebControl
 			$writer->addAttribute('id',$this->getClientID().'_0');
 
 			$style=$this->getActive()?$this->getParent()->getActiveHeaderStyle():$this->getParent()->getHeaderStyle();
-
+			
 			$style->addAttributesToRender($writer);
 
 			$writer->renderBeginTag($this->getTagName());
@@ -687,7 +690,7 @@ class TAccordionView extends TWebControl
 		$url = $this->getNavigateUrl();
 		if(($caption=$this->getCaption())==='')
 			$caption='&nbsp;';
-
+			
 		if ($url!='')
 			$writer->write("<a href=\"{$url}\">");
 		$writer->write("{$caption}");
@@ -700,8 +703,9 @@ class TAccordionView extends TWebControl
  * Class TAccordionViewCollection.
  *
  * TAccordionViewCollection is a collection of {@link TAccordionView} to be used inside a {@link TAccordion}.
- *
+ * 
  * @author Gabor Berczi, DevWorx Hungary <gabor.berczi@devworx.hu>
+ * @version $Id: TAccordion.php 2915 2011-05-15 16:26:11Z ctrlaltca@gmail.com $
  * @package System.Web.UI.WebControls
  * @since 3.2
  */

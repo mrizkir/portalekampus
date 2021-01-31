@@ -4,8 +4,9 @@
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TTextBox.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  */
 
@@ -43,6 +44,7 @@
  * Currently, no alternatives are available.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TTextBox.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0
  */
@@ -591,6 +593,7 @@ class TTextBox extends TWebControl implements IPostBackDataHandler, IValidatable
  * - Password: the textbox will hide user input like a password input box
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TTextBox.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0.4
  */
@@ -607,6 +610,7 @@ class TTextBoxMode extends TEnumerable
  * by a {@link TTextBox} control.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TTextBox.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0.4
  */

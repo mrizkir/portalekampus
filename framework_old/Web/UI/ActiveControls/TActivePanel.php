@@ -4,8 +4,9 @@
  *
  * @author Wei Zhuo <weizhuo[at]gamil[dot]com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TActivePanel.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.ActiveControls
  */
 
@@ -31,6 +32,7 @@ Prado::using('System.Web.UI.ActiveControls.TActiveControlAdapter');
  * </code>
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
+ * @version $Id: TActivePanel.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.ActiveControls
  * @since 3.1
  */
@@ -85,7 +87,7 @@ class TActivePanel extends TPanel implements IActiveControl
 			if ($this->getHasControls())
 			{
 				// If we update a TActivePanel on callback,
-				// We shouldn't update all childs, because the whole content will be replaced by
+				// We shouldn't update all childs, because the whole content will be replaced by 
 				// the parent
 				foreach ($this->findControlsByType('IActiveControl', false) as $control)
 				{

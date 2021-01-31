@@ -4,8 +4,9 @@
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TShellApplication.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System
  */
 
@@ -28,6 +29,7 @@
  * accessibility to resources as the PRADO Web applications.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TShellApplication.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System
  * @since 3.1.0
  */

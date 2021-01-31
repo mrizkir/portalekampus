@@ -4,8 +4,9 @@
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TParameterMap.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Data.SqlMap.Configuration
  */
 
@@ -25,6 +26,7 @@
  * The <parameterMap> element accepts two attributes: id (required) and extends (optional).
  *
  * @author Wei Zhuo <weizho[at]gmail[dot]com>
+ * @version $Id: TParameterMap.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Data.SqlMap.Configuration
  * @since 3.1
  */
@@ -148,8 +150,8 @@ class TParameterMap extends TComponent
 
 		return $value;
 	}
-
-
+	
+	
 	/**
 	 * Create type handler from {@link Type setType()} or {@link TypeHandler setTypeHandler}.
 	 * @param TParameterProperty parameter property
@@ -164,7 +166,7 @@ class TParameterMap extends TComponent
 			$handler = Prado::createComponent($type);
 		return $handler;
 	}
-
+	
 
 	/**
 	 * @param mixed object to obtain the property from.

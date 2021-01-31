@@ -4,8 +4,9 @@
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: THyperLinkColumn.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  */
 
@@ -44,6 +45,7 @@ Prado::using('System.Web.UI.WebControls.THyperLink');
  * datagrid cell is the first child.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: THyperLinkColumn.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0
  */
@@ -105,7 +107,7 @@ class THyperLinkColumn extends TDataGridColumn
 	{
 		return $this->getViewState('ImageHeight','');
 	}
-
+	
 	/**
 	 * @param string height of the image in the THyperLink
 	 */
@@ -121,7 +123,7 @@ class THyperLinkColumn extends TDataGridColumn
 	{
 		return $this->getViewState('ImageUrl','');
 	}
-
+	
 	/**
 	 * @param string url of the image in the THyperLink
 	 */
@@ -129,7 +131,7 @@ class THyperLinkColumn extends TDataGridColumn
 	{
 		$this->setViewState('ImageUrl',$value,'');
 	}
-
+	
 	/**
 	 * @return string width of the image in the THyperLink
 	 */
@@ -137,7 +139,7 @@ class THyperLinkColumn extends TDataGridColumn
 	{
 		return $this->getViewState('ImageWidth','');
 	}
-
+	
 	/**
 	 * @param string width of the image in the THyperLink
 	 */

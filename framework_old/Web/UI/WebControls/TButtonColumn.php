@@ -4,8 +4,9 @@
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TButtonColumn.php 3287 2013-04-30 10:10:16Z ctrlaltca $
  * @package System.Web.UI.WebControls
  */
 
@@ -47,6 +48,7 @@ Prado::using('System.Web.UI.WebControls.TImageButton');
  * datagrid cell is the first child.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TButtonColumn.php 3287 2013-04-30 10:10:16Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0
  */

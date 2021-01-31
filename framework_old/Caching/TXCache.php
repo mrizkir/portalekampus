@@ -4,8 +4,9 @@
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TXCache.php 1994 2007-06-11 16:02:28Z knut $
  * @package System.Caching
  */
 
@@ -36,6 +37,7 @@
  * </code>
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
+ * @version $Id: TXCache.php 1994 2007-06-11 16:02:28Z knut $
  * @package System.Caching
  * @since 3.1.1
  */

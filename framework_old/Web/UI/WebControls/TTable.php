@@ -4,8 +4,9 @@
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TTable.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  */
 
@@ -60,6 +61,7 @@ Prado::using('System.Web.UI.WebControls.TTableRow');
  * </code>
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TTable.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0
  */
@@ -356,6 +358,7 @@ class TTable extends TWebControl
  * TTableRowCollection is used to maintain a list of rows belong to a table.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TTable.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0
  */
@@ -392,6 +395,7 @@ class TTableRowCollection extends TControlCollection
  * - Right: right aligned
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TTable.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0.4
  */

@@ -4,8 +4,9 @@
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TCheckBox.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  */
 
@@ -35,6 +36,7 @@
  * that may bring security vulnerabilities.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TCheckBox.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0
  */
@@ -125,7 +127,7 @@ class TCheckBox extends TWebControl implements IPostBackDataHandler, IValidatabl
 	}
 
 	/**
-	 * Returns true if this control validated successfully.
+	 * Returns true if this control validated successfully. 
 	 * Defaults to true.
 	 * @return bool wether this control validated successfully.
 	 */
@@ -410,7 +412,7 @@ class TCheckBox extends TWebControl implements IPostBackDataHandler, IValidatabl
 
     /**
      * Check if we need a span tag to surround this control. The span tag will be created if
-     * the Text property is set for this control.
+     * the Text property is set for this control. 
      *
      * @return bool wether this control needs a surrounding span tag
      */
@@ -517,6 +519,7 @@ class TCheckBox extends TWebControl implements IPostBackDataHandler, IValidatabl
  * - Right: right aligned
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TCheckBox.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0.4
  */

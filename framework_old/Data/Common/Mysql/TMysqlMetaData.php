@@ -4,8 +4,9 @@
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TMysqlMetaData.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Data.Common.Mysql
  */
 
@@ -22,6 +23,7 @@ Prado::using('System.Data.Common.Mysql.TMysqlTableInfo');
  * See http://netevil.org/node.php?nid=795&SC=1
  *
  * @author Wei Zhuo <weizho[at]gmail[dot]com>
+ * @version $Id: TMysqlMetaData.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Data.Common.Mysql
  * @since 3.1
  */
@@ -76,9 +78,6 @@ class TMysqlMetaData extends TDbMetaData
 	{
 		list($schemaName,$tableName) = $this->getSchemaTableName($table);
 		$find = $schemaName===null ? "`{$tableName}`" : "`{$schemaName}`.`{$tableName}`";
-		$colCase = $this->getDbConnection()->getColumnCase();
-		if($colCase != TDbColumnCaseMode::Preserved)
-			$this->getDbConnection()->setColumnCase('Preserved');
 		$this->getDbConnection()->setActive(true);
 		$sql = "SHOW FULL FIELDS FROM {$find}";
 		$command = $this->getDbConnection()->createCommand($sql);
@@ -91,8 +90,6 @@ class TMysqlMetaData extends TDbMetaData
 		}
 		if($index===0)
 			throw new TDbException('dbmetadata_invalid_table_view', $table);
-		if($colCase != TDbColumnCaseMode::Preserved)
-			$this->getDbConnection()->setColumnCase($colCase);
 		return $tableInfo;
 	}
 
@@ -384,22 +381,6 @@ EOD;
 				return true;
 		}
 		return false;
-	}
-        
-        /**
-	 * Returns all table names in the database.
-	 * @param string $schema the schema of the tables. Defaults to empty string, meaning the current or default schema.
-	 * If not empty, the returned table names will be prefixed with the schema name.
-	 * @return array all table names in the database.
-	 */
-	public function findTableNames($schema='')
-	{
-		if($schema==='')
-			return $this->getDbConnection()->createCommand('SHOW TABLES')->queryColumn();
-		$names=$this->getDbConnection()->createCommand('SHOW TABLES FROM '.$this->quoteTableName($schema))->queryColumn();
-		foreach($names as &$name)
-			$name=$schema.'.'.$name;
-		return $names;
 	}
 }
 

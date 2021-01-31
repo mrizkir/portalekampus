@@ -4,8 +4,9 @@
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TApplicationComponent.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System
  */
 
@@ -27,6 +28,7 @@
  * publishing private files: {@link publishAsset} and {@link publishFilePath}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TApplicationComponent.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System
  * @since 3.0
  */

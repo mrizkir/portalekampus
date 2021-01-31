@@ -13,6 +13,7 @@
  * {@link http://prado.sourceforge.net/}
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
+ * @version $Id: CultureInfo.php 3187 2012-07-12 11:21:01Z ctrlaltca $
  * @package System.I18N.core
  */
 
@@ -43,6 +44,7 @@
  * For example, Australian English is "en_AU".
  *
  * @author Xiang Wei Zhuo <weizhuo[at]gmail[dot]com>
+ * @version $Id: CultureInfo.php 3187 2012-07-12 11:21:01Z ctrlaltca $
  * @package System.I18N.core
  */
 class CultureInfo

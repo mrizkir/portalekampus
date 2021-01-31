@@ -4,8 +4,9 @@
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TRequiredFieldValidator.php 3288 2013-04-30 10:36:50Z ctrlaltca $
  * @package System.Web.UI.WebControls
  */
 
@@ -28,6 +29,7 @@ Prado::using('System.Web.UI.WebControls.TBaseValidator');
  * set, it will be automatically considered as the validator's {@link setInitialValue InitialValue}.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
+ * @version $Id: TRequiredFieldValidator.php 3288 2013-04-30 10:36:50Z ctrlaltca $
  * @package System.Web.UI.WebControls
  * @since 3.0
  */
@@ -97,7 +99,7 @@ class TRequiredFieldValidator extends TBaseValidator
 		else
 			return $this->validateStandardControl($control);
 	}
-
+	
 	private function validateListControl($control)
 	{
 		$initial = trim($this->getInitialValue());
@@ -109,7 +111,7 @@ class TRequiredFieldValidator extends TBaseValidator
 		}
 		return $count > 0;
 	}
-
+	
 	private function validateRadioButtonGroup($control)
 	{
 		$initial = trim($this->getInitialValue());
@@ -125,7 +127,7 @@ class TRequiredFieldValidator extends TBaseValidator
 		}
 		return false;
 	}
-
+	
 	private function validateStandardControl($control)
 	{
 		$initial = trim($this->getInitialValue());

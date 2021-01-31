@@ -4,8 +4,9 @@
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
  * @link http://www.pradosoft.com/
- * @copyright Copyright &copy; 2005-2014 PradoSoft
+ * @copyright Copyright &copy; 2005-2013 PradoSoft
  * @license http://www.pradosoft.com/license/
+ * @version $Id: TResultProperty.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Data.SqlMap.Configuration
  */
 
@@ -28,6 +29,7 @@
  * with the {@link Select setSelect()} .
  *
  * @author Wei Zhuo <weizho[at]gmail[dot]com>
+ * @version $Id: TResultProperty.php 3245 2013-01-07 20:23:32Z ctrlaltca $
  * @package System.Data.SqlMap.Configuration
  * @since 3.1
  */
@@ -325,7 +327,7 @@ class TResultProperty extends TComponent
 
 	public function __sleep()
 	{
-		$exprops = array(); $cn = 'TResultProperty';
+		$exprops = array(); $cn = 'TResultProperty'; 
 		if ($this->_nullValue===null) $exprops[] = "\0$cn\0_nullValue";
 		if ($this->_propertyName===null) $exprops[] = "\0$cn\0_propertyNama";
 		if ($this->_columnName===null) $exprops[] = "\0$cn\0_columnName";

@@ -3,6 +3,7 @@
  * IMappedStatement interface file.
  *
  * @author Wei Zhuo <weizhuo[at]gmail[dot]com>
+ * @version $Id: IMappedStatement.php 3187 2012-07-12 11:21:01Z ctrlaltca $
  * @package System.Data.SqlMap.Statements
  */
 
@@ -10,6 +11,7 @@
  * Interface for all mapping statements.
  *
  * @author Wei Zhuo <weizho[at]gmail[dot]com>
+ * @version $Id: IMappedStatement.php 3187 2012-07-12 11:21:01Z ctrlaltca $
  * @package System.Data.SqlMap.Statements
  * @since 3.1
  */

@@ -24,6 +24,7 @@
 /**
 * Decorators for dealing with parser options
 * @package System.Security.SafeHtml
+* @version $Id: Decorators.php 3188 2012-07-12 12:13:23Z ctrlaltca $
 * @see TSax3::set_option
 */
 /**
