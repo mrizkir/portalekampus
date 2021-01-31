@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 date_default_timezone_set('Asia/Jakarta');
 
 define ('BASEPATH',dirname(__FILE__).DIRECTORY_SEPARATOR);

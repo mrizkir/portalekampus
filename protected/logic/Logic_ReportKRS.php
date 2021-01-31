@@ -128,7 +128,7 @@ class Logic_ReportKRS extends Logic_Report {
                 $rpt->Cell(80, 5, $this->dataReport['nama_mhs'],0,0,'C');
                 $row+=5;
                 $rpt->setXY(3,$row);	                
-                $rpt->Cell(60, 5, $this->dataReport['krs']['sah']==true?$this->dataReport['jabfung_kaprodi']. ' NIPY : '.$this->dataReport['nipy_kaprodi']:'',0,0,'C');
+                $rpt->Cell(60, 5, $this->dataReport['krs']['sah']==true?$this->dataReport['jabfung_kaprodi']. ' NIDN : '.$this->dataReport['nidn_kaprodi']:'',0,0,'C');
                 
                 $row+=10;
                 if (!$this->dataReport['krs']['sah']) {
@@ -278,7 +278,7 @@ class Logic_ReportKRS extends Logic_Report {
                     $rpt->Cell(80, 5, $this->dataReport['nama_mhs'],0,0,'C');
                     $row+=5;
                     $rpt->setXY(3,$row);			
-                    $rpt->Cell(60, 5, $this->dataReport['krs']['sah']==true?$this->dataReport['jabfung_kaprodi']. ' NIPY : '.$this->dataReport['nipy_kaprodi']:'',0,0,'C');
+                    $rpt->Cell(60, 5, $this->dataReport['krs']['sah']==true?$this->dataReport['jabfung_kaprodi']. ' NIPD : '.$this->dataReport['nidn_kaprodi']:'',0,0,'C');
 
                     $row+=10;
                     if (!$this->dataReport['krs']['sah']) {

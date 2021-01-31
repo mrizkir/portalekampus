@@ -351,6 +351,7 @@ class KRSEkstension Extends MainPageSA {
                 $dataReport['nama_kaprodi']=$kaprodi['nama_dosen'];
                 $dataReport['jabfung_kaprodi']=$kaprodi['nama_jabatan'];
                 $dataReport['nipy_kaprodi']=$kaprodi['nipy'];
+                $dataReport['nidn_kaprodi']=$kaprodi['nidn'];
                 
                 $dataReport['linkoutput']=$this->linkOutput;                 
                 $this->report->setDataReport($dataReport); 
