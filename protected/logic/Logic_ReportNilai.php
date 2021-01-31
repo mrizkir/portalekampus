@@ -801,7 +801,7 @@ class Logic_ReportNilai extends Logic_Report {
                     $rpt->Cell(65,4,$this->dataReport['nama_penandatangan_transkrip'],0,0,'L');
                     $row+=4;				
                     $rpt->setXY(105,$row);	
-                    $rpt->Cell(65,4,strtoupper($this->dataReport['jabfung_penandatangan_transkrip']). ' NIPY '.$this->dataReport['nipy_penandatangan_transkrip'],0,0,'L');
+                    $rpt->Cell(65,4,strtoupper($this->dataReport['jabfung_penandatangan_transkrip']). ' NIDN '.$this->dataReport['nidn_penandatangan_transkrip'],0,0,'L');
                 }
                 $this->printOut("transkripkurikulum_$nim");
             break;
@@ -1070,7 +1070,7 @@ class Logic_ReportNilai extends Logic_Report {
                     $rpt->Cell(65,4,$this->dataReport['nama_penandatangan_transkrip'],0,0,'L');
                     $row+=4;				
                     $rpt->setXY(105,$row);	
-                    $rpt->Cell(65,4,strtoupper($this->dataReport['jabfung_penandatangan_transkrip']). ' NIPY '.$this->dataReport['nipy_penandatangan_transkrip'],0,0,'L');
+                    $rpt->Cell(65,4,strtoupper($this->dataReport['jabfung_penandatangan_transkrip']). ' NIDN '.$this->dataReport['nidn_penandatangan_transkrip'],0,0,'L');
                 }
                 $this->printOut("transkripsementara_$nim");
             break;
@@ -1391,7 +1391,7 @@ class Logic_ReportNilai extends Logic_Report {
                     $rpt->Cell(65,4,$this->dataReport['nama_penandatangan_transkrip'],0,0,'L');
                     $row+=4;				
                     $rpt->setXY(105,$row);	
-                    $rpt->Cell(65,4,strtoupper($this->dataReport['jabfung_penandatangan_transkrip']). ' NIPY '.$this->dataReport['nipy_penandatangan_transkrip'],0,0,'L');
+                    $rpt->Cell(65,4,strtoupper($this->dataReport['jabfung_penandatangan_transkrip']). ' NIDN '.$this->dataReport['nidn_penandatangan_transkrip'],0,0,'L');
                 }
                 $this->printOut("transkripkrs_$nim");
             break;

@@ -156,6 +156,7 @@ class CTranskripKurikulum extends MainPageDW {
                         $dataReport['nama_penandatangan_transkrip']=$this->setup->getSettingValue('nama_penandatangan_transkrip');
                         $dataReport['jabfung_penandatangan_transkrip']=$this->setup->getSettingValue('jabfung_penandatangan_transkrip');
                         $dataReport['nipy_penandatangan_transkrip']=$this->setup->getSettingValue('nipy_penandatangan_transkrip');
+                        $dataReport['nidn_penandatangan_transkrip']=$this->setup->getSettingValue('nidn_penandatangan_transkrip');
 
                         $dataReport['linkoutput']=$this->linkOutput; 
                         $this->report->setDataReport($dataReport); 
