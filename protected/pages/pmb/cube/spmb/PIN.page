@@ -152,6 +152,7 @@
                                         <th scope="col">PIN</th>			
                                         <th scope="col">KELAS</th>
                                         <th scope="col">NAMA MAHASISWA</th>
+                                        <th scope="col">KETERANGAN</th>
                                         <th scope="col" width="90">STATUS</th>	
                                     </thead>
                                     <tbody>
@@ -163,6 +164,7 @@
                                     <td><%#$this->DataItem['no_pin']%></td>
                                     <td><%#$this->Page->DMaster->getNamaKelasByID($this->DataItem['idkelas'])%></td>
                                     <td><%#($this->DataItem['nama_mhs']=='')?'N.A':$this->DataItem['nama_mhs']%></td>
+                                    <td><%#$this->DataItem['terpakai']%></td>
                                     <td><span class="label <%#($this->DataItem['ket']=='')?'label-default':'label-success'%>"><i class="<%#($this->DataItem['ket']=='')?'fa fa-times-circle':'fa fa-check-square'%>"></i></td>
                                 </tr>                         
                             </prop:ItemTemplate>                        

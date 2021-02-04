@@ -85,7 +85,19 @@ class CPIN extends MainPagePMB {
             }elseif ($_SESSION['currentPagePIN']['display_record']=='belum_terdaftar'){
                 $str_display='AND fp.no_formulir IS NULL';
             }
-            $str = "SELECT pin.no_pin,pin.no_formulir,pin.idkelas,fp.nama_mhs,fp.no_formulir AS ket FROM pin LEFT JOIN formulir_pendaftaran fp ON (fp.no_formulir=pin.no_formulir) WHERE pin.tahun_masuk=$tahun_masuk AND pin.idkelas='$idkelas' $str_display";
+            $str = "SELECT 
+                        pin.no_pin,
+                        pin.no_formulir,
+                        pin.idkelas,
+                        fp.nama_mhs,
+                        fp.no_formulir AS ket 
+                    FROM 
+                        pin 
+                    LEFT JOIN formulir_pendaftaran fp ON (fp.no_formulir=pin.no_formulir)
+                    WHERE 
+                        pin.tahun_masuk=$tahun_masuk AND 
+                        pin.idkelas='$idkelas' $str_display";
+
             $jumlah_baris=$this->DB->getCountRowsOfTable ("pin LEFT JOIN formulir_pendaftaran fp ON (fp.no_formulir=pin.no_formulir) WHERE tahun_masuk=$tahun_masuk AND pin.idkelas='$idkelas' $str_display",'no_pin');		
         }
         $this->RepeaterS->CurrentPageIndex=$_SESSION['currentPagePIN']['page_num'];
@@ -100,7 +112,18 @@ class CPIN extends MainPagePMB {
 		$str = "$str  $str_display ORDER BY pin.no_formulir ASC LIMIT $offset,$limit";
 		$this->DB->setFieldTable(array('no_pin','no_formulir','idkelas','nama_mhs','ket'));
         $r = $this->DB->getRecord($str,$offset+1);
-        $this->RepeaterS->DataSource=$r;
+
+        $result=array();
+        while (list($k,$v)=each($r)) {    
+            $no_formulir=$v['no_formulir'];
+            $str = "SELECT no_formulir FROM transaksi WHERE no_formulir=$no_formulir LIMIT 1";
+            $this->DB->setFieldTable(array('no_formulir'));
+            $data=$this->DB->getRecord($str);
+
+            $v['terpakai']=isset($data[1])?'TERPAKAI':'BELUM TERPAKAI';            
+            $result[$k]=$v;
+        }      
+        $this->RepeaterS->DataSource=$result;
 		$this->RepeaterS->dataBind();	
         $this->paginationInfo->Text=$this->getInfoPaging($this->RepeaterS); 
 	} 
