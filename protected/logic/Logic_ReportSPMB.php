@@ -857,20 +857,7 @@ class Logic_ReportSPMB extends Logic_Report {
                 
                 $row+=5;
                 $rpt->setXY(3,$row);
-                $rpt->Cell(50, 5, '3. Formulir Pendaftaran.');
-
-                $row+=5;
-                $rpt->setXY(3,$row);
-                $rpt->Cell(50, 5, '4. Fotocopy KTP dan KK @2 Lembar.');
-
-                $row+=5;
-                $rpt->setXY(3,$row);
-                $rpt->Cell(50, 5, '5. Fotocopy Ijazah dan SKHUN @3 Lembar di legalisir.');
-
-                $row+=5;
-                $rpt->setXY(3,$row);
-                $rpt->Cell(50, 5, '6. berkas dimasukan ke dalam map sesuai dengan jurusan yang dipilih. (IP MAP MERAH, AP MAP KUNING, SOS MAP HIJAU).');
-
+                $rpt->Cell(50, 5, '3. Surat Pernyataan Mahasiswa Baru.');                                
                 //
                 $this->printOut("kartu_ujian_pmb");
             break;
