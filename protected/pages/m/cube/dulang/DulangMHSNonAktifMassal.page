@@ -81,7 +81,7 @@
                         <strong>
                             Info!
                         </strong>
-                        Proses ini akan menon-aktifkan seluruh Mahasiswa angkatan tersebut pada seluruh PRODI yang memiliki status AKTIF dan NON-AKTIF dan belum melakukan DAFTAR ULANG.
+                        Proses ini akan menon-aktifkan seluruh Mahasiswa angkatan tersebut pada seluruh PRODI yang memiliki status AKTIF dan NON-AKTIF dan belum melakukan DAFTAR ULANG sekaligus menghapus transaksi cuti bila ada yang belum di-commit.
                     </div>
                     <div class="form-horizontal">  
                         <com:TActiveHiddenField ID="hiddentamass" />

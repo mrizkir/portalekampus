@@ -136,6 +136,13 @@
                     <h2>Non Aktifkan status akhir per Mahasiswa atau <a href="<%=$this->constructUrl('dulang.DulangMHSNonAktifMassal',true)%>">Massal</a> :</h2>
                 </header>
                 <div class="main-box-body clearfix">
+                    <div class="alert alert-info">
+                        <i class="fa fa-info-circle fa-fw fa-lg"></i>
+                        <strong>
+                            Info!
+                        </strong>
+                        Proses ini akan menon-aktifkan sekaligus menghapus transaksi cuti bila ada yang belum di-commit.
+                    </div>
                     <div class="form-inline">                        
                         <div class="form-group">
                             <label class="sr-only">NIM :</label>

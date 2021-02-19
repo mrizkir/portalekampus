@@ -149,7 +149,8 @@ class CDulangMHSNonAktifMassal Extends MainPageM {
                         if ($status == 1) {
                             $str = "UPDATE register_mahasiswa SET k_status='N' WHERE nim='$nim'";			
                             $this->DB->updateRecord($str);   
-                        }								
+                        }                       
+                        $this->DB->deleteRecord("transaksi_cuti WHERE nim='$nim' AND tahun='$ta' AND idsmt='$idsmt' AND commited=0");
                         $this->DB->query('COMMIT');				
                     }else {
                         $this->DB->query('ROLLBACK');
