@@ -890,7 +890,13 @@
                                         </li>  
                                         <li class="nav-header nav-header-first hidden-sm hidden-xs">
                                             PEMBAYARAN
-                                        </li>                                        
+                                        </li>
+                                        <li<%=$this->Page->showPembayaranMahasiswaBaru==true?' class="active"':''%>>
+                                            <a href="<%=$this->Page->constructUrl('pembayaran.PembayaranMahasiswaBaru',true)%>">
+                                                <i class="fa fa-usd"></i>
+                                                <span>Mahasiswa Baru</span>
+                                            </a>
+                                        </li> 
                                         <li<%=$this->Page->showPembayaranSemesterGanjil==true?' class="active"':''%>>
                                             <a href="<%=$this->Page->constructUrl('pembayaran.PembayaranSemesterGanjil',true)%>">
                                                 <i class="fa fa-usd"></i>

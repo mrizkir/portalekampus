@@ -13,7 +13,7 @@ class MainPageMHS extends MainPage {
      */
     public $showKonversiMatakuliah=false;
     /**     
-     * show page pembayaran semester Ganjil [pembayaran]
+     * show page pembayaran mahasiswa baru [pembayaran]
      */
     public $showPembayaranMahasiswaBaru=false;
     /**     
