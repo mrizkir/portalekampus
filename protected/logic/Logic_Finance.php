@@ -229,7 +229,7 @@ class Logic_Finance extends Logic_Mahasiswa {
      */
 	public function getKelasFromTransaksi($tahun_sekarang,$semester_sekarang) {
 		$no_formulir=$this->DataMHS['no_formulir'];
-		$str = "SELECT idkelas FROM transaksi WHERE tahun=$tahun_sekarang AND idsmt=$semester_sekarang AND no_formulir=$no_formulir LIMIT 0,1";
+		$str = "SELECT idkelas FROM transaksi WHERE tahun=$tahun_sekarang AND idsmt=$semester_sekarang AND no_formulir=$no_formulir ORDER BY date_modified DESC LIMIT 0,1";
 		$this->db->setFieldTable(array('idkelas'));
 		$r=$this->db->getRecord($str);		
 		if (isset($r[1]) )
