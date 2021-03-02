@@ -13,8 +13,7 @@ class Pendaftaran extends MainPageF {
 		    $this->cmbAddKjur1->dataBind();
 		    $this->cmbAddKjur2->Enabled=false;
 		    
-		    $daftar_kelas=$this->DMaster->getListKelas();
-		    $daftar_kelas['none']='PILIH KELAS';
+		    $daftar_kelas=$this->DMaster->getListKelasPendaftaran();		    			
 		    $this->cmbAddKelas->DataSource=$daftar_kelas;
 		    $this->cmbAddKelas->DataBind();
 		}

@@ -85,6 +85,15 @@ class Logic_DMaster extends Logic_Global {
 	/**
      * digunakan untuk mendapatkan daftar kelas
      */
+	public function getListKelasPendaftaran () {
+        $dataitem['none']='PILIH KELAS';
+        $dataitem['A']='REGULER (S1)';
+        $dataitem['B']='KARYAWAN (S1)';
+        return $dataitem;     		
+	}
+	/**
+     * digunakan untuk mendapatkan daftar kelas
+     */
 	public function getListKelas () {
         if ($this->Application->Cache) {            
             $dataitem=$this->Application->Cache->get('listkelas');            
