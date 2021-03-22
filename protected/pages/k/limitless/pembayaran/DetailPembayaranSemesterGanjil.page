@@ -80,7 +80,7 @@
                             <thead>
                             <tr class="bg-teal-700">
                                 <th scope="col">NO</th>
-                                <th scope="col">NO. TRANSAKSI</th>						
+                                <th scope="col">NO. BILLING</th>						
                                 <th scope="col">NO. FAKTUR<br />BANK</th>
                                 <th scope="col">TANGGAL TRANSAKSI</th>			
                                 <th scope="col">TANGGAL INPUT</th>			

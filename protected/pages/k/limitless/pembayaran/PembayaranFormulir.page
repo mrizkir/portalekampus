@@ -52,7 +52,7 @@
                 <div class="form-group">
                     <label><strong>Kriteria :</strong></label>
                     <com:TDropDownList ID="cmbKriteria" CssClass="form-control">
-                        <com:TListItem Text="NO. TRANSAKSI" Value="no_transaksi" />
+                        <com:TListItem Text="NO. BILLING" Value="no_transaksi" />
                         <com:TListItem Text="NO. FAKTUR" Value="no_faktur" />
                         <com:TListItem Text="NO. FORMULIR" Value="no_formulir" /> 
 						<com:TListItem Text="NO. REGISTRASI" Value="no_pendaftaran" />						
@@ -115,7 +115,7 @@
                             <thead>
                                 <tr class="bg-teal-700">
                                     <th scope="col" width="20">NO</th>							
-                                    <th scope="col" width="120">NO.TRANS</th>
+                                    <th scope="col" width="120">NO. BILLING</th>
                                     <th scope="col" width="120">TANGGAL</i></th>
                                     <th scope="col" width="130">FORMULIR</i></th> 
 									<th scope="col" width="130">NO. REGISTRASI</i></th> 									
