@@ -25,7 +25,7 @@
                         <label class="col-lg-2 control-label">Kriteria :</label>
                         <div class="col-lg-4">
                             <com:TDropDownList ID="cmbKriteria" CssClass="form-control">
-                                <com:TListItem Text="NO. TRANSAKSI" Value="no_transaksi" />
+                                <com:TListItem Text="NO. BILLING" Value="no_transaksi" />
                                 <com:TListItem Text="NO. FAKTUR" Value="no_faktur" />
                                 <com:TListItem Text="NO. FORMULIR" Value="no_formulir" /> 
                                 <com:TListItem Text="NO. REGISTRASI" Value="no_pendaftaran" />						

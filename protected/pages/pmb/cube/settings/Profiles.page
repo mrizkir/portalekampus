@@ -1,0 +1,109 @@
+<%@ Title="Setting - Profiles" %>
+<com:TContent ID="moduleheader">
+    <i class="fa fa-user"></i> Profiles
+</com:TContent>
+<com:TContent ID="modulebreadcrumb">    
+    <li><a href="#">SETTING</a></li>    
+    <li class="active">PROFILES</li>
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="row">  
+    <div class="row">
+        <div class="col-lg-12">           
+            <div class="row" id="user-profile">
+                <div class="col-lg-3 col-md-4 col-sm-4">
+                    <div class="main-box clearfix">
+                        <header class="main-box-header clearfix">
+                            <h2><%=$this->Pengguna->getDataUser('nama')%></h2>
+                        </header>
+                        <div class="main-box-body clearfix">                                                        
+                            <com:TActiveImage ID="imgPhotoUser" Attributes.alt="<%=$this->Page->Pengguna->getUsername()%>" CssClass="profile-img img-responsive center-block" />                            
+                            <div class="profile-label">
+                                <span class="label label-danger"><%=$this->Pengguna->getDataUser('username')%></span>
+                            </div>
+                            <com:TActiveLabel ID="lblTipeFileError" />
+                            <com:TActiveFileUpload ID="filePhotoProfile" MaxFileSize="<%=$this->setup->getMaxFileSize(2)%>" OnFileUpload="uploadPhotoProfile" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-8 col-sm-8">
+                    <div class="main-box clearfix">
+                        <div class="tabs-wrapper profile-tabs">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tab-general" data-toggle="tab">General</a></li>
+                                <li><a href="#tab-password" data-toggle="tab">Password</a></li>                              
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab-general">
+                                    <div class="form-horizontal">
+                                        <div class="form-group" id="divProfilesThemes">
+                                            <label class="col-lg-2 control-label">Themes :</label>
+                                            <div class="col-lg-3">                                        
+                                                <com:TDropDownList ID="cmbTheme" CssClass="form-control"  />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-2 col-lg-10">
+                                                <com:TActiveCustomButton ID="btnSave" CssClass="btn btn-primary" OnClick="saveData">
+                                                    <prop:Text><i class="fa fa-save"></i> Simpan</span></prop:Text>
+                                                    <prop:ClientSide.OnPreDispatch>                                                                   
+                                                        $('loading').show(); 
+                                                        $('<%=$this->btnSave->ClientId%>').disabled='disabled';						
+                                                    </prop:ClientSide.OnPreDispatch>
+                                                    <prop:ClientSide.OnLoading>
+                                                        $('<%=$this->btnSave->ClientId%>').disabled='disabled';						
+                                                    </prop:ClientSide.OnLoading>
+                                                    <prop:ClientSide.OnComplete>																	                                    						                                                                            
+                                                        $('<%=$this->btnSave->ClientId%>').disabled='';
+                                                        $('loading').hide(); 
+                                                    </prop:ClientSide.OnComplete>
+                                                </com:TActiveCustomButton>
+                                            </div>
+                                        </div>                     
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab-password">
+                                    <div class="form-horizontal">
+                                        <div class="form-group" id="divPassword1">
+                                            <label class="col-lg-2 control-label">Password :</label>
+                                            <div class="col-lg-3">                                        
+                                                <com:TTextBox ID="txtPassword" CssClass="form-control" TextMode="Password" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="divPassword2">
+                                            <label class="col-lg-2 control-label">Repeat Password :</label>
+                                            <div class="col-lg-3">                                        
+                                                <com:TTextBox ID="txtPassword2" CssClass="form-control" TextMode="Password" />
+                                                <com:TCompareValidator ID="FieldRetypePasswordValidator" ControlToValidate="txtPassword" ControlToCompare="txtPassword2" Display="Dynamic" ErrorMessage="Isi Password tidak sama" ValidationGroup="profileuser" FocusOnError="true" CssClass="has-error help-block" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-2 col-lg-10">
+                                                <com:TActiveCustomButton ID="btnSavePassword" CssClass="btn btn-primary" OnClick="saveDataPassword" ValidationGroup="profileuser">
+                                                    <prop:Text><i class="fa fa-save"></i> Simpan</span></prop:Text>
+                                                    <prop:ClientSide.OnPreDispatch>                                                                   
+                                                        $('loading').show(); 
+                                                        $('<%=$this->btnSavePassword->ClientId%>').disabled='disabled';                     
+                                                    </prop:ClientSide.OnPreDispatch>
+                                                    <prop:ClientSide.OnLoading>
+                                                        $('<%=$this->btnSavePassword->ClientId%>').disabled='disabled';                     
+                                                    </prop:ClientSide.OnLoading>
+                                                    <prop:ClientSide.OnComplete>                                                                                                                                                                                                            
+                                                        $('<%=$this->btnSavePassword->ClientId%>').disabled='';
+                                                        $('loading').hide(); 
+                                                    </prop:ClientSide.OnComplete>
+                                                </com:TActiveCustomButton>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</com:TPanel>
+
+</com:TContent>
