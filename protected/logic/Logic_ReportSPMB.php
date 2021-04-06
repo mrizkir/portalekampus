@@ -506,23 +506,23 @@ class Logic_ReportSPMB extends Logic_Report {
         $tahun_masuk=$this->dataReport['tahun_masuk'];
         
         $str_kjur=$kjur=='none'?' AND (num.kjur=0 OR num.kjur IS NULL)':" AND num.kjur=$kjur";	                
-        $str = "SELECT fp.no_formulir,fp.nama_mhs,fp.idkelas,ku.tgl_ujian,ts.nama_tempat,num.kjur,num.jumlah_soal,num.jawaban_benar,num.jawaban_salah,num.nilai,fp.kjur1,fp.kjur2,num.passing_grade_1,num.passing_grade_2,num.kjur AS diterima_di_prodi FROM kartu_ujian ku JOIN formulir_pendaftaran fp ON (fp.no_formulir=ku.no_formulir) JOIN tempat_spmb ts ON (ku.idtempat_spmb=ts.idtempat_spmb) JOIN nilai_ujian_masuk num ON (ku.no_formulir=num.no_formulir) WHERE fp.ta='$tahun_masuk'$str_kjur ORDER BY fp.idkelas ASC,nilai DESC,nama_mhs ASC";
-        $this->db->setFieldTable(array('no_formulir','nama_mhs','idkelas','tgl_ujian','jumlah_soal','jawaban_benar','jawaban_salah','nilai','kjur1','kjur2','passing_grade_1','passing_grade_2','diterima_di_prodi'));				
+        $str = "SELECT fp.no_formulir,fp.nama_mhs,fp.idkelas,ku.tgl_ujian,ts.nama_tempat,num.kjur,num.jumlah_soal,num.jawaban_benar,num.jawaban_salah,num.nilai,fp.kjur1,fp.kjur2,num.passing_grade_1,num.passing_grade_2,num.kjur AS diterima_di_prodi,fp.ta,fp.idsmt FROM kartu_ujian ku JOIN formulir_pendaftaran fp ON (fp.no_formulir=ku.no_formulir) JOIN tempat_spmb ts ON (ku.idtempat_spmb=ts.idtempat_spmb) JOIN nilai_ujian_masuk num ON (ku.no_formulir=num.no_formulir) WHERE fp.ta='$tahun_masuk'$str_kjur ORDER BY fp.idkelas ASC,nilai DESC,nama_mhs ASC";
+        $this->db->setFieldTable(array('no_formulir','nama_mhs','idkelas','tgl_ujian','jumlah_soal','jawaban_benar','jawaban_salah','nilai','kjur1','kjur2','passing_grade_1','passing_grade_2','diterima_di_prodi','ta','idsmt'));				
         $r = $this->db->getRecord($str);        
         
         switch ($this->getDriver()) {
             case 'excel2003' :               
             case 'excel2007' :    
-                $this->setHeaderPT('M');
+                $this->setHeaderPT('O');
                 $sheet=$this->rpt->getActiveSheet();
                 $this->rpt->getDefaultStyle()->getFont()->setName('Arial');                
                 $this->rpt->getDefaultStyle()->getFont()->setSize('9');   
                 
-                $sheet->mergeCells("A7:M7");
+                $sheet->mergeCells("A7:O7");
                 $sheet->getRowDimension(7)->setRowHeight(20);
                 $sheet->setCellValue("A7","HASIL UJIAN PMB TAHUN MASUK $tahun_masuk");                                
                 if ($kjur!= 'none'){
-                    $sheet->mergeCells("A8:J8");
+                    $sheet->mergeCells("A8:O8");
                     $nama_ps_label='PROGRAM STUDI ' .$daftar_jurusan[$kjur];
                     $sheet->setCellValue("A8",$nama_ps_label);                                
                     $sheet->getRowDimension(8)->setRowHeight(20);
@@ -533,7 +533,7 @@ class Logic_ReportSPMB extends Logic_Report {
 								'alignment' => array('horizontal'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
 												   'vertical'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER)
 							);
-                $sheet->getStyle("A7:M8")->applyFromArray($styleArray);
+                $sheet->getStyle("A7:O8")->applyFromArray($styleArray);
                 $sheet->getRowDimension(10)->setRowHeight(25);
                 
                 $sheet->getColumnDimension('B')->setWidth(15);
@@ -548,6 +548,8 @@ class Logic_ReportSPMB extends Logic_Report {
                 $sheet->getColumnDimension('K')->setWidth(12);
                 $sheet->getColumnDimension('L')->setWidth(40);
                 $sheet->getColumnDimension('M')->setWidth(12);
+                $sheet->getColumnDimension('N')->setWidth(15);
+                $sheet->getColumnDimension('O')->setWidth(15);
                                 
                 $sheet->setCellValue('A10','NO');				
                 $sheet->setCellValue('B10','NO. UJIAN');
@@ -562,6 +564,8 @@ class Logic_ReportSPMB extends Logic_Report {
                 $sheet->setCellValue('K10','KET. PRODI I');
                 $sheet->setCellValue('L10','PILIHAN PRODI II');	
                 $sheet->setCellValue('M10','KET. PRODI II');
+                $sheet->setCellValue('N10','NOMOR BILLING');
+                $sheet->setCellValue('O10','STATUS TRANS.');
                 
                 $styleArray=array(								
                                     'font' => array('bold' => true),
@@ -569,8 +573,8 @@ class Logic_ReportSPMB extends Logic_Report {
                                                        'vertical'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
                                     'borders' => array('allborders' => array('style' => PHPExcel_Style_Border::BORDER_THIN))
                                 );																					 
-                $sheet->getStyle("A10:M10")->applyFromArray($styleArray);
-                $sheet->getStyle("A10:M10")->getAlignment()->setWrapText(true);
+                $sheet->getStyle("A10:O10")->applyFromArray($styleArray);
+                $sheet->getStyle("A10:O10")->getAlignment()->setWrapText(true);
                 $row=11;                
                 while (list($k,$v)=each($r)) { 
                     $sheet->setCellValue("A$row",$v['no']);		
@@ -616,6 +620,19 @@ class Logic_ReportSPMB extends Logic_Report {
                     $sheet->setCellValue("K$row",$ket1);		
                     $sheet->setCellValue("L$row",$pil2);
                     $sheet->setCellValue("M$row",$ket2);
+
+                    $str = "SELECT t.no_transaksi,t.commited FROM transaksi t JOIN transaksi_detail td ON (t.no_transaksi=td.no_transaksi) WHERE no_formulir='".$v['no_formulir']."' AND tahun='".$v['ta']."' AND idsmt='".$v['idsmt']."' ORDER BY date_added DESC LIMIT 1";
+                    $this->db->setFieldTable(array('no_transaksi','commited'));
+                    $transaksi=$this->db->getRecord($str);
+                    $no_transaksi='N.A';
+                    $status_transaksi='N.A';
+                    if (isset($transaksi[1]))
+                    {
+                        $no_transaksi=$transaksi[1]['no_transaksi'];
+                        $status_transaksi=$transaksi[1]['commited'] == 1 ?'SUDAH BAYAR':'BELUM BAYAR';
+                    }                    
+                    $sheet->setCellValueExplicit("N$row",$no_transaksi,PHPExcel_Cell_DataType::TYPE_STRING);
+                    $sheet->setCellValue("O$row", $status_transaksi);
                     $row+=1;
                 }
                 $row-=1;
@@ -624,8 +641,8 @@ class Logic_ReportSPMB extends Logic_Report {
                                                        'vertical'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
                                     'borders' => array('allborders' => array('style' => PHPExcel_Style_Border::BORDER_THIN))
                                 );																					 
-                $sheet->getStyle("A11:M$row")->applyFromArray($styleArray);
-                $sheet->getStyle("A11:M$row")->getAlignment()->setWrapText(true);
+                $sheet->getStyle("A11:O$row")->applyFromArray($styleArray);
+                $sheet->getStyle("A11:O$row")->getAlignment()->setWrapText(true);
                 
                 $styleArray=array(								
                                     'alignment' => array('horizontal'=>PHPExcel_Style_Alignment::HORIZONTAL_LEFT)
