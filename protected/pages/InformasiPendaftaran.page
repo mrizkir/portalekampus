@@ -1,16 +1,16 @@
 <%@ Title="Portal Ekampus - Informasi Pendaftaran" %>
 <com:TContent ID="maincontent">
-<com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="row">	
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="row">
 	<div class="col-md-12">
-        <div class="panel panel-flat border-top-lg border-top-info border-bottom-info"> 
+        <div class="panel panel-flat border-top-lg border-top-info border-bottom-info">
         	<div class="panel-heading">
-                <h5 class="panel-title"><i class="icon-calculator3 position-left"></i>  RINCIAN BIAYA PENDAFTARAN DAN PERKULIAHAN TAHUN MASUK <com:TLabel ID="lblModulHeader" /></h5>                
+                <h5 class="panel-title"><i class="icon-calculator3 position-left"></i>  RINCIAN BIAYA PENDAFTARAN DAN PERKULIAHAN TAHUN MASUK <com:TLabel ID="lblModulHeader" /></h5>
                 <div class="heading-elements">
-                    <div class="heading-btn">       
-                        
-                    </div>   
+                    <div class="heading-btn">
+
+                    </div>
                 </div>
-            </div>              
+            </div>
             <div class="panel-body">
                 <ol>
                     <li>
@@ -19,14 +19,14 @@
                             <tbody>
                                 <tr>
                                     <td width="300">BIAYA FORMULIR & PENDAFTARAN</td>
-                                    <td>Rp. 150.000</td>
+                                    <td>Rp. 250.000</td>
                                 </tr>
-                            </tbody>        
+                            </tbody>
                         </table>
                     </li>
                     <li>
                         <strong>BIAYA DAFTAR ULANG & SEMESTER 1 (AWAL MASUK)</strong>
-                        <table width="100%">           
+                        <table width="100%">
                             <tbody>
                                 <tr>
                                     <td width="300">KELAS REGULER</td>
@@ -36,19 +36,19 @@
                                     <td width="200">KELAS KARYAWAN</td>
                                     <td>Rp. 7.175.000</td>
                                 </tr>
-                            </tbody>        
+                            </tbody>
                         </table>
                     </li>
                     <li>
                         <strong>BIAYA SEMESTER SELANJUTNYA</strong>
-                        <table width="100%">  
+                        <table width="100%">
                             <thead>
                                 <tr>
                                     <th width="300">KELAS</th>
                                     <th>SEMESTER GANJIL</th>
                                     <th>SEMESTER GENAP</th>
                                 </tr>
-                            </thead>         
+                            </thead>
                             <tbody>
                                 <tr>
                                     <td>KELAS REGULER</td>
@@ -60,7 +60,7 @@
                                     <td>Rp. 2.725.000</td>
                                     <td>Rp. 2.625.000</td>
                                 </tr>
-                            </tbody>        
+                            </tbody>
                         </table>
                     </li>
                     <li>
@@ -70,28 +70,28 @@
                                 <ul>
                                     <li>Konsentrasi Manajemen Publik</li>
                                     <li>Konsentrasi Kebijakan Publik</li>
-                                    <li>Konsentrasi Administrasi Keuangan & Perpajakan</li>                
+                                    <li>Konsentrasi Administrasi Keuangan & Perpajakan</li>
                                 </ul>
                             </li>
                             <li>Program Studi Ilmu Pemerintahan
                                 <ul>
                                     <li>Konsentrasi Pemerintahan Daerah & Politik Lokal</li>
                                     <li>Konsentrasi Legislasi & Kebijakan</li>
-                                    <li>Konsentrasi Manajemen Pemerintahan</li>                
-                                    <li>Konsentrasi Perencanaan Kota & Wilayah</li>                
+                                    <li>Konsentrasi Manajemen Pemerintahan</li>
+                                    <li>Konsentrasi Perencanaan Kota & Wilayah</li>
                                 </ul>
                             </li>
                             <li>Program Studi Ilmu Sosiologi
                                 <ul>
                                     <li>Konsentrasi Sosiologi Pembangunan</li>
-                                    <li>Konsentrasi Masalah-Masalah Sosial</li>                    
+                                    <li>Konsentrasi Masalah-Masalah Sosial</li>
                                 </ul>
                             </li>
-                        </ol>        
+                        </ol>
                     </li>
                     <li>
                         <strong>INFORMASI KELULUSAN</strong>
-                        <p>Setiap informasi terkini dan kelulusan dapat langsung dipantau melalui laman group <a href="https://www.t.me/stisipol">telegram</a></p>    
+                        <p>Setiap informasi terkini dan kelulusan dapat langsung dipantau melalui laman group <a href="https://www.t.me/stisipol">telegram</a></p>
                     </li>
                     <li>
                         <strong>NOMOR REKENING PEMBAYARAN SEMESTER</strong>
@@ -100,7 +100,7 @@
                     <li>
                         <strong>INFORMASI PENDAFTARAN (Call):</strong>
                         <ul>
-                            <li>Lina : 0822 8573 4567</li>\                            
+                            <li>Lina : 0822 8573 4567</li>\
                             <li>Yanti : 0822 7777 3480</li>
                             <li>Rizdha : 0823 9012 5900</li>
                         </ul>
@@ -115,54 +115,54 @@
                         </ul>
                     </li>
                 </ol>
-            </div>            
+            </div>
     	</div>
-    </div> 
+    </div>
     <div class="col-md-12">
-        <div class="panel panel-flat border-top-lg border-top-info border-bottom-info"> 
+        <div class="panel panel-flat border-top-lg border-top-info border-bottom-info">
         	<div class="panel-heading">
-                <h5 class="panel-title"><i class="icon-calculator3 position-left"></i>  PERSYARATAN PENDAFTARAN CALON MAHASISWA</h5>                
+                <h5 class="panel-title"><i class="icon-calculator3 position-left"></i>  PERSYARATAN PENDAFTARAN CALON MAHASISWA</h5>
                 <div class="heading-elements">
-                    <div class="heading-btn">       
-                        
-                    </div>   
+                    <div class="heading-btn">
+
+                    </div>
                 </div>
-            </div>              
-            <div class="panel-body">   
+            </div>
+            <div class="panel-body">
                 <ol>
                     <li>
                         <strong>MAHASISWA MURNI</strong>
                         <ul>
                             <li>Melampirkan Bukti Pembayaran</li>
                             <li>Kartu Ujian Pendaftaran (download di portal)</li>
-                            <li>Surat Pernyataan</li>                            
+                            <li>Surat Pernyataan</li>
                         </ul>
                         NB: PERSYARATAN DIBAWA PADA SAAT UJIAN MENGGUNAKAN MAP GANTUNG
                     </li>
-                    <li>    
+                    <li>
                         <strong>MAHASISWA ANVULAN / PINDAHAN</strong>
                         <ul>
                             <li>Melampirkan Bukti Pembayaran</li>
                             <li>Kartu Ujian Pendaftaran (download di portal)</li>
-                            <li>Surat Pernyataan (download di portal)</li>                            
+                            <li>Surat Pernyataan (download di portal)</li>
                         </ul>
                     </li>
-                    <li>    
+                    <li>
                         <strong>TATA TERTIB UJIAN SPMB (yang dibawa pada saat ujian)</strong>
                         <ul>
-                            <li>Membawa kartu ujian SPMB</li>                            
-                            <li>Membawa persyaratan pendaftaran</li>                                                        
-                            <li>Membawa alat tulis dan kertas buram</li>                                                        
-                            <li>Menggunakan baju kemeja putih dan celana / rok hitam dan memakai sepatu</li>                                                        
-                            <li>Dilarang mengaktifkan alat telekomunikasi saat ujian </li>                                                        
-                            <li>Ujian menggunakan sistem CAT(Computer Asisted Test)</li>                                                        
-                            <li>Hadir 15 Menit sebelum ujian dimulai</li>                                                        
-                            <li>Untuk mahasiswa anvulan/pindahan tidak perlu mengikuti ujian SPMB, cukup melengkapi persyaratan dan diserahkan ke sekretariat SPMB</li>                                                        
+                            <li>Membawa kartu ujian SPMB</li>
+                            <li>Membawa persyaratan pendaftaran</li>
+                            <li>Membawa alat tulis dan kertas buram</li>
+                            <li>Menggunakan baju kemeja putih dan celana / rok hitam dan memakai sepatu</li>
+                            <li>Dilarang mengaktifkan alat telekomunikasi saat ujian </li>
+                            <li>Ujian menggunakan sistem CAT(Computer Asisted Test)</li>
+                            <li>Hadir 15 Menit sebelum ujian dimulai</li>
+                            <li>Untuk mahasiswa anvulan/pindahan tidak perlu mengikuti ujian SPMB, cukup melengkapi persyaratan dan diserahkan ke sekretariat SPMB</li>
                         </ul>
                     </li>
-                </ol>                
+                </ol>
             </div>
         </div>
-    </div>    
+    </div>
 </com:TPanel>
 </com:TContent>

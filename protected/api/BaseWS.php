@@ -187,7 +187,7 @@ class BaseWS extends TJsonResponse {
 			$ipaddress=$ip[0];	       	
 			if ($ipaddress == '127' || $ipaddress == '::1') {
 				$alamat_ip='127.0.0.1';
-			}else{
+			} else {
 				$alamat_ip=$_SERVER['REMOTE_ADDR'];
 			}
 			$str = "SELECT userid,username,token,ipaddress,active FROM user WHERE username='$username' AND token='$token'";
@@ -206,17 +206,17 @@ class BaseWS extends TJsonResponse {
 				$this->payload['connection'] = $bool;
 				if ($bool>0) {
 					$this->payload['message']="Username ($username) dan Token ($token) Valid !!!";
-				}else{
+				} else {
 					$this->payload['status']='11';
 					throw new Exception ("Akses dari Alamat IP ($alamat_ip) tidak di ijinkan");						
 				}
 				
 				
-			}else{
+			} else {
 				$this->payload['status']='11';
 				throw new Exception ("Tidak bisa mengeksekusi perintah, karena Username ($username) atau Token ($token) Salah !!!");
 			}			
-		}else{
+		} else {
 			$this->payload['status']='11';
 			throw new Exception ("Username atau Token tidak tersedia di header HTTP !!!");			
 		}
