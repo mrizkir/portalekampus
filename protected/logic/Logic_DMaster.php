@@ -12,6 +12,7 @@ class Logic_DMaster extends Logic_Global {
      */
     public $DataDosen = array();
     public $StatusPendaftaranKonsentrasi = array(0=>'REGISTERED',1=>'APPROVED');
+    public $StatusPendaftaranKampusMerdeka = array(0=>'REGISTERED',1=>'APPROVED');
 	public function __construct ($db) {
 		parent::__construct ($db);	          
 	}
@@ -39,6 +40,16 @@ class Logic_DMaster extends Logic_Global {
             return $this->StatusPendaftaranKonsentrasi;
         }else{
             return $this->StatusPendaftaranKonsentrasi[$idstatus];
+        }
+    }
+    /**
+     * digunakan untuk mendapatkan daftar status pendaftaran kampus merdeka
+     */
+    public function getStatusPendaftaranKampusMerdeka ($idstatus=null) {
+        if ($idstatus == NULL ) {
+            return $this->StatusPendaftaranKampusMerdeka;
+        }else{
+            return $this->StatusPendaftaranKampusMerdeka[$idstatus];
         }
     }
     /**

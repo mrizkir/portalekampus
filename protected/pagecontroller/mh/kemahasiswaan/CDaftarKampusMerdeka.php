@@ -12,8 +12,7 @@ class CDaftarKampusMerdeka extends MainPageMHS {
 			}    
             $this->Nilai->setDataMHS($this->Pengguna->getDataUser()); 
             $this->Nilai->getTranskripFromKonversidanKRS();
-            // $this->hiddenJumlahSKS->Value=$this->Nilai->getTotalSKSAdaNilai();            
-            $this->hiddenJumlahSKS->Value=60;            
+            $this->hiddenJumlahSKS->Value=$this->Nilai->getTotalSKSAdaNilai();                        
             $this->populateData();
 		}        
 	}   

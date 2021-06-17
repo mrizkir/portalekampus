@@ -35,6 +35,10 @@ class MainPageM extends MainPage {
     /**
      * show page pendaftaran konsentrasi [akademik kemahasiswaan]
      */
+    public $showPendaftaranKampusMerdeka=false;
+    /**
+     * show page pendaftaran konsentrasi [akademik kemahasiswaan]
+     */
     public $showPendaftaranKonsentrasi=false;
     /**
      * show page status mahasiswa [akademik kemahasiswaan]

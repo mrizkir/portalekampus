@@ -3,7 +3,7 @@ class MainPageMHS extends MainPage {
     /**     
      * show daftar kampus merdeka [kemahasiswaan]
      */
-    public $showDaftarKampusMerdeka=false;  
+    public $showDaftarKampusMerdeka=false;
     /**     
      * show daftar konsentrasi [kemahasiswaan]
      */

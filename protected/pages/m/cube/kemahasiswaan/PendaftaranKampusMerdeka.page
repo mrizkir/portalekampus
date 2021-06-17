@@ -1,0 +1,176 @@
+<%@ Title="Kemahasiswaan - Pendaftaran Kampus Merdeka"%>
+<com:TContent ID="moduleheader">
+    <i class="fa fa-user"></i> Pendaftaran Kampus Merdeka Mahasiswa Program Studi <small><com:TActiveLabel ID="lblProdi" /></small>
+</com:TContent>
+<com:TContent ID="configtools">    
+    <%include Application.layouts.cube.FilterMode4%>
+</com:TContent>
+<com:TContent ID="modulebreadcrumb">    
+    <li><a href="#">AKADEMIK</a></li>
+    <li><a href="#">KEMAHASISWAAN</a></li>
+    <li class="active">PENDAFTARAN KAMPUS MERDEKA</li>
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>">       
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="main-box clearfix">
+                <header class="main-box-header clearfix">
+                    <h2><i class="fa fa-search"></i> Pencarian Data</h2>                    
+                </header>
+                <div class="main-box-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Kriteria :</label>
+                            <div class="col-lg-3">
+                                <com:TDropDownList ID="cmbKriteria" CssClass="form-control">                                                           
+                                    <com:TListItem Text="NIM" Value="nim" />                                    
+                                    <com:TListItem Text="Nama Mahasiswa" Value="nama" />                                    
+                                </com:TDropDownList>
+                            </div>
+                        </div>
+                        <div class="form-group" id="divtxtKriteria">
+                            <label class="col-lg-2 control-label">Isi Kriteria :</label>
+                            <div class="col-lg-4">
+                                <com:TActiveTextBox ID="txtKriteria" CssClass="form-control" />                                            
+                                <com:TRequiredFieldValidator ID="spanKriteriaValidator1" ValidationGroup="viewPegawai" Display="Dynamic" ControlToValidate="txtKriteria" ErrorMessage="Inputkan NIP." FocusOnError="true" CssClass="has-error help-block">	
+                                    <prop:ClientSide.OnValidationError>
+                                        $('divtxtKriteria').addClassName('has-error');
+                                        jQuery('#<%=$this->spanKriteriaValidator1->ClientID%>').removeAttr('style');                                
+                                    </prop:ClientSide.OnValidationError>
+                                    <prop:ClientSide.OnValidationSuccess>
+                                        $('divtxtKriteria').removeClassName('has-error');
+                                    </prop:ClientSide.OnValidationSuccess>
+                                </com:TRequiredFieldValidator>
+                                <com:TRequiredFieldValidator ID="spanKriteriaValidator2" ValidationGroup="filterForm" Display="Dynamic" ControlToValidate="txtKriteria" ErrorMessage="Input apa yang Anda cari, sesuai dengan kriteria yang Anda tentukan." FocusOnError="true" CssClass="has-error help-block">	
+                                    <prop:ClientSide.OnValidationError>
+                                        $('divtxtKriteria').addClassName('has-error');
+                                        jQuery('#<%=$this->spanKriteriaValidator2->ClientID%>').removeAttr('style');                                
+                                    </prop:ClientSide.OnValidationError>
+                                    <prop:ClientSide.OnValidationSuccess>
+                                        $('divtxtKriteria').removeClassName('has-error');
+                                    </prop:ClientSide.OnValidationSuccess>
+                                </com:TRequiredFieldValidator>                                         
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <com:TActiveCustomButton ID="btnSearch" CssClass="btn btn-info"  OnClick="Page.searchRecord" ValidationGroup="filterForm" Attributes.Title="Cari">
+                                    <prop:Text>                                        
+                                        <i class="fa fa-search"></i> Cari                                        
+                                    </prop:Text>
+                                    <prop:ClientSide.OnPreDispatch>         
+                                        $('loading').show();
+                                    </prop:ClientSide.OnPreDispatch>
+                                    <prop:ClientSide.OnLoading>
+                                        $('<%=$this->btnSearch->ClientId%>').disabled='disabled';						
+                                    </prop:ClientSide.OnLoading>
+                                    <prop:ClientSide.OnComplete>																	
+                                        $('<%=$this->btnSearch->ClientId%>').disabled='';						                               						                                        
+                                        $('loading').hide();
+                                    </prop:ClientSide.OnComplete>
+                                </com:TActiveCustomButton>  
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    <div class="col-lg-12">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left"><i class="fa fa-user"></i> Daftar Mahasiswa</h2> 
+                <div class="filter-block pull-right">                       
+                    <com:TActiveLinkButton ID="btnPrintOut" CssClass="btn btn-primary pull-left" OnClick="printOut" ClientSide.PostState="false" Attributes.Title="Print Out">
+                        <prop:Text><i class="fa fa-print fa-lg"></i></prop:Text>
+                        <prop:ClientSide.OnPreDispatch>                                                                   
+                            $('loading').show(); 
+                            $('<%=$this->btnPrintOut->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnPreDispatch>
+                        <prop:ClientSide.OnLoading>
+                            $('<%=$this->btnPrintOut->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.OnComplete>																	                                    						                                                                            
+                            $('<%=$this->btnPrintOut->ClientId%>').disabled='';
+                            $('loading').hide(); 
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveLinkButton>                    
+                </div>
+            </header>
+            <div class="main-box-body clearfix">   
+                <div class="table-responsive">
+                    <com:TActiveRepeater ID="RepeaterS" DataKeyField="nim" AllowPaging="true" AllowCustomPaging="true" OnItemCreated="itemCreated">
+                        <prop:HeaderTemplate>			
+                            <table class="table table-striped table-hover">	
+                                <thead>
+                                <tr>
+                                    <th width="70"><span>NO</span></th>
+                                    <th width="100"><span>NIM</span></th>
+                                    <th width="300"><span>NAMA</span></th>                                    
+                                    <th width="100"><span>TANGGAL DAFTAR</span></th>
+                                    <th width="100"><span>JUMLAH SKS <br />SAAT DAFTAR</span></th>
+                                    <th width="80"><span>STATUS</span></th>
+                                    <th width="150">AKSI</th>							
+                                </tr>								
+                                </thead>
+                                <tbody>
+                        </prop:HeaderTemplate>
+                        <prop:ItemTemplate>
+                                <tr>                                    
+                                    <td><%#$this->DataItem['no']%></td>                                       
+                                    <td><a href="<%=$this->Page->constructUrl('kemahasiswaan.ProfilMahasiswa',true,array('id'=>$this->DataItem['nim']))%>"><%#$this->DataItem['nim']%></a></td>                                       
+                                    <td><%#$this->DataItem['nama_mhs']%></td>                                    
+                                    <td><%#$this->Page->TGL->tanggal('d/m/Y',$this->DataItem['tanggal_daftar'])%></td>
+                                    <td><%#$this->DataItem['jumlah_sks']%></td>
+                                    <td><com:TLabel ID="lblStatusPendaftaran" /></td>
+                                    <td>
+                                        <com:THyperLink ID="anchorDetailPendaftaranKampusMerdeka" NavigateUrl="<%#$this->Page->constructUrl('kemahasiswaan.DetailPendaftaranKampusMerdeka',true,array('id'=>$this->DataItem['nim']))%>" CssClass="table-link" Attributes.title="Review Pendaftaran">                                                                                
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-eye fa-stack-1x fa-inverse"></i>
+                                            </span>                                        
+                                        </com:THyperLink>
+                                        <com:TActiveLinkButton ID="btnRepeaterApproved" CssClass="table-link" OnClick="Page.approvedFromRepeater" Attributes.Title="Setujui Pilihan Kampus Merdeka">
+                                            <prop:Text>
+                                                <span class="fa-stack">
+                                                    <i class="fa fa-square fa-stack-2x"></i>
+                                                    <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                                                </span>
+                                            </prop:Text>
+                                            <prop:ClientSide.OnPreDispatch>
+                                                $('loading').show();                                             
+                                                $('<%=$this->btnRepeaterApproved->ClientId%>').disabled='disabled';						
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('<%=$this->btnRepeaterApproved->ClientId%>').disabled='';									                            
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.onComplete>
+                                                $('loading').hide();                                                
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveLinkButton>
+                                    </td>
+                                </tr>
+                        </prop:ItemTemplate>				                
+                        <prop:FooterTemplate>               
+                            </tbody>
+                            </table>                        
+                        </prop:FooterTemplate>	
+                        <prop:EmptyTemplate>                             
+                                <div class="alert alert-info">
+                                    <i class="fa fa-info-circle fa-fw fa-lg"></i>
+                                    <strong>
+                                        Info!
+                                    </strong>
+                                     Tidak ada data yang bisa ditampilkan.
+                                </div>                                                    
+                        </prop:EmptyTemplate>
+                    </com:TActiveRepeater>
+                    <%include Application.layouts.cube.CustomPaging%>                                    
+                </div>
+            </div>
+        </div>
+    </div>
+</com:TPanel>	
+</com:TContent>

@@ -1,0 +1,101 @@
+<%@ Title="Kemahasiswaan - Pendaftaran Konsentrasi"%>
+<com:TContent ID="moduleheader">
+    <i class="fa fa-user"></i> Pendaftaran Konsentrasi Mahasiswa Program Studi <small><com:TActiveLabel ID="lblProdi" /></small>
+</com:TContent>
+<com:TContent ID="modulebreadcrumb">    
+    <li><a href="#">AKADEMIK</a></li>
+    <li><a href="#">KEMAHASISWAAN</a></li>
+    <li class="active">PENDAFTARAN KONSENTRASI</li>
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getViewProcess(false) %>" CssClass="row">                    
+    <div class="col-lg-12">
+        <div class="main-box clearfix">               
+            <header class="main-box-header clearfix">
+                <div class="icon-box pull-right">                                       
+                    <a class="btn pull-left" href="<%=$this->constructUrl('kemahasiswaan.PendaftaranKonsentrasi',true)%>">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </header>
+            <div class="main-box-body">
+                <div class="alert alert-warning">
+                    <i class="fa fa-info-circle fa-fw fa-lg"></i>
+                    <strong>
+                        Info!
+                    </strong>
+                     <com:TLiteral ID="errorMessage" />
+                </div>
+            </div>            
+        </div>
+    </div>
+</com:TPanel>
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>">            
+    <%include Application.layouts.cube.DataMHS%>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="main-box clearfix">               
+                <div class="main-box-body clearfix">
+                    <div class="row" style="margin-top: -20px;">
+                        <div class="col-lg-6">
+                            <h3><span>Aturan Daftar Konsentrasi</span></h3>
+                            <div class="list-group">
+                                <a href="#" class="list-group-item">
+                                    Pendaftaran Kampus Merdeka dilakukan diawal semester 4(empat).
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    Setelah disetujui oleh Sekretariat Program Studi tidak bisa lagi menjadi Mahasiswa Normal .
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    Jumlah minimal SKS yang telah ditempuh sebanyak <%=$this->setup->getSettingValue('minimal_sks_daftar_konsentrasi')%> SKS (termasuk nilai D,E, dan matakuliah yang tidak ada nilainya).
+                                </a>                                                              
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <h3><span>Pendaftaran Konsentrasi</span></h3>
+                            <div class="form-horizontal">                                                    
+                                <div class="form-group" id="divTxtJumlahSKS">
+                                    <label class="col-lg-3 control-label">Jumlah SKS :</label>
+                                    <div class="col-lg-9">                                                                                        
+                                        <p class="form-control-static">
+                                            <com:THiddenField ID="hiddenJumlahSKS" />
+                                            <%=$this->hiddenJumlahSKS->Value%>
+                                            <com:TCompareValidator ID="jumlahSKSCompareValidator" ValidationGroup="daftarkonsentrasivalidation" ControlToValidate="hiddenJumlahSKS" ValueToCompare="60" DataType="Integer" Operator="GreaterThan" Text="Jumlah SKS harus lebih besar dari 60." CssClass="has-error help-block" Display="Dynamic">                                                
+                                                <prop:ClientSide.OnValidationError>
+                                                    $('divTxtJumlahSKS').addClassName('has-error');
+                                                    jQuery('#<%=$this->jumlahSKSCompareValidator->ClientID%>').removeAttr('style');                                
+                                                </prop:ClientSide.OnValidationError>
+                                                <prop:ClientSide.OnValidationSuccess>
+                                                    $('divTxtJumlahSKS').removeClassName('has-error');
+                                                </prop:ClientSide.OnValidationSuccess>
+                                            </com:TCompareValidator>
+                                        </p>
+                                    </div>
+                                </div>                                
+                                <div class="form-group">
+                                    <div class="col-lg-offset-3 col-lg-9">                                        
+                                        <com:TActiveCustomButton ID="btnApproved" CssClass="btn btn-primary" OnClick="approved" ValidationGroup="daftarkonsentrasivalidation">
+                                            <prop:Text><i class="fa fa-check"></i> Setujui</span></prop:Text>
+                                            <prop:ClientSide.OnPreDispatch>                                                                   
+                                                $('loading').show(); 
+                                                $('<%=$this->btnApproved->ClientId%>').disabled='disabled';						
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('<%=$this->btnApproved->ClientId%>').disabled='disabled';						
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.OnComplete>																	                                    						                                                                            
+                                                $('<%=$this->btnApproved->ClientId%>').disabled='';
+                                                $('loading').hide(); 
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveCustomButton>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</com:TPanel>
+</com:TContent>

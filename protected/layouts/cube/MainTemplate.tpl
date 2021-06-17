@@ -517,6 +517,11 @@
                                                     </a>
                                                 </li>
                                                 <li>
+                                                    <a href="<%=$this->Page->constructUrl('kemahasiswaan.PendaftaranKampusMerdeka',true)%>"<%=$this->Page->showPendaftaranKampusMerdeka==true ? ' class="active" ':''%>>
+                                                        Pend. Kampus Merdeka
+                                                    </a>
+                                                </li>  
+                                                <li>
                                                     <a href="<%=$this->Page->constructUrl('kemahasiswaan.PendaftaranKonsentrasi',true)%>"<%=$this->Page->showPendaftaranKonsentrasi==true ? ' class="active" ':''%>>
                                                         Pend. Konsentrasi
                                                     </a>
