@@ -873,6 +873,12 @@
                                         <li class="nav-header nav-header-first hidden-sm hidden-xs">
                                             KEMAHASISWAAN
                                         </li>  
+                                        <li<%=$this->Page->showDaftarKampusMerdeka==true?' class="active"':''%>>
+                                            <a href="<%=$this->Page->constructUrl('kemahasiswaan.DaftarKampusMerdeka',true)%>">
+                                                <i class="fa fa-users"></i>
+                                                <span>Daftar Kampus Merdeka</span>											
+                                            </a>                                        
+                                        </li> 
                                         <li<%=$this->Page->showDaftarKonsentrasi==true?' class="active"':''%>>
                                             <a href="<%=$this->Page->constructUrl('kemahasiswaan.DaftarKonsentrasi',true)%>">
                                                 <i class="fa fa-users"></i>

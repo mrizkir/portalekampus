@@ -1,9 +1,13 @@
 <?php
 class MainPageMHS extends MainPage {  
     /**     
-     * show daftar konsentrasi [akademik]
+     * show daftar kampus merdeka [kemahasiswaan]
      */
-    public $showDaftarKonsentrasi=false;  
+    public $showDaftarKampusMerdeka=false;  
+    /**     
+     * show daftar konsentrasi [kemahasiswaan]
+     */
+    public $showDaftarKonsentrasi=false;    
     /**     
      * show skripsi [akademik]
      */

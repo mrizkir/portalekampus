@@ -1074,6 +1074,20 @@ CREATE TABLE `pendaftaran_konsentrasi` (
   `status_daftar` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Table structure for table `pendaftaran_kampus_merdeka`
+--
+
+CREATE TABLE `pendaftaran_kampus_merdeka` (
+  `nim` char(20) NOT NULL,
+  `kjur` tinyint(4) NOT NULL,  
+  `jumlah_sks` smallint(6) NOT NULL,
+  `tahun` year(4) NOT NULL,
+  `idsmt` tinyint(1) NOT NULL,
+  `tanggal_daftar` datetime NOT NULL,
+  `status_daftar` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- --------------------------------------------------------
 
 --
@@ -1280,6 +1294,7 @@ CREATE TABLE `register_mahasiswa` (
   `tanggal` date NOT NULL,
   `kjur` tinyint(4) NOT NULL,
   `idkonsentrasi` tinyint(4) NOT NULL,
+  `is_merdeka` tinyint(1) NOT NULL DEFAULT '0',
   `iddosen_wali` mediumint(9) NOT NULL,
   `k_status` char(1) NOT NULL,
   `idkelas` char(1) NOT NULL,
@@ -2330,6 +2345,12 @@ ALTER TABLE `pendaftaran_konsentrasi`
   ADD PRIMARY KEY (`nim`);
 
 --
+-- Indexes for table `pendaftaran_kampus_merdeka`
+--
+ALTER TABLE `pendaftaran_kampus_merdeka`
+  ADD PRIMARY KEY (`nim`);
+
+--
 -- Indexes for table `pengampu_penyelenggaraan`
 --
 ALTER TABLE `pengampu_penyelenggaraan`
@@ -3272,6 +3293,12 @@ ALTER TABLE `passinggrade`
 --
 ALTER TABLE `pendaftaran_konsentrasi`
   ADD CONSTRAINT `pendaftaran_konsentrasi_ibfk_1` FOREIGN KEY (`nim`) REFERENCES `register_mahasiswa` (`nim`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pendaftaran_kampus_merdeka`
+--
+ALTER TABLE `pendaftaran_kampus_merdeka`
+  ADD CONSTRAINT `pendaftaran_kampus_merdeka` FOREIGN KEY (`nim`) REFERENCES `register_mahasiswa` (`nim`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `pengampu_penyelenggaraan`

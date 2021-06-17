@@ -1,0 +1,77 @@
+<%@ Title="Akademik - Daftar Kampus Merdeka" %>
+<com:TContent ID="moduleheader">
+    <i class="fa fa-users"></i> Daftar Kampus Merdeka
+</com:TContent>
+<com:TContent ID="modulebreadcrumb">    
+    <li><a href="#">Akademik</a></li>
+    <li class="active"><span>Daftar Kampus Merdeka</span></li>
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>">       
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="main-box clearfix">               
+                <div class="main-box-body clearfix">
+                    <div class="row" style="margin-top: -20px;">
+                        <div class="col-lg-6">
+                            <h3><span>Aturan Daftar Kampus Merdeka</span></h3>
+                            <div class="list-group">
+                                <a href="#" class="list-group-item">
+                                    Pendaftaran Kampus Merdeka dilakukan diawal semester 4(empat).
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    Setelah disetujui oleh Sekretariat Program Studi tidak bisa lagi menjadi Mahasiswa Normal .
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    Jumlah minimal SKS yang telah ditempuh sebanyak <%=$this->setup->getSettingValue('minimal_sks_daftar_konsentrasi')%> SKS (termasuk nilai D,E, dan matakuliah yang tidak ada nilainya).
+                                </a>                                                              
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <h3><span>Pendaftaran Kampus Merdeka</span></h3>
+                            <div class="form-horizontal">                                                    
+                                <div class="form-group" id="divTxtJumlahSKS">
+                                    <label class="col-lg-3 control-label">Jumlah SKS :</label>
+                                    <div class="col-lg-9">                                                                                        
+                                        <p class="form-control-static">
+                                            <com:THiddenField ID="hiddenJumlahSKS" />
+                                            <%=$this->hiddenJumlahSKS->Value%>
+                                            <com:TCompareValidator ID="jumlahSKSCompareValidator" ValidationGroup="daftarkampusmerdekavalidation" ControlToValidate="hiddenJumlahSKS" ValueToCompare="<%=$this->setup->getSettingValue('minimal_sks_daftar_konsentrasi')%>" DataType="Integer" Operator="GreaterThanEqual" Text="Jumlah SKS harus lebih besar dari 60." CssClass="has-error help-block" Display="Dynamic">                                                
+                                                <prop:ClientSide.OnValidationError>
+                                                    $('divTxtJumlahSKS').addClassName('has-error');
+                                                    jQuery('#<%=$this->jumlahSKSCompareValidator->ClientID%>').removeAttr('style');                                
+                                                </prop:ClientSide.OnValidationError>
+                                                <prop:ClientSide.OnValidationSuccess>
+                                                    $('divTxtJumlahSKS').removeClassName('has-error');
+                                                </prop:ClientSide.OnValidationSuccess>
+                                            </com:TCompareValidator>
+                                        </p>
+                                    </div>
+                                </div>                                
+                                <div class="form-group">
+                                    <div class="col-lg-offset-3 col-lg-9">
+                                        <com:TActiveCustomButton ID="btnDaftarKampusMerdeka" CssClass="btn btn-primary" OnClick="mendaftarKampusMerdeka" ValidationGroup="daftarkampusmerdekavalidation">
+                                            <prop:Text><i class="fa fa-save"></i> Daftar</span></prop:Text>
+                                            <prop:ClientSide.OnPreDispatch>                                                                   
+                                                $('loading').show(); 
+                                                $('<%=$this->btnDaftarKampusMerdeka->ClientId%>').disabled='disabled';						
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('<%=$this->btnDaftarKampusMerdeka->ClientId%>').disabled='disabled';						
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.OnComplete>																	                                    						                                                                            
+                                                $('<%=$this->btnDaftarKampusMerdeka->ClientId%>').disabled='';
+                                                $('loading').hide(); 
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveCustomButton>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</com:TPanel>
+</com:TContent>
