@@ -834,6 +834,11 @@
                                                     </a>
                                                 </li>                                                
                                                 <li>
+                                                    <a href="<%=$this->Page->constructUrl('perkuliahan.KRSMerdeka',true)%>"<%=$this->Page->showKRSMerdeka==true ? ' class="active" ':''%>>
+                                                        KRS Merdeka
+                                                    </a>
+                                                </li>                                                
+                                                <li>
                                                     <a href="#"<%=$this->Page->showKuesioner==true ? ' class="active" ':''%>>
                                                         Kuesioner
                                                     </a>

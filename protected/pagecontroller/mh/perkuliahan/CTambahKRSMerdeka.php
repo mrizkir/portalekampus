@@ -1,6 +1,6 @@
 <?php
 prado::using ('Application.MainPageMHS');
-class CTambahKRS extends MainPageMHS {
+class CTambahKRSMerdeka extends MainPageMHS {
 	/**
 	* total SKS
 	*/
@@ -23,22 +23,22 @@ class CTambahKRS extends MainPageMHS {
 	public function onLoad($param) {
 		parent::onLoad($param);	
         $this->showSubMenuAkademikPerkuliahan=true;
-        $this->showKRS = true;                   
+        $this->showKRSMerdeka = true;                   
         $this->createObj('KRS');
         $this->createObj('Nilai');
         $this->createObj('Finance');
 		if (!$this->IsPostBack&&!$this->IsCallback) {	            
             $this->lblModulHeader->Text=$this->getInfoToolbar();            
-            try {			             
-                $datamhs=$this->Pengguna->getDataUser();   
-                if ($datamhs['is_merdeka'] == 1)
+            try {			                
+                $datamhs=$this->Pengguna->getDataUser();    
+                if ($datamhs['is_merdeka'] == 0)
                 {
-                    throw new Exception ("Saudara sudah terdaftar sebagai mahasiswa Merdeka. Silahkan isi KRS di halaman KRS Merdeka");
-                }   
-                $this->KRS->DataKRS=$_SESSION['currentPageKRS']['DataKRS'];							
+                    throw new Exception ("Saudara belum terdaftar sebagai mahasiswa Merdeka.");
+                }
+                $this->KRS->DataKRS=$_SESSION['currentPageKRSMerdeka']['DataKRS'];
                 $idsmt=$_SESSION['semester'];
                 $tahun=$_SESSION['ta'];
-                 
+                
                 $datamhs['idsmt']=$idsmt;
                 $nim=$datamhs['nim'];
                 
@@ -70,7 +70,7 @@ class CTambahKRS extends MainPageMHS {
                     $tanggal=date('Y-m-d');
                     $no_krs=mt_rand();                    
                     $tasmt=$tahun.$idsmt;
-                    $str = "INSERT INTO krs SET idkrs=NULL,tgl_krs='$tanggal',no_krs=$no_krs,nim='$nim',idsmt='$idsmt',tahun='$tahun',tasmt='$tasmt',sah=0,tgl_disahkan='0000-00-00'";
+                    $str = "INSERT INTO krs SET idkrs=NULL,tgl_krs='$tanggal',no_krs=$no_krs,nim='$nim',idsmt='$idsmt',tahun='$tahun',tasmt='$tasmt',is_merdeka=1,sah=0,tgl_disahkan='0000-00-00'";
                     $this->DB->insertRecord($str);					
                     $this->KRS->DataKRS['krs'] = array('idkrs'=>$this->DB->getLastInsertID(),
                                      'tgl_krs'=>$tanggal,
@@ -87,20 +87,20 @@ class CTambahKRS extends MainPageMHS {
                     $this->KRS->DataKRS['krs']['maxSKS']=$idsmt==3?$jumlah_sks_sp:$this->setup->getSettingValue('jumlah_sks_krs_setelah_cuti');                
                     $this->KRS->DataKRS['krs']['ipstasmtbefore']='N.A (Status Cuti)';
                 }else{
-                    $this->KRS->DataKRS['krs']['maxSKS']=$idsmt==3?$jumlah_sks_sp:$this->Nilai->getMaxSKS($tahun,$idsmt);                
+                    $this->Nilai->getMaxSKS($tahun,$idsmt);
+                    $this->KRS->DataKRS['krs']['maxSKS']=$idsmt==3?$jumlah_sks_sp:20;                
                     $this->KRS->DataKRS['krs']['ipstasmtbefore']=$this->Nilai->getIPS();
                 }                                                
                 
-                $_SESSION['currentPageKRS']['DataKRS']=$this->KRS->DataKRS;
-                $kjur=$datamhs['kjur'];
-                $idkur=$this->KRS->getIDKurikulum($kjur);
-                $str = "SELECT vp.idpenyelenggaraan,vp.kmatkul,vp.nmatkul,vp.sks,vp.semester,vp.iddosen,vp.nidn,vp.nama_dosen FROM v_penyelenggaraan vp WHERE vp.idpenyelenggaraan NOT IN (SELECT km.idpenyelenggaraan FROM krsmatkul km,krs k WHERE km.idkrs=k.idkrs AND k.nim='$nim') AND vp.idsmt='$idsmt' AND vp.tahun='$tahun' AND vp.kjur='$kjur' AND vp.idkur=$idkur ORDER BY vp.semester ASC,vp.nmatkul ASC";
-                $this->DB->setFieldTable (array('idpenyelenggaraan','kmatkul','nmatkul','sks','semester','iddosen','nidn','nama_dosen'));			
+                $_SESSION['currentPageKRSMerdeka']['DataKRS']=$this->KRS->DataKRS;
+                $kjur=$datamhs['kjur'];                
+                $str = "SELECT vp.idpenyelenggaraan,vp.kmatkul,vp.nmatkul,vp.sks,vp.semester,vp.iddosen,vp.nidn,vp.nama_dosen,vp.kjur FROM v_penyelenggaraan vp WHERE vp.idpenyelenggaraan NOT IN (SELECT km.idpenyelenggaraan FROM krsmatkul km,krs k WHERE km.idkrs=k.idkrs AND k.nim='$nim') AND vp.idsmt='$idsmt' AND vp.tahun='$tahun' ORDER BY vp.kjur ASC,vp.semester ASC,vp.nmatkul ASC";
+                $this->DB->setFieldTable (array('idpenyelenggaraan','kmatkul','nmatkul','sks','semester','iddosen','nidn','nama_dosen','kjur'));			
                 $daftar_matkul_diselenggarakan=$this->DB->getRecord($str);
 
                 $idkrs=$this->KRS->DataKRS['krs']['idkrs'];
-                $str = "SELECT idpenyelenggaraan,idkrsmatkul,kmatkul,nmatkul,sks,semester,batal,nidn,nama_dosen FROM v_krsmhs WHERE idkrs=$idkrs ORDER BY semester ASC,kmatkul ASC";
-                $this->DB->setFieldTable(array('idpenyelenggaraan','idkrsmatkul','kmatkul','nmatkul','sks','semester','batal','nidn','nama_dosen'));
+                $str = "SELECT vkm.idpenyelenggaraan,vkm.idkrsmatkul,vkm.kmatkul,vkm.nmatkul,vkm.sks,vkm.semester,vkm.batal,vkm.nidn,vkm.nama_dosen,p.kjur FROM v_krsmhs vkm JOIN penyelenggaraan p ON vkm.idpenyelenggaraan=p.idpenyelenggaraan WHERE idkrs=$idkrs ORDER BY semester ASC,kmatkul ASC";
+                $this->DB->setFieldTable(array('idpenyelenggaraan','idkrsmatkul','kmatkul','nmatkul','sks','semester','batal','nidn','nama_dosen','kjur'));
                 $matkul=$this->DB->getRecord($str);                
                 $this->RepeaterS->DataSource=$matkul;
                 $this->RepeaterS->dataBind();
@@ -122,7 +122,7 @@ class CTambahKRS extends MainPageMHS {
 	
 	public function tambahMatkul($sender,$param) {
 		try {		
-            $datakrs=$_SESSION['currentPageKRS']['DataKRS']['krs'];
+            $datakrs=$_SESSION['currentPageKRSMerdeka']['DataKRS']['krs'];
             $datakrs['iddata_konversi']=$this->Pengguna->getDataUser('iddata_konversi');
             $datakrs['idkelas']=$this->Pengguna->getDataUser('idkelas');
             $this->KRS->setDataMHS($datakrs);
@@ -133,13 +133,11 @@ class CTambahKRS extends MainPageMHS {
 			$jumlah=$r[1]['jumlah']+$sender->CommandParameter;
 			$maxSKS=$datakrs['maxSKS'];
 			if ($jumlah > $maxSKS) throw new Exception ("Tidak bisa tambah sks lagi. Karena telah melebihi batas anda ($maxSKS)");
-			$idpenyelenggaraan=$this->getDataKeyField($sender,$this->RepeaterPenyelenggaraan);
-			//check kmatkul syarat apakah lulus		
-			$this->KRS->checkMatkulSyaratIDPenyelenggaraan($idpenyelenggaraan);
+			$idpenyelenggaraan=$this->getDataKeyField($sender,$this->RepeaterPenyelenggaraan);			
 			if (!$this->DB->checkRecordIsExist('idpenyelenggaraan','krsmatkul',$idpenyelenggaraan,' AND idkrs='.$idkrs)) { 
 				$str = "INSERT INTO krsmatkul (idkrsmatkul,idkrs,idpenyelenggaraan,batal) VALUES (NULL,'$idkrs',$idpenyelenggaraan,0)";
 				$this->DB->insertRecord($str);			
-				$this->redirect ('perkuliahan.TambahKRS',true);
+				$this->redirect ('perkuliahan.TambahKRSMerdeka',true);
 			}
 		}catch (Exception $e) {
             $this->modalMessageError->show();
@@ -155,22 +153,22 @@ class CTambahKRS extends MainPageMHS {
 		}else {
 			$this->DB->query ('ROLLBACK');
 		}	
-		$this->redirect ('perkuliahan.TambahKRS',true);
+		$this->redirect ('perkuliahan.TambahKRSMerdeka',true);
 	}	
 	
 	public function hitung ($sender,$param) {
 		$item=$param->Item;		
 		if ($item->ItemType==='Item' || $item->ItemType==='AlternatingItem') {					
 			$matkul=$item->DataItem['kmatkul'].'-'.$item->DataItem['nmatkul'];									
-			if ($_SESSION['currentPageKRS']['DataKRS']['krs']['sah']&&!$item->DataItem['batal']) {
+			if ($_SESSION['currentPageKRSMerdeka']['DataKRS']['krs']['sah']&&!$item->DataItem['batal']) {
 				$onclick="alert('Tidak bisa menghapus Matakuliah $matkul, karena sudah disahkan oleh Dosen Wali.')";
 				$item->btnHapus->Enabled=false;
 			}else{
 				$onclick="if(!confirm('Anda yakin mau menghapus $matkul')) return false;";			
 			}
 			$item->btnHapus->Attributes->OnClick=$onclick;
-			TambahKRS::$totalSKS+=$item->DataItem['sks'];	
-			TambahKRS::$jumlahMatkul+=1;	
+			TambahKRSMerdeka::$totalSKS+=$item->DataItem['sks'];	
+			TambahKRSMerdeka::$jumlahMatkul+=1;	
 		}
 	}	
 	

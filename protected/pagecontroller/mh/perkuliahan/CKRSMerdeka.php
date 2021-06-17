@@ -1,6 +1,6 @@
 <?php
 prado::using ('Application.MainPageMHS');
-class CKRS extends MainPageMHS {
+class CKRSMerdeka extends MainPageMHS {
 	/**
 	* total SKS
 	*/
@@ -20,12 +20,12 @@ class CKRS extends MainPageMHS {
 	public function onLoad($param) {
 		parent::onLoad($param);	
         $this->showSubMenuAkademikPerkuliahan=true;
-        $this->showKRS = true;   
+        $this->showKRSMerdeka = true;   
         
         $this->createObj('KRS');
 		if (!$this->IsPostBack&&!$this->IsCallback) {	
-            if (!isset($_SESSION['currentPageKRS'])||$_SESSION['currentPageKRS']['page_name']!='mh.perkuliahan.KRS') {
-				$_SESSION['currentPageKRS']=array('page_name'=>'mh.perkuliahan.KRS','page_num'=>0,'DataKRS'=>array());
+            if (!isset($_SESSION['currentPageKRSMerdeka'])||$_SESSION['currentPageKRSMerdeka']['page_name']!='mh.perkuliahan.KRSMerdeka') {
+				$_SESSION['currentPageKRSMerdeka']=array('page_name'=>'mh.perkuliahan.KRSMerdeka','page_num'=>0,'DataKRS'=>array());
 			} 
             $this->lblModulHeader->Text=$this->getInfoToolbar();
             
@@ -54,23 +54,23 @@ class CKRS extends MainPageMHS {
 	}
 	public function changeTbTA ($sender,$param) {
 		$_SESSION['ta']=$this->tbCmbTA->Text;		
-		$this->redirect('perkuliahan.KRS',true);        
+		$this->redirect('perkuliahan.KRSMerdeka',true);        
 	}	
 	public function changeTbSemester ($sender,$param) {
 		$_SESSION['semester']=$this->tbCmbSemester->Text;		
-		$this->redirect('perkuliahan.KRS',true);
+		$this->redirect('perkuliahan.KRSMerdeka',true);
 	}	
     public function itemBound ($sender,$param) {
         $item=$param->Item;
         if ($item->ItemType === 'Item' || $item->ItemType === 'AlternatingItem') {    
             if ($item->DataItem['batal']) {
                 $item->cmbKelas->Enabled=false;
-                CKRS::$totalSKSBatal+=$item->DataItem['sks'];
-                CKRS::$jumlahMatkulBatal+=1;
+                CKRSMerdeka::$totalSKSBatal+=$item->DataItem['sks'];
+                CKRSMerdeka::$jumlahMatkulBatal+=1;
             }else{
                 $idkrsmatkul=$item->DataItem['idkrsmatkul'];
                 $idpenyelenggaraan=$item->DataItem['idpenyelenggaraan'];
-                $idkelas=$_SESSION['currentPageKRS']['DataKRS']['krs']['kelas_dulang'];
+                $idkelas=$_SESSION['currentPageKRSMerdeka']['DataKRS']['krs']['kelas_dulang'];
                 $str = "SELECT km.idkelas_mhs,km.nama_kelas,vpp.nama_dosen,vpp.nidn,km.idruangkelas FROM kelas_mhs km JOIN v_pengampu_penyelenggaraan vpp ON (km.idpengampu_penyelenggaraan=vpp.idpengampu_penyelenggaraan) WHERE vpp.idpenyelenggaraan=$idpenyelenggaraan AND km.idkelas='$idkelas'  ORDER BY hari ASC,idkelas ASC,nama_dosen ASC";            
                 $this->DB->setFieldTable(array('idkelas_mhs','nama_kelas','nama_dosen','nidn','idruangkelas'));
                 $r = $this->DB->getRecord($str);
@@ -98,28 +98,32 @@ class CKRS extends MainPageMHS {
                 $item->cmbKelas->Enabled=!$this->DB->checkRecordIsExist('idkrsmatkul','nilai_matakuliah',$idkrsmatkul);
                 $item->cmbKelas->Text=$idkelas_mhs_selected;
 
-                CKRS::$totalSKS+=$item->DataItem['sks'];
-                CKRS::$jumlahMatkul+=1;
+                CKRSMerdeka::$totalSKS+=$item->DataItem['sks'];
+                CKRSMerdeka::$jumlahMatkul+=1;
             }
         }
     }
 	protected function populateData () {
         try {			
-            $datamhs=$this->Pengguna->getDataUser();  
+            $datamhs=$this->Pengguna->getDataUser(); 
+            if ($datamhs['is_merdeka'] == 0)
+            {
+                throw new Exception ("Saudara belum terdaftar sebagai mahasiswa Merdeka.");
+            }
             $this->KRS->setDataMHS($datamhs);
-            $datakrs=$this->KRS->getKRS($_SESSION['ta'],$_SESSION['semester']);           
+            $datakrs=$this->KRS->getKRS($_SESSION['ta'],$_SESSION['semester']);            
             if (isset($datakrs['krs']['idkrs'])) {
-                if ($datakrs['krs']['is_merdeka'] == 1) 
+                if ($datakrs['krs']['is_merdeka'] == 0) 
                 {
                     $ta=$this->DMaster->getNamaTA($datakrs['krs']['tahun']);
                     $semester=$this->setup->getSemester($datakrs['krs']['idsmt']);
                     $text="TA $ta Semester $semester";
-                    throw new Exception ("KRS pada Semester $semester T.A $ta telah dilakukan di KRS Merdeka");
+                    throw new Exception ("KRS pada Semester $semester T.A $ta telah dilakukan di KRS Normal");
                 }
                 $datadulang=$this->KRS->getDataDulang($datakrs['krs']['idsmt'],$datakrs['krs']['tahun']);
-                $datakrs['krs']['kelas_dulang']=$datadulang['idkelas'];               
+                $datakrs['krs']['kelas_dulang']=$datadulang['idkelas']; 
             }                        
-            $_SESSION['currentPageKRS']['DataKRS']=$datakrs;
+            $_SESSION['currentPageKRSMerdeka']['DataKRS']=$datakrs;
             $this->RepeaterS->DataSource=$this->KRS->DataKRS['matakuliah'];
             $this->RepeaterS->dataBind();
         }catch (Exception $e) {
@@ -139,7 +143,7 @@ class CKRS extends MainPageMHS {
             $this->DB->updateRecord("UPDATE nilai_matakuliah SET telah_isi_kuesioner=0,tanggal_isi_kuesioner='' WHERE idkrsmatkul=$idkrsmatkul");
         
             $this->DB->query('COMMIT');
-            $this->redirect('perkuliahan.KRS', true); 
+            $this->redirect('perkuliahan.KRSMerdeka', true); 
         }else {
             $jumlah_peserta_kelas = $this->DB->getCountRowsOfTable ("kelas_mhs_detail WHERE idkelas_mhs=$idkelas_mhs",'idkelas_mhs');
             $str = "SELECT kapasitas FROM kelas_mhs km,ruangkelas rk WHERE rk.idruangkelas=km.idruangkelas AND idkelas_mhs=$idkelas_mhs";
@@ -155,7 +159,7 @@ class CKRS extends MainPageMHS {
                      $this->DB->insertRecord("INSERT INTO kelas_mhs_detail SET idkelas_mhs=$idkelas_mhs,idkrsmatkul=$idkrsmatkul");
                 }
                 $this->DB->query('COMMIT');
-                $this->redirect('perkuliahan.KRS', true);
+                $this->redirect('perkuliahan.KRSMerdeka', true);
             }else{
                 $this->modalMessageError->show();
                 $this->lblContentMessageError->Text="Tidak bisa bergabung dengan kelas ini, karena kalau ditambah dengan Anda akan melampau kapasitas kelas ($kapasitas). Silahkan Refresh Web Browser Anda.";					
@@ -178,7 +182,7 @@ class CKRS extends MainPageMHS {
         $nim=$dataReport['nim'];
         $str = "krsmatkul km, krs k,kelas_mhs_detail kmd,kelas_mhs vkm,v_pengampu_penyelenggaraan vpp, ruangkelas rk  WHERE km.idkrs=k.idkrs AND kmd.idkrsmatkul=km.idkrsmatkul AND vkm.idkelas_mhs=kmd.idkelas_mhs AND vkm.idpengampu_penyelenggaraan=vpp.idpengampu_penyelenggaraan AND rk.idruangkelas=vkm.idruangkelas AND k.nim='$nim' AND k.idsmt=$semester AND k.tahun=$tahun";
         $jumlah_kelas=$this->DB->getCountRowsOfTable($str,'kmd.idkelas_mhs');
-        $jumlah_matkul=$_SESSION['currentPageKRS']['DataKRS']['krs']['jumlah_sah'];	        
+        $jumlah_matkul=$_SESSION['currentPageKRSMerdeka']['DataKRS']['krs']['jumlah_sah'];	        
         if ($jumlah_kelas >= $jumlah_matkul) {
             switch ($_SESSION['outputreport']) {
                 case  'summarypdf' :
@@ -191,8 +195,8 @@ class CKRS extends MainPageMHS {
                     $messageprintout="Mohon maaf Print out pada mode excel 2007 belum kami support.";                
                 break;
                 case  'pdf' :                                
-                    $dataReport['krs']=$_SESSION['currentPageKRS']['DataKRS']['krs'];        
-                    $dataReport['matakuliah']=$_SESSION['currentPageKRS']['DataKRS']['matakuliah'];        
+                    $dataReport['krs']=$_SESSION['currentPageKRSMerdeka']['DataKRS']['krs'];        
+                    $dataReport['matakuliah']=$_SESSION['currentPageKRSMerdeka']['DataKRS']['matakuliah'];        
                     $dataReport['nama_tahun']=$nama_tahun;
                     $dataReport['nama_semester']=$nama_semester;        
                     

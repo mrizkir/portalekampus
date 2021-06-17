@@ -1,0 +1,321 @@
+<%@ Title="Perkuliahan - Kartu Studi Mahasiswa (KRS) Merdeka"%>
+<com:TContent ID="moduleheader">
+	<i class="fa fa-columns"></i> Kartu Rencana Studi (KRS) Merdeka<br/><small><com:TActiveLabel ID="lblModulHeader" /></small>
+</com:TContent>
+<com:TContent ID="modulebreadcrumb">    
+    <li><a href="#">AKADEMIK</a></li>
+    <li><a href="#">PERKULIAHAN</a></li>
+    <li><a href="<%=$this->constructUrl('perkuliahan.KRSMerdeka',true)%>">KRS MERDEKA</a></li>
+    <li class="active"><a href="#">TAMBAH KRS</a></li>
+</com:TContent>
+<com:TContent ID="csscontent">
+<link rel="stylesheet" type="text/css" href="<%=$this->Theme->baseUrl%>/css/libs/nifty-component.css"/>
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getViewProcess(false) %>" CssClass="row">                    
+    <div class="col-lg-12">
+        <div class="main-box clearfix">               
+            <header class="main-box-header clearfix">
+            </header>
+            <div class="main-box-body">
+                <div class="alert alert-warning">
+                    <i class="fa fa-info-circle fa-fw fa-lg"></i>
+                    <strong>
+                        Info!
+                    </strong>
+                     <com:TLiteral ID="errorMessage" />
+                </div>
+            </div>            
+        </div>
+    </div>
+</com:TPanel>
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>">    
+    <com:TActiveRepeater ID="RepeaterS" OnItemDataBound="hitung" DataKeyField="idkrsmatkul">
+        <prop:HeaderTemplate>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-box clearfix">
+                        <header class="main-box-header clearfix">
+                            <h2 class="pull-left"><i class="fa fa-columns"></i> DATA KRS</h2>                             
+                            <div class="icon-box pull-right">                                                                       
+                                <a class="btn btn-default pull-right" href="<%=$this->Page->constructUrl('perkuliahan.KRSMerdeka',true)%>" title="Keluar Detail Transkrip Asli">                        
+                                    <i class='fa  fa-times fa-lg'></i>
+                                </a>
+                            </div>
+                        </header>
+                        <div class="main-box-body clearfix">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label"><strong>NO. KRS: </strong></label>
+                                            <div class="col-sm-8">
+                                                <p class="form-control-static"><%# $this->Page->KRS->DataKRS['krs']['no_krs']%></p>
+                                            </div>                            
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label"><strong>TANGGAL KRS: </strong></label>
+                                            <div class="col-sm-8">
+                                                <p class="form-control-static"><%# $this->Page->TGL->tanggal('l,j F Y',$this->Page->KRS->DataKRS['krs']['tgl_krs'])%></p>
+                                            </div>                            
+                                        </div>                                                        
+                                    </div>
+                                </div>     
+                                <div class="col-sm-6">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label"><strong>IPS SEMESTER LALU: </strong></label>
+                                            <div class="col-sm-8">
+                                                <p class="form-control-static"><%# $this->Page->KRS->DataKRS['krs']['ipstasmtbefore']%></p>
+                                            </div>                            
+                                        </div>                            
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label"><strong>MAKSIMAL SKS: </strong></label>
+                                            <div class="col-sm-8">
+                                                <p class="form-control-static"><%# $this->Page->KRS->DataKRS['krs']['maxSKS']%></p>
+                                            </div>                            
+                                        </div>            
+                                    </div>
+                                </div>
+                                Catatan: Khusus untuk di semester Pendek, jumlah Maksimal SKS yang bisa diambil itu diperoleh dari pembayaran biaya kuliah pada Semester pendek.
+                            </div>          
+                        </div>          
+                    </div>          
+                </div>          
+            </div>          
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-box clearfix">
+                        <header class="main-box-header clearfix">
+                            <h2 class="pull-left"><i class="fa fa-columns"></i> DAFTAR MATAKULIAH YANG DIKONTRAK</h2>                     
+                        </header>
+                        <div class="main-box-body clearfix">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">	
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">NO</th>
+                                            <th scope="col">KODE</th>
+                                            <th scope="col">NAMA</th>
+                                            <th scope="col">SKS</th>
+                                            <th scope="col">SMT</th>                    
+                                            <th scope="col">PRODI</th>                        
+                                            <th scope="col">DOSEN</th>					                                            
+                                            <th scope="col">&nbsp;</th>					
+                                        </tr>						
+                                    </thead>
+                                    <tbody>
+        </prop:HeaderTemplate>
+         <prop:ItemTemplate>
+                                        <tr>
+                                            <td><%# $this->DataItem['no']%></td>
+                                            <td><%#$this->Page->KRS->getKMatkul($this->DataItem['kmatkul'])%></td>
+                                            <td><%# $this->DataItem['nmatkul']%></td>
+                                            <td><%# $this->DataItem['sks']%></td>
+                                            <td><%# $this->DataItem['semester']%></td>							
+                                            <td><%#$this->DataItem['kjur']%></td>				
+                                            <td><%# $this->DataItem['nama_dosen']%> [<%# $this->DataItem['nidn']%>]</td>                                            	
+                                            <td>
+                                                <com:TActiveLinkButton ID="btnHapus" OnClick="Page.hapusMatkul" Enabled="<%#!$_SESSION['currentPageKRSMerdeka']['DataKRS']['krs']['sah']%>" ClientSide.PostState="false" CssClass="table-link danger">
+                                                    <prop:Text>
+                                                        <span class="fa-stack">
+                                                            <i class="fa fa-square fa-stack-2x"></i>
+                                                            <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                                        </span>
+                                                    </prop:Text>
+                                                    <prop:ClientSide.OnPreDispatch>
+                                                        $('loading').show();
+                                                    </prop:ClientSide.OnPreDispatch>
+                                                    <prop:ClientSide.OnLoading>				
+                                                        $('<%=$this->btnHapus->ClientId%>').disabled='disabled';														
+                                                    </prop:ClientSide.OnLoading>
+                                                    <prop:ClientSide.onComplete>																							
+                                                        $('loading').hide();
+                                                    </prop:ClientSide.OnComplete>
+                                                </com:TActiveLinkButton>                                                
+                                            </td>
+                                        </tr>
+        </prop:ItemTemplate>  
+        <prop:FooterTemplate>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td colspan="3"><strong>Jumlah SKS</strong></td>
+                                        <td><%# TambahKRSMerdeka::$totalSKS%></td>
+                                        <td colspan="3">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><strong>Jumlah Matakuliah</strong></td>
+                                        <td><%# TambahKRSMerdeka::$jumlahMatkul%></td>
+                                        <td colspan="5">&nbsp;</td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </prop:FooterTemplate>
+        <prop:EmptyTemplate>            
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-box clearfix">
+                        <header class="main-box-header clearfix">
+                            <h2 class="pull-left"><i class="fa fa-columns"></i> DATA KRS</h2>                             
+                            <div class="icon-box pull-right">                                                                       
+                                <a class="btn btn-default pull-right" href="<%=$this->Page->constructUrl('perkuliahan.KRSMerdeka',true)%>" title="Keluar Detail Transkrip Asli">                        
+                                    <i class='fa  fa-times fa-lg'></i>
+                                </a>
+                            </div>
+                        </header>
+                        <div class="main-box-body clearfix">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label"><strong>NO. KRS: </strong></label>
+                                            <div class="col-sm-8">
+                                                <p class="form-control-static"><%# $this->Page->KRS->DataKRS['krs']['no_krs']%></p>
+                                            </div>                            
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label"><strong>TANGGAL KRS: </strong></label>
+                                            <div class="col-sm-8">
+                                                <p class="form-control-static"><%# $this->Page->TGL->tanggal('l,j F Y',$this->Page->KRS->DataKRS['krs']['tgl_krs'])%></p>
+                                            </div>                            
+                                        </div>                                                        
+                                    </div>
+                                </div>     
+                                <div class="col-sm-6">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label"><strong>IPS SEMESTER LALU: </strong></label>
+                                            <div class="col-sm-8">
+                                                <p class="form-control-static"><%# $this->Page->KRS->DataKRS['krs']['ipstasmtbefore']%></p>
+                                            </div>                            
+                                        </div>                            
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label"><strong>MAKSIMAL SKS: </strong></label>
+                                            <div class="col-sm-8">
+                                                <p class="form-control-static"><%# $this->Page->KRS->DataKRS['krs']['maxSKS']%></p>
+                                            </div>                            
+                                        </div>            
+                                    </div>
+                                </div>
+                                Catatan: Khusus untuk di semester Pendek, jumlah Maksimal SKS yang bisa diambil itu diperoleh dari pembayaran biaya kuliah pada Semester pendek.
+                            </div>          
+                        </div>          
+                    </div>          
+                </div>          
+            </div>          
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-box clearfix">
+                        <header class="main-box-header clearfix">
+                            <h2 class="pull-left"><i class="fa fa-columns"></i> DAFTAR MATAKULIAH YANG AKAN DIKONTRAK</h2>                                                         
+                        </header>
+                        <div class="main-box-body clearfix">
+                            <div class="alert alert-info">
+                                <i class="fa fa-info-circle fa-fw fa-lg"></i>
+                                <strong>
+                                    Info!
+                                </strong>
+                                 Tidak ada data yang bisa ditampilkan. Silahkan tambah matakuliah yang telah diselenggarakan.
+                            </div>
+                        </div>          
+                    </div>          
+                </div>          
+            </div>                      
+        </prop:EmptyTemplate>
+    </com:TActiveRepeater>    
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="main-box clearfix">
+                <header class="main-box-header clearfix">
+                    <h2 class="pull-left"><i class="fa fa-columns"></i> DAFTAR MATAKULIAH YANG DISELENGGARAKAN</h2>                     
+                </header>
+                <div class="main-box-body clearfix">
+                    <div class="table-responsive">
+                        <com:TActiveRepeater ID="RepeaterPenyelenggaraan" DataKeyField="idpenyelenggaraan">	
+                            <prop:HeaderTemplate>                                                               			
+                                <table class="table table-striped table-hover">	
+                                    <thead>	
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Kode</th>
+                                        <th scope="col">Nama</th>
+                                        <th scope="col">SKS</th>
+                                        <th scope="col">Semester</th>
+                                        <th scope="col">Prodi</th>	
+                                        <th scope="col">Dosen Pengampu</th>						                                        					
+                                        <th width="100" scope="col">&nbsp;</th>
+                                    </tr>	
+                                    </thead>				
+                                    <tbody>					
+                            </prop:HeaderTemplate>
+                            <prop:ItemTemplate>
+                                    <tr>
+                                        <td><%#$this->DataItem['no']%></td>
+                                        <td><%#$this->Page->KRS->getKMatkul($this->DataItem['kmatkul'])%></td>
+                                        <td><%#$this->DataItem['nmatkul']%></td>
+                                        <td><%#$this->DataItem['sks']%></td>
+                                        <td><%#$this->DataItem['semester']%></td>
+                                        <td><%#$this->DataItem['kjur']%></td>
+                                        <td><%#$this->DataItem['nama_dosen']%></td>                                        
+                                        <td><com:TActiveLinkButton ID="btnTambah" OnClick="Page.tambahMatkul" CommandParameter="<%#$this->DataItem['sks']%>" ClientSide.PostState="false" CssClass="table-link">
+                                                <prop:Text>
+                                                    <span class="fa-stack">
+                                                        <i class="fa fa-square fa-stack-2x"></i>
+                                                        <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+                                                    </span>
+                                                </prop:Text>
+                                                <prop:ClientSide.OnPreDispatch>
+                                                    $('loading').show();
+                                                </prop:ClientSide.OnPreDispatch>
+                                                <prop:ClientSide.OnLoading>				
+                                                    $('<%=$this->btnTambah->ClientId%>').disabled='disabled';														
+                                                </prop:ClientSide.OnLoading>
+                                                <prop:ClientSide.onComplete>													
+                                                    $('loading').hide();
+                                                </prop:ClientSide.OnComplete>		
+                                            </com:TActiveLinkButton>                                           
+                                        </td>
+                                    </tr>
+                            </prop:ItemTemplate>        
+                            <prop:FooterTemplate>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="6">&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </tfoot>
+                                </table>                                
+                            </prop:FooterTemplate>
+                            <prop:EmptyTemplate>            
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="main-box clearfix">                                           
+                                            <div class="main-box-body clearfix">
+                                                <div class="alert alert-info">
+                                                    <i class="fa fa-info-circle fa-fw fa-lg"></i>
+                                                    <strong>
+                                                        Info!
+                                                    </strong>
+                                                     Tidak ada data yang bisa ditampilkan. Silahkan menghubungi Prodi, untuk menambah matakuliah yang akan diselenggarakan.
+                                                </div>
+                                            </div>          
+                                        </div>          
+                                    </div>          
+                                </div>                      
+                            </prop:EmptyTemplate>
+                        </com:TActiveRepeater>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</com:TPanel>	
+<%include Application.layouts.cube.ModalMessageError%>
+</com:TContent>

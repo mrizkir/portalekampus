@@ -120,6 +120,10 @@ class MainPage extends TPage {
      */
     public $showKRS=false;
     /**     
+     * show page KRS Merdeka [perkuliahan]
+     */
+    public $showKRSMerdeka=false;
+    /**     
      * show page Kartu Ujian Mahasiswa [perkuliahan]
      */
     public $showKUM=false;

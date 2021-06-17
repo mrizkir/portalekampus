@@ -103,8 +103,8 @@ class Logic_KRS extends Logic_Akademik {
      */
 	public function getKRS ($tahun,$idsmt) {	        
         $nim=$this->DataMHS['nim'];        
-        $str = "SELECT idkrs,nim,tgl_krs,no_krs,sah,tgl_disahkan,tahun,idsmt,tasmt FROM krs WHERE idsmt=$idsmt AND tahun=$tahun AND nim='$nim'";
-        $this->db->setFieldTable(array('idkrs','nim','tgl_krs','no_krs','sah','tgl_disahkan','tahun','idsmt','tasmt'));
+        $str = "SELECT idkrs,nim,tgl_krs,no_krs,is_merdeka,sah,tgl_disahkan,tahun,idsmt,tasmt FROM krs WHERE idsmt=$idsmt AND tahun=$tahun AND nim='$nim'";
+        $this->db->setFieldTable(array('idkrs','nim','tgl_krs','no_krs','is_merdeka','sah','tgl_disahkan','tahun','idsmt','tasmt'));
         $r=$this->db->getRecord($str);		
         $data=array('krs'=>array(),'matakuliah'=>array());
         if (isset($r[1])) {

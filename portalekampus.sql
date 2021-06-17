@@ -699,6 +699,7 @@ CREATE TABLE `krs` (
   `tahun` year(4) NOT NULL,
   `tasmt` int(5) NOT NULL,
   `sah` tinyint(1) NOT NULL,
+  `is_merdeka` tinyint(1) NOT NULL DEFAULT '0',
   `tgl_disahkan` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1822,7 +1823,7 @@ CREATE VIEW `v_konversi2`  AS  SELECT `dk`.`iddata_konversi` AS `iddata_konversi
 --
 DROP TABLE IF EXISTS `v_krsmhs`;
 
-CREATE VIEW `v_krsmhs`  AS  SELECT `km`.`idkrsmatkul` AS `idkrsmatkul`,`km`.`idpenyelenggaraan` AS `idpenyelenggaraan`,`k`.`idkrs` AS `idkrs`,`km`.`batal` AS `batal`,`k`.`tgl_krs` AS `tgl_krs`,`k`.`no_krs` AS `no_krs`,`k`.`nim` AS `nim`,`p`.`kjur` AS `kjur`,`k`.`idsmt` AS `idsmt`,`k`.`tahun` AS `tahun`,`k`.`tasmt` AS `tasmt`,`k`.`sah` AS `sah`,`k`.`tgl_disahkan` AS `tgl_disahkan`,`m`.`kmatkul` AS `kmatkul`,`m`.`nmatkul` AS `nmatkul`,`m`.`sks` AS `sks`,`m`.`semester` AS `semester`,`d`.`nidn` AS `nidn`,CONCAT(`d`.`gelar_depan`,_latin1' ',`d`.`nama_dosen`,_latin1' ',`d`.`gelar_belakang`) AS `nama_dosen`,`m`.`aktif` AS `aktif` FROM ((((`krsmatkul` `km` join `krs` `k`) join `penyelenggaraan` `p`) join `matakuliah` `m`) join `dosen` `d`) WHERE ((`km`.`idkrs` = `k`.`idkrs`) and (`km`.`idpenyelenggaraan` = `p`.`idpenyelenggaraan`) and (`p`.`kmatkul` = `m`.`kmatkul`) and (`p`.`iddosen` = `d`.`iddosen`)) ;
+CREATE VIEW `v_krsmhs`  AS  SELECT `km`.`idkrsmatkul` AS `idkrsmatkul`,`km`.`idpenyelenggaraan` AS `idpenyelenggaraan`,`k`.`idkrs` AS `idkrs`,`km`.`batal` AS `batal`,`k`.`tgl_krs` AS `tgl_krs`,`k`.`no_krs` AS `no_krs`,`k`.`nim` AS `nim`,`p`.`kjur` AS `kjur`,`k`.`idsmt` AS `idsmt`,`k`.`tahun` AS `tahun`,`k`.`tasmt` AS `tasmt`,`k`.`is_merdeka` AS `is_merdeka`,`k`.`sah` AS `sah`,`k`.`tgl_disahkan` AS `tgl_disahkan`,`m`.`kmatkul` AS `kmatkul`,`m`.`nmatkul` AS `nmatkul`,`m`.`sks` AS `sks`,`m`.`semester` AS `semester`,`d`.`nidn` AS `nidn`,CONCAT(`d`.`gelar_depan`,_latin1' ',`d`.`nama_dosen`,_latin1' ',`d`.`gelar_belakang`) AS `nama_dosen`,`m`.`aktif` AS `aktif` FROM ((((`krsmatkul` `km` join `krs` `k`) join `penyelenggaraan` `p`) join `matakuliah` `m`) join `dosen` `d`) WHERE ((`km`.`idkrs` = `k`.`idkrs`) and (`km`.`idpenyelenggaraan` = `p`.`idpenyelenggaraan`) and (`p`.`kmatkul` = `m`.`kmatkul`) and (`p`.`iddosen` = `d`.`iddosen`)) ;
 
 -- --------------------------------------------------------
 
