@@ -1,11 +1,11 @@
-<%@ Title="Perkuliahan - Kartu Studi Mahasiswa (KRS)"%>
+<%@ Title="Perkuliahan - Kartu Studi Mahasiswa (KRS) Merdeka"%>
 <com:TContent ID="moduleheader">
-	<i class="fa fa-columns"></i> KARTU RENCANA STUDI(KRS) <br/><small><com:TActiveLabel ID="lblModulHeader" /></small>
+	<i class="fa fa-columns"></i> KARTU RENCANA STUDI(KRS) MERDEKA<br/><small><com:TActiveLabel ID="lblModulHeader" /></small>
 </com:TContent>
 <com:TContent ID="modulebreadcrumb">    
     <li><a href="#">AKADEMIK</a></li>
     <li><a href="#"><span>PERKULIAHAN</span></a></li>
-    <li><a href="<%=$this->constructUrl('perkuliahan.KRS',true)%>">KRS</a></li>
+    <li><a href="<%=$this->constructUrl('perkuliahan.KRSMerdeka',true)%>">KRS MERDEKA</a></li>
     <li class="active"><a href="#">DETAIL KRS</a></li>
 </com:TContent>
 <com:TContent ID="csscontent">
@@ -124,25 +124,25 @@
                                         <div class="form-group">
                                             <label class="col-sm-4 control-label"><strong>NO. KRS: </strong></label>
                                             <div class="col-sm-8">
-                                                <p class="form-control-static"><%# $_SESSION['currentPageKRS']['DataKRS']['krs']['no_krs']%></p>
+                                                <p class="form-control-static"><%# $_SESSION['currentPageKRSMerdeka']['DataKRS']['krs']['no_krs']%></p>
                                             </div>                            
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-4 control-label"><strong>TANGGAL KRS: </strong></label>
                                             <div class="col-sm-8">
-                                                <p class="form-control-static"><%# $this->Page->TGL->tanggal('l,j F Y',$_SESSION['currentPageKRS']['DataKRS']['krs']['tgl_krs'])%></p>
+                                                <p class="form-control-static"><%# $this->Page->TGL->tanggal('l,j F Y',$_SESSION['currentPageKRSMerdeka']['DataKRS']['krs']['tgl_krs'])%></p>
                                             </div>                            
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-4 control-label"><strong>KELAS SAAT KRS: </strong></label>
                                             <div class="col-sm-8">
-                                                <p class="form-control-static"><%# $this->Page->DMaster->getNamaKelasByID($_SESSION['currentPageKRS']['DataMHS']['kelas_dulang'])%></p>
+                                                <p class="form-control-static"><%# $this->Page->DMaster->getNamaKelasByID($_SESSION['currentPageKRSMerdeka']['DataMHS']['kelas_dulang'])%></p>
                                             </div>                            
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-4 control-label"><strong>KETERANGAN: </strong></label>
                                             <div class="col-sm-8">
-                                                <p class="form-control-static"><b><%# $_SESSION['currentPageKRS']['DataKRS']['krs']['sah']==1?'Sah ('.$this->Page->TGL->tanggal('l,j F Y',$_SESSION['currentPageKRS']['DataKRS']['krs']['tgl_disahkan']).')':'Belum di sahkan oleh dosen wali Anda.'%></b></p>
+                                                <p class="form-control-static"><b><%# $_SESSION['currentPageKRSMerdeka']['DataKRS']['krs']['sah']==1?'Sah ('.$this->Page->TGL->tanggal('l,j F Y',$_SESSION['currentPageKRSMerdeka']['DataKRS']['krs']['tgl_disahkan']).')':'Belum di sahkan oleh dosen wali Anda.'%></b></p>
                                             </div>                            
                                         </div>                                                                
                                     </div>
@@ -205,22 +205,22 @@
                                     <tfoot>
                                     <tr>
                                         <td colspan="3"><strong>Jumlah SKS Dikontrak</strong></td>
-                                        <td><%# CDetailKRS::$totalSKS%> </td>
+                                        <td><%# CDetailKRSMerdeka::$totalSKS%> </td>
                                         <td colspan="5">&nbsp;</td>
                                     </tr>
                                     <tr>
                                         <td colspan="3"><strong>Jumlah Matakuliah Dikontrak</strong></td>
-                                        <td><%# CDetailKRS::$jumlahMatkul%></td>
+                                        <td><%# CDetailKRSMerdeka::$jumlahMatkul%></td>
                                         <td colspan="5">&nbsp;</td>
                                     </tr>
                                     <tr>
                                         <td colspan="3"><strong>Jumlah SKS Batal</strong></td>
-                                        <td><%# CDetailKRS::$totalSKSBatal%> </td>
+                                        <td><%# CDetailKRSMerdeka::$totalSKSBatal%> </td>
                                         <td colspan="5">&nbsp;</td>
-                                    </tr>
+                                    </tr>                                   
                                     <tr>
                                         <td colspan="3"><strong>Jumlah Matakuliah Batal</strong></td>
-                                        <td><%# CDetailKRS::$jumlahMatkulBatal%></td>
+                                        <td><%# CDetailKRSMerdeka::$jumlahMatkulBatal%></td>
                                         <td colspan="5">&nbsp;</td>
                                     </tr>
                                     </tfoot>

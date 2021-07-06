@@ -70,7 +70,8 @@ class CTambahKRSMerdeka extends MainPageMHS {
                     $tanggal=date('Y-m-d');
                     $no_krs=mt_rand();                    
                     $tasmt=$tahun.$idsmt;
-                    $str = "INSERT INTO krs SET idkrs=NULL,tgl_krs='$tanggal',no_krs=$no_krs,nim='$nim',idsmt='$idsmt',tahun='$tahun',tasmt='$tasmt',is_merdeka=1,sah=0,tgl_disahkan='0000-00-00'";
+                    // $str = "INSERT INTO krs SET idkrs=NULL,tgl_krs='$tanggal',no_krs=$no_krs,nim='$nim',idsmt='$idsmt',tahun='$tahun',tasmt='$tasmt',is_merdeka=1,sah=0,tgl_disahkan='0000-00-00'";
+                    $str = "INSERT INTO krs SET idkrs=NULL,tgl_krs='$tanggal',no_krs=$no_krs,nim='$nim',idsmt='$idsmt',tahun='$tahun',tasmt='$tasmt',is_merdeka=1,sah=0,tgl_disahkan=NULL";
                     $this->DB->insertRecord($str);					
                     $this->KRS->DataKRS['krs'] = array('idkrs'=>$this->DB->getLastInsertID(),
                                      'tgl_krs'=>$tanggal,

@@ -630,6 +630,11 @@
                                                     </a>
                                                 </li>
                                                 <li>
+                                                    <a href="<%=$this->Page->constructUrl('perkuliahan.KRSMerdeka',true)%>"<%=$this->Page->showKRSMerdeka==true ? ' class="active" ':''%>>
+                                                        KRS Merdeka
+                                                    </a>
+                                                </li>
+                                                <li>
                                                     <a href="<%=$this->Page->constructUrl('perkuliahan.KRSEkstension',true)%>"<%=$this->Page->showKRSEkstension==true ? ' class="active" ':''%>>
                                                         KRS Ekstension
                                                     </a>
@@ -1117,6 +1122,11 @@
                                                 <li>
                                                     <a href="<%=$this->Page->constructUrl('perkuliahan.KRS',true)%>"<%=$this->Page->showKRS==true ? ' class="active" ':''%>>
                                                         KRS
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="<%=$this->Page->constructUrl('perkuliahan.KRSMerdeka',true)%>"<%=$this->Page->showKRSMerdeka==true ? ' class="active" ':''%>>
+                                                        KRS Merdeka
                                                     </a>
                                                 </li>
                                                 <li>

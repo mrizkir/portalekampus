@@ -157,7 +157,7 @@
                                         <td colspan="3"><strong>Jumlah SKS Dikontrak</strong></td>
                                         <td><%# CKRSMerdeka::$totalSKS%> </td>
                                         <td colspan="5">&nbsp;</td>
-                                    </tr                                   
+                                    </tr>
                                     <tr>
                                         <td colspan="3"><strong>Jumlah Matakuliah Dikontrak</strong></td>
                                         <td><%# CKRSMerdeka::$jumlahMatkul%></td>
@@ -167,7 +167,7 @@
                                         <td colspan="3"><strong>Jumlah SKS Batal</strong></td>
                                         <td><%# CKRSMerdeka::$totalSKSBatal%> </td>
                                         <td colspan="5">&nbsp;</td>
-                                    </tr                                   
+                                    </tr>                                  
                                     <tr>
                                         <td colspan="3"><strong>Jumlah Matakuliah Batal</strong></td>
                                         <td><%# CKRSMerdeka::$jumlahMatkulBatal%></td>

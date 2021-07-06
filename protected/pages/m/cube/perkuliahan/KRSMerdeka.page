@@ -1,0 +1,264 @@
+<%@ Title="Perkuliahan - Kartu Studi Mahasiswa (KRS) Merdeka"%>
+<com:TContent ID="moduleheader">
+	<i class="fa fa-columns"></i> Kartu Rencana Studi (KRS) Merdeka <br/><small><com:TActiveLabel ID="lblModulHeader" /></small>
+</com:TContent>
+<com:TContent ID="modulebreadcrumb">    
+    <li><a href="#">AKADEMIK</a></li>
+    <li><a href="#">PERKULIAHAN</a></li>
+    <li class="active">KRS MERDEKA</li>
+</com:TContent>
+<com:TContent ID="configtools">    
+    <%include Application.layouts.cube.FilterMode8%>
+</com:TContent>
+<com:TContent ID="csscontent">
+<link rel="stylesheet" type="text/css" href="<%=$this->Theme->baseUrl%>/css/libs/nifty-component.css"/>
+</com:TContent>
+<com:TContent ID="maincontent">	
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="main-box">
+                <header class="main-box-header clearfix">
+                    <h2><i class="fa fa-search"></i> Pencarian Data</h2>
+                </header>
+                <div class="main-box-body clearfix">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Kriteria :</label>
+                            <div class="col-md-4">
+                                <com:TDropDownList ID="cmbKriteria" CssClass="form-control">                                                           
+                                    <com:TListItem Text="NIM" Value="nim" />
+                                    <com:TListItem Text="NIRM" Value="nirm" />
+                                    <com:TListItem Text="Nama Mahasiswa" Value="nama" />                                    
+                                </com:TDropDownList>
+                            </div>
+                        </div>
+                        <div class="form-group" id="divtxtKriteria">
+                            <label class="col-md-3 control-label">Isi Kriteria :</label>
+                            <div class="col-md-6">
+                                <com:TActiveTextBox ID="txtKriteria" CssClass="form-control" />                                                                            
+                                <com:TRequiredFieldValidator ID="spanKriteriaValidator2" ValidationGroup="filterForm" Display="Dynamic" ControlToValidate="txtKriteria" ErrorMessage="Input apa yang Anda cari, sesuai dengan kriteria yang Anda tentukan." FocusOnError="true" CssClass="has-error help-block">	
+                                    <prop:ClientSide.OnValidationError>
+                                        $('divtxtKriteria').addClassName('has-error');
+                                        jQuery('#<%=$this->spanKriteriaValidator2->ClientID%>').removeAttr('style');                                
+                                    </prop:ClientSide.OnValidationError>
+                                    <prop:ClientSide.OnValidationSuccess>
+                                        $('divtxtKriteria').removeClassName('has-error');
+                                    </prop:ClientSide.OnValidationSuccess>
+                                </com:TRequiredFieldValidator>                                         
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-3 col-md-9">
+                                <com:TActiveCustomButton ID="btnSearch" CssClass="btn btn-info"  OnClick="Page.searchRecord" ValidationGroup="filterForm" Attributes.Title="Cari">
+                                    <prop:Text>                                        
+                                        <i class="fa fa-search"></i> Cari                                        
+                                    </prop:Text>
+                                    <prop:ClientSide.OnPreDispatch>         
+                                        $('loading').show();
+                                    </prop:ClientSide.OnPreDispatch>
+                                    <prop:ClientSide.OnLoading>
+                                        $('<%=$this->btnSearch->ClientId%>').disabled='disabled';						
+                                    </prop:ClientSide.OnLoading>
+                                    <prop:ClientSide.OnComplete>																	
+                                        $('<%=$this->btnSearch->ClientId%>').disabled='';						                               						                                        
+                                        $('loading').hide();
+                                    </prop:ClientSide.OnComplete>
+                                </com:TActiveCustomButton>  
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="main-box">
+                <header class="main-box-header clearfix">
+                    <h2><i class="fa fa-bookmark"></i> Filter Data</h2>
+                </header>
+                <div class="main-box-body clearfix">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Mode KRS :</label>
+                            <div class="col-md-4">
+                                <com:TActiveDropDownList ID="cmbModeKRS" OnCallback="changeModeKRS" CssClass="form-control">
+                                    <com:TListItem Text="Sudah Isi KRS" Value="sudah" />
+                                    <com:TListItem Text="Belum Isi KRS" Value="belum" />
+                                    <com:TListItem Text="KRS Belum Sah" Value="belumsah" />
+                                    <prop:ClientSide.OnPreDispatch>
+                                        $('loading').show();
+                                    </prop:ClientSide.OnPreDispatch>
+                                    <prop:ClientSide.OnLoading>
+                                        $('<%=$this->cmbModeKRS->ClientId%>').disabled='disabled';							
+                                    </prop:ClientSide.OnLoading>
+                                    <prop:ClientSide.OnComplete>										
+                                        $('<%=$this->cmbModeKRS->ClientId%>').disabled='';							
+                                        $('loading').hide();
+                                    </prop:ClientSide.OnComplete>
+                                  </com:TActiveDropDownList>
+                            </div>
+                        </div>    
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Dosen Wali :</label>
+                            <div class="col-md-9">
+                                <com:TActiveDropDownList ID="cmbDosenWali" OnCallback="changeDW" CssClass="form-control">
+                                    <prop:ClientSide.OnPreDispatch>
+                                        $('loading').show();
+                                    </prop:ClientSide.OnPreDispatch>
+                                    <prop:ClientSide.OnLoading>
+                                        $('<%=$this->cmbDosenWali->ClientId%>').disabled='disabled';							
+                                    </prop:ClientSide.OnLoading>
+                                    <prop:ClientSide.OnComplete>										
+                                        $('<%=$this->cmbDosenWali->ClientId%>').disabled='';							
+                                        $('loading').hide();
+                                    </prop:ClientSide.OnComplete>
+                                </com:TActiveDropDownList>
+                            </div>
+                        </div>                            
+                        <br /><br /><br />
+                    </div>
+                </div>
+            </div>
+        </div>	
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="main-box clearfix">
+                <header class="main-box-header clearfix">
+                    <h2 class="pull-left"><i class="fa fa-columns"></i> Daftar Mahasiswa yang "<com:TActiveLabel ID="lblModeKRS" Text="<%=$_SESSION['currentPageKRSMerdeka']['mode_krs']=='sudah'?'Sudah Isi KRS Merdeka':'Belum Isi KRS, Tetapi Sudah Daftar Ulang (status aktif)'%>" />"</h2> 
+                    <div class="filter-block pull-right">   
+                        <div class="form-group pull-left" id="divAddNIMKRS">
+                           <com:TTextBox ID="txtAddNim" Attributes.PlaceHolder="NIM" CssClass="form-control" Width="150px" />                                                       
+                           <com:TRequiredFieldValidator ID="fieldValidatorFieldNIM" ControlToValidate="txtAddNim" Display="Dynamic" ErrorMessage="Isikan NIM" ValidationGroup="nimKRS" CssClass="has-error help-block" FocusOnError="true"> 										
+                                <prop:ClientSide.OnValidationError>
+                                    $('divAddNIMKRS').addClassName('has-error');
+                                    jQuery('#<%=$this->fieldValidatorFieldNIM->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divAddNIMKRS').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                           </com:TRequiredFieldValidator>
+                           <com:TActiveCustomValidator ID="customValidatorFieldNIM" ControlToValidate="txtAddNim" Display="Dynamic" ValidationGroup="nimKRS" OnServerValidate="checkNim" CssClass="has-error help-block">
+                               <prop:ClientSide.OnValidationError>
+                                    $('divAddNIMKRS').addClassName('has-error');
+                                    jQuery('#<%=$this->customValidatorFieldNIM->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divAddNIMKRS').removeClassName('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TActiveCustomValidator>  
+                        </div>
+                        <com:TActiveLinkButton ID="btnIsiKrs" OnClick="isiKRS" ValidationGroup="nimKRS" CssClass="btn btn-primary pull-left" Attributes.Title="Isi KRS">					
+                            <prop:Text><i class="fa fa-file-o fa-lg"></i></prop:Text>
+                            <prop:ClientSide.OnPreDispatch>
+                                $('loading').show();
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('<%=$this->btnIsiKrs->ClientId%>').disabled='disabled';							
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>										
+                                $('<%=$this->btnIsiKrs->ClientId%>').disabled='';							
+                                $('loading').hide();
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveLinkButton>       
+                        <com:TActiveLinkButton ID="btnPrintKRSAll" OnClick="printOut" ClientSide.PostState="false" CssClass="btn btn-primary pull-left" Attributes.Title="Mencetak Per. Angkatan">
+                            <prop:Text><i class="fa fa-print fa-lg"></i></prop:Text>
+                            <prop:ClientSide.OnPreDispatch>
+                                $('loading').show();
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('<%=$this->btnPrintKRSAll->ClientId%>').disabled='disabled';				
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>
+                                $('<%=$this->btnPrintKRSAll->ClientId%>').disabled='';				
+                                $('loading').hide();
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveLinkButton> 									
+                    </div>
+                </header>
+                <div class="main-box-body clearfix">                           
+                    <div class="table-responsive">
+                        <com:TActiveRepeater ID="RepeaterS" AllowPaging="true" PageSize="10" AllowCustomPaging="true" DataKeyField="nim" OnItemDataBound="setDataBound">
+                            <prop:HeaderTemplate>			
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">NO</th>
+                                    <th scope="col">ID KRS</th>
+                                    <th scope="col">NIM</th>					
+                                    <th scope="col">NAMA</th>					
+                                    <th scope="col">ANGK.</th>
+                                    <th scope="col">JUMLAH <br />MATKUL</th>
+                                    <th scope="col">JUMLAH <br />SKS</th>
+                                    <th scope="col">SAH</th>
+                                    <th scope="col" width="120">AKSI</th>
+                                </tr>			
+                                </thead>
+                                <tbody>
+                            </prop:HeaderTemplate>
+                            <prop:ItemTemplate>	
+                                <tr<com:TLiteral ID="literalTRStyle" />>
+                                    <td><%# $this->Data['no']%></td>
+                                    <td><%# $this->Data['idkrs']%></td>
+                                    <td><a href="<%=$this->Page->constructUrl('kemahasiswaan.ProfilMahasiswa',true,array('id'=>$this->DataItem['nim']))%>"><%#$this->DataItem['nim']%></a></td>					
+                                    <td><%# $this->Data['nama_mhs']%></td>
+                                    <td><%# $this->Data['tahun_masuk']%></td>
+                                    <td><com:TLiteral ID="literalMatkul" /></td>
+                                    <td><com:TLiteral ID="literalSKS" /></td>
+                                    <td><com:TLiteral ID="literalStatus" /></td>
+                                    <td>
+                                        <com:THyperLink ID="anchorDetailKRS" NavigateUrl="<%#$this->Page->constructUrl('perkuliahan.DetailKRSMerdeka',true,array('id'=>$this->DataItem['idkrs']))%>" CssClass="table-link" Attributes.title="Detail KRS">                                                                                
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-eye fa-stack-1x fa-inverse"></i>                                        
+                                            </span>                                        
+                                        </com:THyperLink>
+                                        <com:TActiveLinkButton ID="btnPrintOutR" CssClass="table-link" OnClick="Page.printOut" Attributes.Title="Print KRS" ClientSide.PostState="false">
+                                            <prop:Text>
+                                                <span class="fa-stack">
+                                                    <i class="fa fa-square fa-stack-2x"></i>
+                                                    <i class="fa fa-print fa-stack-1x fa-inverse"></i>
+                                                </span>
+                                            </prop:Text>
+                                            <prop:ClientSide.OnPreDispatch>                                                                   
+                                                $('loading').show(); 
+                                                $('<%=$this->btnPrintOutR->ClientId%>').disabled='disabled';						
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('<%=$this->btnPrintOutR->ClientId%>').disabled='disabled';						
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.OnComplete>																	                                    						                                                                            
+                                                $('<%=$this->btnPrintOutR->ClientId%>').disabled='';
+                                                $('loading').hide(); 
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveLinkButton>				
+                                    </td>					
+                                </tr>	
+                            </prop:ItemTemplate>				
+                            <prop:FooterTemplate>				
+                                </tbody>
+                                </table>
+                            </prop:FooterTemplate>
+                            <prop:EmptyTemplate>                                                       
+                                <div class="row">
+                                    <div class="main-box-body">
+                                        <div class="alert alert-info">
+                                            <i class="fa fa-info-circle fa-fw fa-lg"></i>
+                                            <strong>
+                                                Info!
+                                            </strong>
+                                             Tidak ada data yang bisa ditampilkan.
+                                        </div>
+                                    </div>
+                                </div>
+                            </prop:EmptyTemplate>
+                        </com:TActiveRepeater>
+                        <%include Application.layouts.cube.CustomPaging%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</com:TPanel>
+<%include Application.layouts.cube.ModalPrintOut%>
+</com:TContent>
