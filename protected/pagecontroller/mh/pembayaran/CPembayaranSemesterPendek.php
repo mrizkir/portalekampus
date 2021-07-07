@@ -23,7 +23,7 @@ class CPembayaranSemesterPendek Extends MainPageMHS {
                     $nim=$datamhs['nim'];		
                     throw new Exception ("NIM ($nim) adalah seorang Mahasiswa baru, mohon diproses di Pembayaran->Mahasiswa Baru.");
                 }
-                // $this->checkPembayaranSemesterLalu ();                
+                $this->checkPembayaranSemesterLalu ();                
                 $this->populateTransaksi();
             }catch (Exception $ex) {
                 $this->idProcess='view';

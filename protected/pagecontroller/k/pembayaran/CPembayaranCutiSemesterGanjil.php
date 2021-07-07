@@ -28,7 +28,7 @@ class CPembayaranCutiSemesterGanjil Extends MainPageK {
     public function setInfoToolbar() {                
         $kjur=$_SESSION['kjur'];        
 		$ps=$_SESSION['daftar_jurusan'][$kjur];
-        $ta=$this->DMaster->getNamaTA($_SESSION['ta']);        		
+        $ta=$this->DMaster->getNamaTA($_SESSION['currentPagePembayaranCutiSemesterGanjil']['ta']);        		
 		$this->lblModulHeader->Text="Program Studi $ps T.A $ta";        
 	}
 	public function changeTbTA ($sender,$param) {				
@@ -50,7 +50,7 @@ class CPembayaranCutiSemesterGanjil Extends MainPageK {
 		$this->populateData();
 	}		
 	public function populateData() {	
-		$ta=$_SESSION['ta'];
+		$ta=$_SESSION['currentPagePembayaranCutiSemesterGanjil']['ta'];
 		$kjur=$_SESSION['kjur'];	
 		$this->RepeaterS->CurrentPageIndex=$_SESSION['currentPagePembayaranCutiSemesterGanjil']['page_num'];
 		$jumlah_baris=$this->DB->getCountRowsOfTable("v_datamhs vdm,transaksi_cuti tc WHERE vdm.nim=tc.nim AND vdm.kjur='$kjur' AND tc.tahun='$ta' AND tc.idsmt='1'");
